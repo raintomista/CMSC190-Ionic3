@@ -53,10 +53,11 @@ export class TargetPlatformPage {
       date_modified: null,
     }, this.formGroup.value);
 
+    this.viewCtrl.dismiss();
+
     try {
       const response = await this.projectProvider.addProject(newProject);
       this.showAlert('Success!', `${newProject.name} has been successfully created.`);
-      this.viewCtrl.dismiss();
       this.events.publish('reload-home');
     } catch(e) {
       this.showAlert('Error!', 'An error occurred. Please try again.');
