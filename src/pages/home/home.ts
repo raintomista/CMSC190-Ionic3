@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, AlertController, ModalController, NavController, NavParams } from 'ionic-angular';
-
+import {
+  IonicPage,
+  AlertController,
+  Events,
+  ModalController,
+  NavController,
+  NavParams
+} from 'ionic-angular';
 import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
 import { ProjectProvider } from './../../providers/project/project';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -15,17 +22,21 @@ export class HomePage {
 
   constructor(
     private alertCtrl: AlertController,
+    private events: Events,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private provider: ProjectProvider,
     private navParams: NavParams) {
-  }
+      // Listen to events for reloading projects list
+      this.events.subscribe('reload-home', () => {
+        this.getProjects();
+      });
 
-  ionViewWillEnter() {
-    this.getProjects();
+      this.getProjects();
   }
 
   async getProjects() {
+    this.projects = null;
     try {
       const response = await this.provider.getProjects() as any;
       this.projects = response.items;
@@ -74,5 +85,9 @@ export class HomePage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  formatDate(date) {
+    return moment(date).format('MMM DD')
   }
 }

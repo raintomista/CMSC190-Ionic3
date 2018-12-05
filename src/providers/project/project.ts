@@ -18,4 +18,15 @@ export class ProjectProvider {
         });
     });
   }
+
+  addProject(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.apiUrl + '/projects', data)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

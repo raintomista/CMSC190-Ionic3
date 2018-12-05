@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import {
+  AlertController,
+  IonicPage,
+  Events,
+  NavController,
+  NavParams,
+  ViewController
+} from 'ionic-angular';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { ProjectProvider } from '../../providers/project/project';
 import moment from 'moment';
 
 @IonicPage()
@@ -14,8 +21,10 @@ export class TargetPlatformPage {
 
   constructor(
     private alertCtrl: AlertController,
+    private events: Events,
     private navCtrl: NavController,
     private navParams: NavParams,
+    private projectProvider: ProjectProvider,
     private viewCtrl: ViewController) {
       this.formGroup = new FormGroup({
         "aspectRatio": new FormControl({ value: '3:2', disabled: false }),
@@ -37,15 +46,21 @@ export class TargetPlatformPage {
     alert.present();
   }
 
-  submit() {
-    const project = Object.assign({
-      type: 'project',
+  async submit() {
+    const newProject = Object.assign({
       no_of_screens: 0,
       date_created: moment().toISOString(),
       date_modified: null,
     }, this.formGroup.value);
 
-    this.viewCtrl.dismiss();
-    this.showAlert('Success!', `${project.name} has been created.`)
+    try {
+      const response = await this.projectProvider.addProject(newProject);
+      this.showAlert('Success!', `${newProject.name} has been successfully created.`);
+      this.viewCtrl.dismiss();
+      this.events.publish('reload-home');
+    } catch(e) {
+      this.showAlert('Error!', 'An error occurred. Please try again.');
+      throw new Error(e);
+    }
   }
 }

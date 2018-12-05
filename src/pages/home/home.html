@@ -16,11 +16,12 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      Recent Projects
+      Your Projects
     </ion-list-header>
     <ion-item *ngFor="let project of projects" (click)="viewProject(project.id)">
       <h2>{{project.name}}</h2>
       <p class="total-screens">{{project.no_of_screens}} Screens</p>
+      <p class="timestamp" item-end>{{formatDate(project.date_created)}}</p>
     </ion-item>
     <div class="loader" *ngIf="!projects">
       <ion-spinner color="primary"></ion-spinner>
