@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ProjectPage } from '../pages/project/project';
+import { TargetPlatformPage } from './../pages/target-platform/target-platform';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
@@ -19,7 +20,8 @@ import { ScreenProvider } from '../providers/screen/screen';
   declarations: [
     MyApp,
     HomePage,
-    ProjectPage
+    ProjectPage,
+    TargetPlatformPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { ScreenProvider } from '../providers/screen/screen';
   entryComponents: [
     MyApp,
     HomePage,
-    ProjectPage
+    ProjectPage,
+    TargetPlatformPage
   ],
   providers: [
     StatusBar,
