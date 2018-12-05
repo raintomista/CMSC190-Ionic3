@@ -11,6 +11,7 @@ import { ScreenProvider } from './../../providers/screen/screen';
 })
 export class ProjectPage {
   selectedFile: string = null;
+  screens = [1, 2, 3, 4, 5, 6];
 
   constructor(
     private camera: Camera,
@@ -106,5 +107,12 @@ export class ProjectPage {
     } catch(e) {
       throw new Error(e);
     }
+  }
+
+
+  /* Helper Functions for Templates */
+  computeMultiplier(aspectRatio) {
+    const ratio = aspectRatio.split(':');
+    return parseInt(ratio[0]) / parseInt(ratio[1]);
   }
 }
