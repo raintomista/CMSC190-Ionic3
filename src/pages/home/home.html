@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Graphite Studio</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Recent Projects
+    </ion-list-header>
+    <ion-item *ngFor="let project of projects" (click)="viewProject(project.id)">
+      <h2>{{project.name}}</h2>
+      <p class="total-screens">{{project.totalScreens}} Screens</p>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom (click)="addProject()">
+    <button ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

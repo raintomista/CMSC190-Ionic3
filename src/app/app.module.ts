@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
 import { ProjectPage } from '../pages/project/project';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { ScreenProvider } from '../providers/screen/screen';
 @NgModule({
   declarations: [
     MyApp,
+    HomePage,
     ProjectPage
   ],
   imports: [
@@ -29,6 +31,7 @@ import { ScreenProvider } from '../providers/screen/screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HomePage,
     ProjectPage
   ],
   providers: [
