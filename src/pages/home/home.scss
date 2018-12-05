@@ -2,7 +2,18 @@ page-home {
   .list-header-md {
     margin-bottom: 0px;
   }
+
   ion-item .total-screens {
     color: gray;
+  }
+
+  .loader {
+    text-align: center;
+    height: 40px;
+  }
+
+  .loader ion-spinner * {
+    height: 40px;
+    width: 40px;
   }
 }

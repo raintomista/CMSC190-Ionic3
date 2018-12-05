@@ -14,6 +14,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { ScreenProvider } from '../providers/screen/screen';
+import { ProjectProvider } from '../providers/project/project';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ScreenProvider } from '../providers/screen/screen';
     File,
     FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ScreenProvider
+    ScreenProvider,
+    ProjectProvider
   ]
 })
 export class AppModule {}

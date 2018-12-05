@@ -20,8 +20,11 @@
     </ion-list-header>
     <ion-item *ngFor="let project of projects" (click)="viewProject(project.id)">
       <h2>{{project.name}}</h2>
-      <p class="total-screens">{{project.totalScreens}} Screens</p>
+      <p class="total-screens">{{project.no_of_screens}} Screens</p>
     </ion-item>
+    <div class="loader" *ngIf="!projects">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
   </ion-list>
   <ion-fab right bottom (click)="addNewProject()">
     <button ion-fab color="primary">

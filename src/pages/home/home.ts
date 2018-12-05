@@ -3,6 +3,7 @@ import { IonicPage, AlertController, ModalController, NavController, NavParams }
 
 import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
+import { ProjectProvider } from './../../providers/project/project';
 
 @IonicPage()
 @Component({
@@ -10,16 +11,27 @@ import { TargetPlatformPage } from './../target-platform/target-platform';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  projects = [
-    { name: 'Project 1', totalScreens: 10},
-    { name: 'Project 2', totalScreens: 6},
-  ];
+  projects: any;
 
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
+    private provider: ProjectProvider,
     private navParams: NavParams) {
+  }
+
+  ionViewWillEnter() {
+    this.getProjects();
+  }
+
+  async getProjects() {
+    try {
+      const response = await this.provider.getProjects() as any;
+      this.projects = response.items;
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   viewProject(id) {
