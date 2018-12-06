@@ -29,4 +29,15 @@ export class ProjectProvider {
         });
     });
   }
+
+  editProject(id, name) {
+    return new Promise((resolve, reject) => {
+      this.http.put(environment.apiUrl + '/projects/' + id, { name })
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

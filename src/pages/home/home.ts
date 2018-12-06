@@ -50,6 +50,22 @@ export class HomePage {
   }
 
   addNewProject() {
+    this.inputName(this.openModal.bind(this))
+  }
+
+  editProject(id) {
+    this.inputName(async (newName) => {
+      try {
+        const response = await this.provider.editProject(id, newName) as any;
+        this.showAlert('Rename successful', `The project has been successfully renamed to ${newName}.`);
+        this.getProjects();
+      } catch(e) {
+        throw new Error(e);
+      }
+    });
+  }
+
+  inputName(handler) {
     const prompt = this.alertCtrl.create({
       title: 'Project Name',
       inputs: [{ name: 'name' }],
@@ -61,7 +77,7 @@ export class HomePage {
           text: 'OK',
           handler: (data) => {
             if(data.name.length > 0) {
-              this.openModal(data.name);
+              handler(data.name);
             } else {
               this.showAlert('Project name is required.', 'Please try again.');
             }
