@@ -49,30 +49,36 @@ export class HomePage {
     this.navCtrl.push(ProjectPage, { id: id });
   }
 
-  addNewProject() {
-    this.inputName(this.openModal.bind(this))
+  handleAdd() {
+    this.inputName(null, this.openModal)
   }
 
-  editProject(id, slidingItem) {
-    this.inputName(async (newName) => {
-      slidingItem.close();
-      try {
-        const response = await this.provider.editProject(id, newName) as any;
-        this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
-        this.getProjects();
-      } catch(e) {
-        throw new Error(e);
-      }
-    });
+  openModal(id, projectName) {
+    const modal = this.modalCtrl.create(TargetPlatformPage, { projectName: projectName });
+    modal.present();
+  }
+
+  handleEdit(id, slidingItem) {
+    this.inputName(id, this.editProject);
+    slidingItem.close();
+  }
+
+  async editProject(id, newName) {
+    try {
+      const response = await this.provider.editProject(id, newName) as any;
+      this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
+      this.getProjects();
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   handleDelete(id, slidingItem) {
-    this.showConfirm(this.deleteProject.bind(this, id, slidingItem));
+    this.showConfirm(this.deleteProject.bind(this, id));
+    slidingItem.close();
   }
 
-  async deleteProject(id, slidingItem) {
-    slidingItem.close();
-
+  async deleteProject(id) {
     try {
       const response = await this.provider.deleteProject(id) as any;
       this.showAlert(null, `The project has been successfully deleted.`);
@@ -82,7 +88,7 @@ export class HomePage {
     }
   }
 
-  inputName(handler) {
+  inputName(id, handler) {
     const prompt = this.alertCtrl.create({
       title: 'Project Name',
       inputs: [{ name: 'name' }],
@@ -94,7 +100,7 @@ export class HomePage {
           text: 'OK',
           handler: (data) => {
             if(data.name.length > 0) {
-              handler(data.name);
+              handler.call(this, id, data.name)
             } else {
               this.showAlert('Project name is required.', 'Please try again.');
             }
@@ -104,11 +110,6 @@ export class HomePage {
     });
 
     prompt.present();
-  }
-
-  openModal(projectName) {
-    const modal = this.modalCtrl.create(TargetPlatformPage, { projectName: projectName });
-    modal.present();
   }
 
   showAlert(title, subtitle) {
