@@ -18,18 +18,18 @@
     <ion-list-header>
       Your Projects
     </ion-list-header>
-    <ion-item-sliding *ngFor="let project of projects">
+    <ion-item-sliding *ngFor="let project of projects" #slidingItem>
       <ion-item (click)="viewProject(project.id)">
         <h2>{{project.name}}</h2>
         <p class="total-screens">{{project.no_of_screens}} Screens</p>
         <p class="timestamp" item-end>{{formatDate(project.date_created)}}</p>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="primary" (click)="editProject(project.id)">
+        <button ion-button color="primary" (click)="editProject(project.id, slidingItem)">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button color="danger">
+        <button ion-button color="danger" (click)="handleDelete(project.id, slidingItem)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

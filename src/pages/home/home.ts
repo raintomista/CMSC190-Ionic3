@@ -53,16 +53,33 @@ export class HomePage {
     this.inputName(this.openModal.bind(this))
   }
 
-  editProject(id) {
+  editProject(id, slidingItem) {
     this.inputName(async (newName) => {
+      slidingItem.close();
       try {
         const response = await this.provider.editProject(id, newName) as any;
-        this.showAlert('Rename successful', `The project has been successfully renamed to ${newName}.`);
+        this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
         this.getProjects();
       } catch(e) {
         throw new Error(e);
       }
     });
+  }
+
+  handleDelete(id, slidingItem) {
+    this.showConfirm(this.deleteProject.bind(this, id, slidingItem));
+  }
+
+  async deleteProject(id, slidingItem) {
+    slidingItem.close();
+
+    try {
+      const response = await this.provider.deleteProject(id) as any;
+      this.showAlert(null, `The project has been successfully deleted.`);
+      this.getProjects();
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   inputName(handler) {
@@ -101,6 +118,24 @@ export class HomePage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  showConfirm(handler) {
+    const confirm = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Are you sure you want to delete this project?',
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Delete',
+          handler: handler
+        }
+      ]
+    });
+
+    confirm.present();
   }
 
   formatDate(date) {

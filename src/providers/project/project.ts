@@ -40,4 +40,15 @@ export class ProjectProvider {
         });
     });
   }
+
+  deleteProject(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(environment.apiUrl + '/projects/' + id)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }
