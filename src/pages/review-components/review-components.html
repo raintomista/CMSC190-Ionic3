@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Review Components</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Labelled Image ({{processing_time}} sec)
+    </ion-list-header>
+    <img [src]="labelled_file">
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Detected Components
+    </ion-list-header>
+    <ion-item-group [reorder]="reorder_mode">
+      <ion-item-sliding *ngFor="let component of detected_components">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img [src]="getComponentPreview(component)">
+          </ion-thumbnail>
+          <h2>{{component.name}}</h2>
+          <p>{{component.percentage_probability}}</p>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="handleDelete(project.id, slidingItem)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
