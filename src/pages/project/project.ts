@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
@@ -10,6 +10,8 @@ import { ScreenProvider } from './../../providers/screen/screen';
   templateUrl: 'project.html',
 })
 export class ProjectPage {
+  projectId: string = null;
+  projectName: string = null;
   selectedFile: string = null;
   screens = [1, 2, 3, 4, 5, 6];
 
@@ -18,7 +20,10 @@ export class ProjectPage {
     private file: File,
     private provider: ScreenProvider,
     private actionSheetCtrl: ActionSheetController,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private navParams: NavParams) {
+      this.projectId = this.navParams.get('projectId');
+      this.projectName = this.navParams.get('projectName');
   }
 
   addNewScreen() {

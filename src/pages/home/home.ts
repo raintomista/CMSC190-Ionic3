@@ -45,8 +45,8 @@ export class HomePage {
     }
   }
 
-  viewProject(id) {
-    this.navCtrl.push(ProjectPage, { id: id });
+  handleView(projectId, projectName) {
+    this.navCtrl.push(ProjectPage, { projectId, projectName });
   }
 
   handleAdd() {
