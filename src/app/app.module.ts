@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { ProjectPage } from '../pages/project/project';
 import { TargetPlatformPage } from './../pages/target-platform/target-platform';
 import { ReviewComponentsPage } from './../pages/review-components/review-components';
+import { ScreenTabsPage } from './../pages/screen-tabs/screen-tabs';
+import { ScreenPreviewPage } from './../pages/screen-preview/screen-preview';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
@@ -24,7 +26,9 @@ import { ProjectProvider } from '../providers/project/project';
     HomePage,
     ProjectPage,
     TargetPlatformPage,
-    ReviewComponentsPage
+    ReviewComponentsPage,
+    ScreenTabsPage,
+    ScreenPreviewPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { ProjectProvider } from '../providers/project/project';
     HomePage,
     ProjectPage,
     TargetPlatformPage,
-    ReviewComponentsPage
+    ReviewComponentsPage,
+    ScreenTabsPage,
+    ScreenPreviewPage
   ],
   providers: [
     StatusBar,

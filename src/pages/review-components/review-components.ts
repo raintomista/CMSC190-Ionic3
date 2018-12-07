@@ -35,11 +35,11 @@ export class ReviewComponentsPage {
            '&offset_y2=' + offset_y2;
   }
 
-  close() {
+  exit() {
     this.navCtrl.pop();
   }
 
   proceed() {
-    // this.navCtrl.push()
+    this.navCtrl.pop();
   }
 }
