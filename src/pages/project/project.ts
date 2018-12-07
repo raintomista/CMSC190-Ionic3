@@ -1,3 +1,4 @@
+import { ReviewComponentsPage } from './../review-components/review-components';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
@@ -93,7 +94,7 @@ export class ProjectPage {
         // Executes when the reading operation is completed
         reader.onloadend = () => {
           const blob = new Blob([reader.result], {type: file.type});
-          this.sendForm(blob, file.name);
+          this.sendForm(blob, this.selectedFile);
         };
         reader.readAsArrayBuffer(file);
       });
@@ -104,11 +105,12 @@ export class ProjectPage {
 
   async sendForm(file, filename) {
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    formData.append('file', file, filename);
 
     try {
-      const response = this.provider.addScreen(formData);
-      console.log(response)
+      const results = await this.provider.addScreen(formData);
+      this.navCtrl.push(ReviewComponentsPage, results);
+      console.log(results)
     } catch(e) {
       throw new Error(e);
     }

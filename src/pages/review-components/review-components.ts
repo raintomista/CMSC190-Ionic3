@@ -7,40 +7,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'review-components.html',
 })
 export class ReviewComponentsPage {
-  reorder_mode = true;
-  original_file = 'http://192.168.254.112:8000/uploads/image5.jpg';
-  labelled_file = 'http://192.168.254.112:8000/uploads/image5-labelled.jpg';
-  processing_time = 8.24523673554681;
-  detected_components = [
-    {
-      name: "person",
-      offset_x1: 277,
-      offset_x2: 401,
-      offset_y1: 181,
-      offset_y2: 307,
-      percentage_probability: 36.88950538635254
-    },
-    {
-      name: "person",
-      offset_x1: 144,
-      offset_x2: 290,
-      offset_y1: 114,
-      offset_y2: 296,
-      percentage_probability: 43.86231601238251
-    },
-    {
-      name: "person",
-      offset_x1: 439,
-      offset_x2: 575,
-      offset_y1: 137,
-      offset_y2: 281,
-      percentage_probability: 62.9062294960022
-    }
-  ];
+  reorder_mode:boolean = true;
+  original_file: string;
+  labelled_file: string;
+  processing_time:number;
+  detected_components:any[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams) {
+      this.original_file = this.navParams.get('original_file');
+      this.labelled_file = this.navParams.get('labelled_file');
+      this.detected_components = this.navParams.get('detected_components');
+      this.processing_time = this.navParams.get('processing_time');
   }
 
   getComponentPreview(component) {
