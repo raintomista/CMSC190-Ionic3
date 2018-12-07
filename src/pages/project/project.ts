@@ -1,9 +1,8 @@
-import { ReviewComponentsPage } from './../review-components/review-components';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
+import { ReviewComponentsPage } from './../review-components/review-components';
 import { ScreenProvider } from './../../providers/screen/screen';
 
 @Component({
@@ -19,6 +18,7 @@ export class ProjectPage {
   constructor(
     private camera: Camera,
     private file: File,
+    private loadingCtrl: LoadingController,
     private provider: ScreenProvider,
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
@@ -107,10 +107,14 @@ export class ProjectPage {
     const formData = new FormData();
     formData.append('file', file, filename);
 
+    this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    }).present();
+
     try {
       const results = await this.provider.addScreen(formData);
       this.navCtrl.push(ReviewComponentsPage, results);
-      console.log(results)
     } catch(e) {
       throw new Error(e);
     }
