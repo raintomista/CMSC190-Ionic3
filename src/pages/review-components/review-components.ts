@@ -34,4 +34,12 @@ export class ReviewComponentsPage {
            '&offset_x2=' + offset_x2 +
            '&offset_y2=' + offset_y2;
   }
+
+  close() {
+    this.navCtrl.pop();
+  }
+
+  proceed() {
+    // this.navCtrl.push()
+  }
 }
