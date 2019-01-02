@@ -9,5 +9,17 @@ page-screen-preview {
     background-color: rgb(246, 246, 246);
     border: 1px solid rgb(246, 246, 246);
     height: 95%;
+    max-height: 95%;
+    overflow: hidden;
+  }
+
+  .preview-scroll-content {
+    max-height: calc(100% - 56px);
+    margin-top: 56px;
+    overflow-y: scroll;
+  }
+
+  .preview-content-container {
+    padding: 8px;
   }
 }
