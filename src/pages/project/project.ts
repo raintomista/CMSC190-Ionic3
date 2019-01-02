@@ -3,6 +3,7 @@ import { ActionSheetController, LoadingController, NavController, NavParams } fr
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { ReviewComponentsPage } from './../review-components/review-components';
+import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
 
 @Component({
@@ -13,7 +14,18 @@ export class ProjectPage {
   projectId: string = null;
   projectName: string = null;
   selectedFile: string = null;
-  screens = [1, 2, 3, 4, 5, 6];
+  screens = [
+    {
+      name: 'Homescreen',
+      order: 1,
+      previewUrl: 'https://www.digitaltrends.com/wp-content/uploads/2012/09/iphone-5-ios-6-home.jpeg'
+    },
+    {
+      name: 'Settings',
+      order: 2,
+      previewUrl: 'https://d1alt1wkdk73qo.cloudfront.net/images/guide/b81804a9b4c244929d06dbc7073c533d/640x960.jpg'
+    }
+  ];
 
   constructor(
     private camera: Camera,
@@ -23,8 +35,12 @@ export class ProjectPage {
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
     private navParams: NavParams) {
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
+  }
+
+  handlePress(screenName) {
+    this.navCtrl.push(ScreenTabsPage, { screenName });
   }
 
   addNewScreen() {
@@ -77,7 +93,7 @@ export class ProjectPage {
     try {
       await this.file.copyFile(filepath, filename, this.file.dataDirectory, filename);
       this.selectedFile = filename; //Store the filename of the selected file
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -93,12 +109,12 @@ export class ProjectPage {
 
         // Executes when the reading operation is completed
         reader.onloadend = () => {
-          const blob = new Blob([reader.result], {type: file.type});
+          const blob = new Blob([reader.result], { type: file.type });
           this.sendForm(blob, this.selectedFile);
         };
         reader.readAsArrayBuffer(file);
       });
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -115,7 +131,7 @@ export class ProjectPage {
     try {
       const results = await this.provider.addScreen(formData);
       this.navCtrl.push(ReviewComponentsPage, results);
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }

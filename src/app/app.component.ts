@@ -12,7 +12,7 @@ import { ScreenTabsPage } from './../pages/screen-tabs/screen-tabs';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = ScreenTabsPage;
+  rootPage:any = HomePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

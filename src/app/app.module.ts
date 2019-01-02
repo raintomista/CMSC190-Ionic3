@@ -34,7 +34,6 @@ import { ProjectProvider } from '../providers/project/project';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
-      mode: 'md'
     })
   ],
   bootstrap: [IonicApp],
