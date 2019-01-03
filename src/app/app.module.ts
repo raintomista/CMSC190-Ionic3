@@ -1,3 +1,4 @@
+import { ScreenBuildPage } from './../pages/screen-build/screen-build';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -30,7 +31,8 @@ import { ProjectProvider } from '../providers/project/project';
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,
-    ScreenPreviewPage
+    ScreenPreviewPage,
+    ScreenBuildPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { ProjectProvider } from '../providers/project/project';
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,
-    ScreenPreviewPage
+    ScreenPreviewPage,
+    ScreenBuildPage
   ],
   providers: [
     StatusBar,
