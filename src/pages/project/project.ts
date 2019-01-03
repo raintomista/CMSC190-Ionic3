@@ -26,16 +26,19 @@ export class ProjectPage {
     private navParams: NavParams) {
       this.projectId = this.navParams.get('projectId');
       this.projectName = this.navParams.get('projectName');
-      this.getScreens();
+      this.getScreens(this.projectId);
   }
 
-  handlePress(screenName) {
-    this.navCtrl.push(ScreenTabsPage, { screenName });
+  handlePress(screenId, screenName) {
+    this.navCtrl.push(ScreenTabsPage, {
+      screenId,
+      screenName
+    });
   }
 
-  async getScreens() {
+  async getScreens(projectId) {
     try {
-      const response = await this.provider.getScreens('05727aeb-8da0-4bca-9f84-05fcc4f9f262') as any;
+      const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
     } catch(e) {
       throw new Error(e);

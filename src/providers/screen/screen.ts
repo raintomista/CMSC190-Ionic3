@@ -31,4 +31,15 @@ export class ScreenProvider {
         });
     });
   }
+
+  getScreen(id) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.apiUrl + '/screens/' + id)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

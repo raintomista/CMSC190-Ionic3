@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ScreenProvider } from '../../providers/screen/screen';
 
 @IonicPage()
 @Component({
@@ -8,20 +8,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'screen-preview.html',
 })
 export class ScreenPreviewPage {
+  screenId: string;
   screenName: string;
-  screenPreview: string = 'https://www.digitaltrends.com/wp-content/uploads/2012/09/iphone-5-ios-6-home.jpeg';
-
-  components: any = [
-    { type: 'HeaderWithMenu', value: 'Default Title' },
-    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
-    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
-    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
-
-  ]
+  components: any = [];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
-    this.screenName = this.navParams.data;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private provider: ScreenProvider) {
+      this.screenId = this.navParams.data.screenId;
+      this.screenName = this.navParams.data.screenName;
+      this.getComponents(this.screenId);
+    }
+
+  async getComponents(id) {
+    try {
+      const response = await this.provider.getScreen(id) as any;
+      this.components = response.item.components;
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   computeMultiplier(aspectRatio) {

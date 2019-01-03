@@ -8,12 +8,10 @@ import { ScreenPreviewPage } from './../screen-preview/screen-preview';
   templateUrl: 'screen-tabs.html',
 })
 export class ScreenTabsPage {
-  screenName:string;
   tab1:any = ScreenPreviewPage;
   tab2:any = ScreenPreviewPage;
   tab3:any = ScreenPreviewPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.screenName = this.navParams.get('screenName')
   }
 }
