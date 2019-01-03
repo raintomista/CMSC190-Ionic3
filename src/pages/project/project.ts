@@ -14,18 +14,7 @@ export class ProjectPage {
   projectId: string = null;
   projectName: string = null;
   selectedFile: string = null;
-  screens = [
-    {
-      name: 'Homescreen',
-      order: 1,
-      previewUrl: 'https://www.digitaltrends.com/wp-content/uploads/2012/09/iphone-5-ios-6-home.jpeg'
-    },
-    {
-      name: 'Settings',
-      order: 2,
-      previewUrl: 'https://d1alt1wkdk73qo.cloudfront.net/images/guide/b81804a9b4c244929d06dbc7073c533d/640x960.jpg'
-    }
-  ];
+  screens: any = [];
 
   constructor(
     private camera: Camera,
@@ -35,12 +24,22 @@ export class ProjectPage {
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
     private navParams: NavParams) {
-    this.projectId = this.navParams.get('projectId');
-    this.projectName = this.navParams.get('projectName');
+      this.projectId = this.navParams.get('projectId');
+      this.projectName = this.navParams.get('projectName');
+      this.getScreens();
   }
 
   handlePress(screenName) {
     this.navCtrl.push(ScreenTabsPage, { screenName });
+  }
+
+  async getScreens() {
+    try {
+      const response = await this.provider.getScreens('05727aeb-8da0-4bca-9f84-05fcc4f9f262') as any;
+      this.screens = response.items;
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   addNewScreen() {
@@ -135,7 +134,6 @@ export class ProjectPage {
       throw new Error(e);
     }
   }
-
 
   /* Helper Functions for Templates */
   computeMultiplier(aspectRatio) {

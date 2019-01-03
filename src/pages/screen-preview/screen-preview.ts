@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
@@ -10,7 +11,16 @@ export class ScreenPreviewPage {
   screenName: string;
   screenPreview: string = 'https://www.digitaltrends.com/wp-content/uploads/2012/09/iphone-5-ios-6-home.jpeg';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  components: any = [
+    { type: 'HeaderWithMenu', value: 'Default Title' },
+    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
+    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
+    { type: 'Image', value: 'https://hackster.imgix.net/uploads/attachments/190216/kinectiot4.png?auto=compress%2Cformat&w=900&h=675&fit=min' },
+
+  ]
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
     this.screenName = this.navParams.data;
   }
 
