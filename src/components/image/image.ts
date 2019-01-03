@@ -8,6 +8,16 @@ export class ImageComponent {
   @Input('src')
   src: string;
 
+  @Input('mode')
+  mode: string;
+
+  @Input('action')
+  action: Function;
+
   constructor() {
+  }
+
+  performAction() {
+    this.action();
   }
 }

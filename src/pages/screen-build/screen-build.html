@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="primary">
-      <ion-title>{{screenName}}</ion-title>
+      <ion-title>Build Mode</ion-title>
       <ion-buttons end>
         <button ion-button icon-only>
           <ion-icon name="qr-scanner"></ion-icon>
@@ -21,12 +21,14 @@
             <!-- HeaderWithMenu -->
             <header-with-menu
               [title]="component.value"
+
               *ngIf="component.type === 'HeaderWithMenu'">
             </header-with-menu>
 
             <!-- Image -->
             <image
               [src]="component.value"
+              [action]="action.bind(this, component.type)"
               *ngIf="component.type === 'Image'">
             </image>
           </ng-container >

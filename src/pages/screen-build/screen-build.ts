@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ScreenProvider } from '../../providers/screen/screen';
 
 @IonicPage()
@@ -12,7 +12,25 @@ export class ScreenBuildPage {
   screenName: string;
   components: any = [];
 
+  action(componentType) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: componentType,
+      buttons: [
+        {
+          text: 'Edit Component',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },
+        { text: 'Cancel', role: 'cancel'}
+      ]
+    });
+
+    actionSheet.present();
+  }
+
   constructor(
+    public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams,
