@@ -33,10 +33,13 @@ export class ProjectPage {
 
   handleView(screenId, screenName) {
     this.navCtrl.push(ScreenTabsPage, {
+      aspectRatio: this.aspectRatio,
+      projectId: this.projectId,
+      projectName: this.projectName,
       screenId: screenId,
       screenName: screenName,
-      aspectRatio: this.aspectRatio
     });
+
   }
 
   async getScreens(projectId) {

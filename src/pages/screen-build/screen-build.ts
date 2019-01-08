@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { AlertController, App, IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ScreenProvider } from '../../providers/screen/screen';
+import { HomePage } from '../home/home';
+import { ProjectPage } from '../project/project';
 
 @IonicPage()
 @Component({
@@ -8,22 +10,28 @@ import { ScreenProvider } from '../../providers/screen/screen';
   templateUrl: 'screen-build.html',
 })
 export class ScreenBuildPage {
+  aspectRatio: string;
+  projectId: string;
+  projectName: string;
   screenId: string;
   screenName: string;
-  aspectRatio: string;
   components: any = [];
 
   constructor(
-    public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController,
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    private appCtrl: App,
+    private actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    private navParams: NavParams,
     private provider: ScreenProvider) {
+      this.aspectRatio = this.navParams.data.aspectRatio;
+      this.projectId = this.navParams.data.projectId;
+      this.projectName = this.navParams.data.projectName;
       this.screenId = this.navParams.data.screenId;
       this.screenName = this.navParams.data.screenName;
-      this.aspectRatio = this.navParams.data.aspectRatio;
       this.getComponents(this.screenId);
-    }
+  }
+
 
   async getComponents(id) {
     try {
@@ -68,5 +76,34 @@ export class ScreenBuildPage {
     })
 
     alert.present();
+  }
+
+  showMore() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Exit Screen',
+          role: 'destructive',
+          handler: () => {
+            this.exit();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
+
+  exit() {
+    this.appCtrl.getRootNavs()[0].setRoot(HomePage, null, { animate: true })
+    this.appCtrl.getRootNavs()[0].push(ProjectPage, {
+      aspectRatio: this.aspectRatio,
+      projectId: this.projectId,
+      projectName: this.projectName
+    });
   }
 }
