@@ -10,21 +10,20 @@
 </ion-header>
 <ion-content padding>
   <div id="preview-box" class="preview-box" [ngStyle]="{'width.px': previewBox.offsetHeight * computeMultiplier(aspectRatio)}" #previewBox>
+    <div class="loader" *ngIf="sharedProvider.loading">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
     <div class="preview-scroll-content">
       <div class="preview-content-container">
-        <ng-container *ngFor="let component of components">
+        <ng-container *ngFor="let component of sharedProvider.components">
           <!-- HeaderWithMenu -->
-          <header-with-menu
-            [title]="component.value"
-            *ngIf="component.type === 'HeaderWithMenu'">
+          <header-with-menu [title]="component.value" *ngIf="component.type === 'HeaderWithMenu'">
           </header-with-menu>
 
           <!-- Image -->
-          <image
-            [src]="component.value"
-            *ngIf="component.type === 'Image'">
+          <image [src]="component.value" *ngIf="component.type === 'Image'">
           </image>
-        </ng-container >
+        </ng-container>
       </div>
     </div>
   </div>

@@ -23,14 +23,12 @@ export class ScreenPreviewPage {
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private provider: ScreenProvider,
     private sharedProvider: SharedTabProvider) {
     this.aspectRatio = this.navParams.data.aspectRatio;
     this.projectId = this.navParams.data.projectId;
     this.projectName = this.navParams.data.projectName;
     this.screenId = this.navParams.data.screenId;
     this.screenName = this.navParams.data.screenName;
-    this.getComponents(this.screenId);
   }
 
   computeMultiplier(aspectRatio) {
@@ -38,14 +36,6 @@ export class ScreenPreviewPage {
     return parseInt(ratio[1]) / parseInt(ratio[0]);
   }
 
-  async getComponents(id) {
-    try {
-      const response = await this.provider.getScreen(id) as any;
-      this.components = response.item.components;
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
 
   showMore() {
     let actionSheet = this.actionSheetCtrl.create({

@@ -9,6 +9,7 @@ import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 @Component({
   selector: 'page-screen-tabs',
   templateUrl: 'screen-tabs.html',
+  providers: [SharedTabProvider]
 })
 export class ScreenTabsPage {
   tab1:any = ScreenPreviewPage;
@@ -20,5 +21,6 @@ export class ScreenTabsPage {
 
   ionViewDidEnter() {
     this.sharedProvider.setParams(this.navParams)
+    this.sharedProvider.getComponents(this.navParams.data.screenId);
   }
 }

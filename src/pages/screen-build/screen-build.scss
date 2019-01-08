@@ -13,6 +13,16 @@ page-screen-build {
     overflow: hidden;
   }
 
+  .preview-box .loader {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .preview-box .loader .spinner {
+    align-self: center;
+  }
+
   .preview-scroll-content {
     // margin-top: 56px;
     max-height: calc(100%);

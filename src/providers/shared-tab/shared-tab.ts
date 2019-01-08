@@ -4,17 +4,21 @@ import { Injectable } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
 import { ProjectPage } from '../../pages/project/project';
 import * as html2canvas from 'html2canvas';
+import { ScreenProvider } from '../screen/screen';
 
 @Injectable()
 export class SharedTabProvider {
+  components: any = [];
+  loading: Boolean = true;
   navParams: any;
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private appCtrl: App,
+    public http: HttpClient,
     private loadingCtrl: LoadingController,
-    public http: HttpClient) {
+    private provider: ScreenProvider) {
   }
 
   alertError() {
@@ -76,6 +80,17 @@ export class SharedTabProvider {
     });
 
     actionSheet.present();
+  }
+
+
+  async getComponents(id) {
+    try {
+      const response = await this.provider.getScreen(id) as any;
+      this.components = response.item.components;
+      this.loading = false;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   async saveChanges() {

@@ -1,34 +1,30 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Build Mode</ion-title>
-      <ion-buttons end>
-        <button (click)="sharedProvider.showMore()" ion-button icon-only>
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content padding>
-    <div id="preview-box" class="preview-box" [ngStyle]="{'width.px': previewBox.offsetHeight * computeMultiplier(aspectRatio)}" #previewBox>
-      <div class="preview-scroll-content">
-        <div class="preview-content-container">
-          <ng-container *ngFor="let component of components">
-            <!-- HeaderWithMenu -->
-            <header-with-menu
-              [title]="component.value"
+  <ion-toolbar color="primary">
+    <ion-title>Build Mode</ion-title>
+    <ion-buttons end>
+      <button (click)="sharedProvider.showMore()" ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div id="preview-box" class="preview-box" [ngStyle]="{'width.px': previewBox.offsetHeight * computeMultiplier(aspectRatio)}" #previewBox>
+    <div class="loader" *ngIf="sharedProvider.loading">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div class="preview-scroll-content">
+      <div class="preview-content-container">
+        <ng-container *ngFor="let component of sharedProvider.components">
+          <!-- HeaderWithMenu -->
+          <header-with-menu [title]="component.value" *ngIf="component.type === 'HeaderWithMenu'">
+          </header-with-menu>
 
-              *ngIf="component.type === 'HeaderWithMenu'">
-            </header-with-menu>
-
-            <!-- Image -->
-            <image
-              [src]="component.value"
-              [mode]="'build'"
-              [action]="presentActionSheet.bind(this, component)"
-              *ngIf="component.type === 'Image'">
-            </image>
-          </ng-container >
-        </div>
+          <!-- Image -->
+          <image [src]="component.value" [mode]="'build'" [action]="presentActionSheet.bind(this, component)" *ngIf="component.type === 'Image'">
+          </image>
+        </ng-container>
       </div>
     </div>
-  </ion-content>
+  </div>
+</ion-content>
