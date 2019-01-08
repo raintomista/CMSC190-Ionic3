@@ -24,6 +24,7 @@ import { ProjectProvider } from '../providers/project/project';
 import { ImageComponent } from '../components/image/image';
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
+import { SharedTabProvider } from '../providers/shared-tab/shared-tab';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { LongPressModule } from 'ionic-long-press';
     FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ScreenProvider,
-    ProjectProvider
+    ProjectProvider,
+    SharedTabProvider
   ]
 })
 export class AppModule {}

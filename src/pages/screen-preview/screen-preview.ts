@@ -1,8 +1,9 @@
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { App, ActionSheetController, IonicPage, NavController, NavParams, } from 'ionic-angular';
-import { ScreenProvider } from '../../providers/screen/screen';
 import { ProjectPage } from '../project/project';
+import { ScreenProvider } from '../../providers/screen/screen';
+import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,8 @@ export class ScreenPreviewPage {
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private provider: ScreenProvider) {
+    private provider: ScreenProvider,
+    private sharedProvider: SharedTabProvider) {
     this.aspectRatio = this.navParams.data.aspectRatio;
     this.projectId = this.navParams.data.projectId;
     this.projectName = this.navParams.data.projectName;

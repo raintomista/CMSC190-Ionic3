@@ -3,6 +3,7 @@ import { AlertController, App, IonicPage, NavController, NavParams, ActionSheetC
 import { ScreenProvider } from '../../providers/screen/screen';
 import { HomePage } from '../home/home';
 import { ProjectPage } from '../project/project';
+import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,8 @@ export class ScreenBuildPage {
     private alertCtrl: AlertController,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private provider: ScreenProvider) {
+    private provider: ScreenProvider,
+    private sharedProvider: SharedTabProvider) {
       this.aspectRatio = this.navParams.data.aspectRatio;
       this.projectId = this.navParams.data.projectId;
       this.projectName = this.navParams.data.projectName;
