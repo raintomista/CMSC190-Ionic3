@@ -1,6 +1,10 @@
 <img
   [src]="src"
-  (click)="performAction($event)"
+  [ngClass]="{'selected': selected}"
+  (tap)="tap()"
+  (press)="press($event)"
+  (onPressEnd)="onPressEnd()"
+  ion-long-press
 />
 
 

@@ -46,8 +46,8 @@ export class ScreenInspectPage {
     return parseInt(ratio[1]) / parseInt(ratio[0]);
   }
 
-  presentInspector(componentType, event) {
-    const componentStyles = getComputedStyle(event.target);
+  presentInspector(componentType, targetElement) {
+    const componentStyles = getComputedStyle(targetElement);
     let modal = this.modalCtrl.create(InspectorPage, { componentType, componentStyles });
     modal.present();
   }
