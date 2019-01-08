@@ -17,7 +17,16 @@ export class ImageComponent {
   constructor() {
   }
 
-  performAction() {
-    this.action();
+  performAction(event) {
+    switch (this.mode) {
+      case 'preview':
+        break;
+      case 'build':
+        this.action();
+        break;
+      case 'inspect':
+        this.action(event);
+        break;
+    }
   }
 }

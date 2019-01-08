@@ -1,3 +1,5 @@
+import { InspectorPage } from './../pages/inspector/inspector';
+import { ScreenInspectPage } from './../pages/screen-inspect/screen-inspect';
 import { ScreenBuildPage } from './../pages/screen-build/screen-build';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -33,6 +35,8 @@ import { LongPressModule } from 'ionic-long-press';
     ScreenTabsPage,
     ScreenPreviewPage,
     ScreenBuildPage,
+    ScreenInspectPage,
+    InspectorPage,
     HeaderWithMenuComponent,
     ImageComponent
   ],
@@ -52,7 +56,9 @@ import { LongPressModule } from 'ionic-long-press';
     ReviewComponentsPage,
     ScreenTabsPage,
     ScreenPreviewPage,
-    ScreenBuildPage
+    ScreenBuildPage,
+    ScreenInspectPage,
+    InspectorPage
   ],
   providers: [
     StatusBar,
