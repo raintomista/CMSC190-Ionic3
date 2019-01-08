@@ -12,23 +12,6 @@ export class ScreenBuildPage {
   screenName: string;
   components: any = [];
 
-  action(componentType) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: componentType,
-      buttons: [
-        {
-          text: 'Edit Component',
-          handler: () => {
-            console.log('Archive clicked');
-          }
-        },
-        { text: 'Cancel', role: 'cancel'}
-      ]
-    });
-
-    actionSheet.present();
-  }
-
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
@@ -56,6 +39,23 @@ export class ScreenBuildPage {
   computeMultiplier(aspectRatio) {
     const ratio = aspectRatio.split(':');
     return parseInt(ratio[0]) / parseInt(ratio[1]);
+  }
+
+  presentActionSheet(component) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: component.type,
+      buttons: [
+        {
+          text: 'Edit Component',
+          handler: () => {
+
+          }
+        },
+        { text: 'Cancel', role: 'cancel'}
+      ]
+    });
+
+    actionSheet.present();
   }
 
   presentInstruction() {

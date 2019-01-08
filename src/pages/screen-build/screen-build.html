@@ -28,7 +28,8 @@
             <!-- Image -->
             <image
               [src]="component.value"
-              [action]="action.bind(this, component.type)"
+              [mode]="'build'"
+              [action]="presentActionSheet.bind(this, component)"
               *ngIf="component.type === 'Image'">
             </image>
           </ng-container >
