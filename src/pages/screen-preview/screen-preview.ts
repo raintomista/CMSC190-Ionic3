@@ -10,6 +10,7 @@ import { ScreenProvider } from '../../providers/screen/screen';
 export class ScreenPreviewPage {
   screenId: string;
   screenName: string;
+  aspectRatio: string;
   components: any = [];
 
 
@@ -19,6 +20,7 @@ export class ScreenPreviewPage {
     private provider: ScreenProvider) {
       this.screenId = this.navParams.data.screenId;
       this.screenName = this.navParams.data.screenName;
+      this.aspectRatio = this.navParams.data.aspectRatio;
       this.getComponents(this.screenId);
     }
 
@@ -33,6 +35,6 @@ export class ScreenPreviewPage {
 
   computeMultiplier(aspectRatio) {
     const ratio = aspectRatio.split(':');
-    return parseInt(ratio[0]) / parseInt(ratio[1]);
+    return parseInt(ratio[1]) / parseInt(ratio[0]);
   }
 }

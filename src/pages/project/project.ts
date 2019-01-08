@@ -13,6 +13,7 @@ import { ScreenProvider } from './../../providers/screen/screen';
 export class ProjectPage {
   projectId: string = null;
   projectName: string = null;
+  aspectRatio: string;
   selectedFile: string = null;
   screens: any = [];
 
@@ -26,13 +27,15 @@ export class ProjectPage {
     private navParams: NavParams) {
       this.projectId = this.navParams.get('projectId');
       this.projectName = this.navParams.get('projectName');
+      this.aspectRatio = this.navParams.get('aspectRatio');
       this.getScreens(this.projectId);
   }
 
-  handlePress(screenId, screenName) {
+  handleView(screenId, screenName) {
     this.navCtrl.push(ScreenTabsPage, {
-      screenId,
-      screenName
+      screenId: screenId,
+      screenName: screenName,
+      aspectRatio: this.aspectRatio
     });
   }
 

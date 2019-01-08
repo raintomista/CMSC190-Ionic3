@@ -27,12 +27,12 @@ export class HomePage {
     private navCtrl: NavController,
     private provider: ProjectProvider,
     private navParams: NavParams) {
-      // Listen to events for reloading projects list
-      this.events.subscribe('reload-home', () => {
-        this.getProjects();
-      });
-
+    // Listen to events for reloading projects list
+    this.events.subscribe('reload-home', () => {
       this.getProjects();
+    });
+
+    this.getProjects();
   }
 
   async getProjects() {
@@ -40,13 +40,17 @@ export class HomePage {
     try {
       const response = await this.provider.getProjects() as any;
       this.projects = response.items;
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
 
-  handleView(projectId, projectName) {
-    this.navCtrl.push(ProjectPage, { projectId, projectName });
+  handleView(projectId, projectName, aspectRatio) {
+    this.navCtrl.push(ProjectPage, {
+      projectId,
+      projectName,
+      aspectRatio
+    });
   }
 
   handleAdd() {
@@ -68,7 +72,7 @@ export class HomePage {
       const response = await this.provider.editProject(id, newName) as any;
       this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
       this.getProjects();
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -83,7 +87,7 @@ export class HomePage {
       const response = await this.provider.deleteProject(id) as any;
       this.showAlert(null, `The project has been successfully deleted.`);
       this.getProjects();
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -99,7 +103,7 @@ export class HomePage {
         {
           text: 'OK',
           handler: (data) => {
-            if(data.name.length > 0) {
+            if (data.name.length > 0) {
               handler.call(this, id, data.name)
             } else {
               this.showAlert('Project name is required.', 'Please try again.');
