@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { ActionSheetController, LoadingController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { ReviewComponentsPage } from './../review-components/review-components';
@@ -18,6 +18,7 @@ export class ProjectPage {
   screens: any = [];
 
   constructor(
+    private alertCtrl: AlertController,
     private camera: Camera,
     private file: File,
     private loadingCtrl: LoadingController,
@@ -25,10 +26,10 @@ export class ProjectPage {
     private actionSheetCtrl: ActionSheetController,
     private navCtrl: NavController,
     private navParams: NavParams) {
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
-      this.aspectRatio = this.navParams.get('aspectRatio');
-      this.getScreens(this.projectId);
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
+    this.aspectRatio = this.navParams.get('aspectRatio');
+    this.getScreens(this.projectId);
   }
 
   handleView(screenId, screenName) {
@@ -46,7 +47,7 @@ export class ProjectPage {
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   }
@@ -148,5 +149,78 @@ export class ProjectPage {
   computeMultiplier(aspectRatio) {
     const ratio = aspectRatio.split(':');
     return parseInt(ratio[0]) / parseInt(ratio[1]);
+  }
+
+  async editScreenName(screen, screenName) {
+    try {
+      const newScreen = Object.assign({}, screen);
+      newScreen.name = screenName;
+      await this.provider.updateScreen(newScreen);
+      this.showAlert('Success', `Screen name successfully changed to ${screenName}`);
+      screen.name = screenName;
+    } catch(e) {
+      this.showAlert('Error', `Something went wrong. Please try again.`);
+      throw new Error(e);
+    }
+  }
+
+  manageScreen(screen) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: screen.name,
+      buttons: [
+        {
+          text: 'Edit',
+          handler: () => {
+            this.showInputPrompt(screen);
+          }
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
+
+  showAlert(title, subtitle) {
+    const alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showInputPrompt(screen) {
+    const prompt = this.alertCtrl.create({
+      title: 'Edit Screen Name',
+      inputs: [{ name:  'screenName', value: screen.name }],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Save',
+          handler: (data) => {
+            if (data.screenName.length > 0) {
+              this.editScreenName(screen, data.screenName);
+            } else {
+              this.showAlert('Screen name is required.', 'Please try again.');
+            }
+          }
+        }
+      ]
+    });
+
+    prompt.present();
   }
 }

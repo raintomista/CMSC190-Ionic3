@@ -9,6 +9,7 @@ import { ScreenProvider } from '../screen/screen';
 @Injectable()
 export class SharedTabProvider {
   loading: Boolean = true;
+  hasChanges: Boolean = false;
   navParams: any;
   screen: any;
 
@@ -127,7 +128,6 @@ export class SharedTabProvider {
       this.alertSuccess();
     } catch(e) {
       savingAlert.dismiss()
-      console.log(e.response);
       this.alertError();
       throw new Error(e);
     }
@@ -144,7 +144,11 @@ export class SharedTabProvider {
           text: 'Exit Screen',
           role: 'destructive',
           handler: () => {
-            this.exitPrompt();
+            if(this.hasChanges) {
+              this.exitPrompt();
+            } else {
+              this.discard();
+            }
           }
         },
         {
