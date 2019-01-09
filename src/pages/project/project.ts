@@ -151,6 +151,17 @@ export class ProjectPage {
     return parseInt(ratio[0]) / parseInt(ratio[1]);
   }
 
+  async deleteScreen(screen) {
+    try {
+      await this.provider.deleteScreen(screen.id);
+      this.showAlert('Success', `${screen.name} has been successfully deleted.`);
+      this.screens.splice(screen.order, 1)
+    } catch(e) {
+      this.showAlert('Error', `Something went wrong. Please try again.`);
+      throw new Error(e);
+    }
+  }
+
   async editScreenName(screen, screenName) {
     try {
       const newScreen = Object.assign({}, screen);
@@ -178,7 +189,7 @@ export class ProjectPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-
+            this.deleteScreen(screen)
           }
         },
         {

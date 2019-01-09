@@ -21,6 +21,17 @@ export class ScreenProvider {
     });
   }
 
+  deleteScreen(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(environment.apiUrl + '/screens/' + id)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   getScreens(projectId) {
     return new Promise((resolve, reject) => {
       this.http.get(environment.apiUrl + '/screens?project_id=' + projectId)
