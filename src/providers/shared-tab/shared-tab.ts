@@ -8,9 +8,9 @@ import { ScreenProvider } from '../screen/screen';
 
 @Injectable()
 export class SharedTabProvider {
-  components: any = [];
   loading: Boolean = true;
   navParams: any;
+  screen: any;
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
@@ -39,6 +39,14 @@ export class SharedTabProvider {
     alert.present();
   }
 
+  get components() {
+    if(!this.screen) {
+      return [];
+    }
+
+    return this.screen.components;
+  }
+
   discard() {
     this.appCtrl.getRootNavs()[0].setRoot(HomePage, null, { animate: true })
     this.appCtrl.getRootNavs()[0].push(ProjectPage, {
@@ -49,10 +57,13 @@ export class SharedTabProvider {
   }
 
   displaySaving() {
-    this.loadingCtrl.create({
+    const savingAlert = this.loadingCtrl.create({
       content: 'Saving changes...',
       dismissOnPageChange: true
-    }).present();
+    })
+
+    savingAlert.present();
+    return savingAlert;
   }
 
   exitPrompt() {
@@ -82,26 +93,31 @@ export class SharedTabProvider {
     actionSheet.present();
   }
 
-
-  async getComponents(id) {
+  async getScreen(id) {
     try {
       const response = await this.provider.getScreen(id) as any;
-      this.components = response.item.components;
       this.loading = false;
+      this.screen = response.item;
     } catch (e) {
       throw new Error(e);
     }
   }
 
   async saveChanges() {
-    this.displaySaving();
+    const savingAlert = this.displaySaving();
     try {
       const canvas = await html2canvas(document.querySelector('#preview-box'), {
         allowTaint: false,
+        logging: false,
+        scale: 2.5,
         useCORS: true
       });
-      const screenshot = canvas.toDataURL("image/png");
-      // await saveToDB(screenId, screenshot)
+
+      const response = await this.provider.updateScreen({
+        preview_img:  canvas.toDataURL("image/png"),
+        ...this.screen
+      });
+
       this.appCtrl.getRootNavs()[0].setRoot(HomePage, null, { animate: true })
       this.appCtrl.getRootNavs()[0].push(ProjectPage, {
         aspectRatio: this.navParams.data.aspectRatio,
@@ -110,6 +126,8 @@ export class SharedTabProvider {
       });
       this.alertSuccess();
     } catch(e) {
+      savingAlert.dismiss()
+      console.log(e.response);
       this.alertError();
       throw new Error(e);
     }

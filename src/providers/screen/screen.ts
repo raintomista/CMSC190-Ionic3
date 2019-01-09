@@ -42,4 +42,15 @@ export class ScreenProvider {
         });
     });
   }
+
+  updateScreen(screen) {
+    return new Promise((resolve, reject) => {
+      this.http.put(environment.apiUrl + '/screens/' + screen.id, screen)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

@@ -21,6 +21,6 @@ export class ScreenTabsPage {
 
   ionViewDidEnter() {
     this.sharedProvider.setParams(this.navParams)
-    this.sharedProvider.getComponents(this.navParams.data.screenId);
+    this.sharedProvider.getScreen(this.navParams.data.screenId);
   }
 }
