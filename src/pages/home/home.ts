@@ -144,6 +144,15 @@ export class HomePage {
   }
 
   formatDate(date) {
-    return moment(date).format('MMM DD')
+    const currentDate = moment();
+
+    if(moment(currentDate).diff(date, 'days') < 1) {
+      return moment(date).format('hh:mm a')
+    } else if (moment(currentDate).diff(date, 'days') >= 1 && moment(currentDate).diff(date, 'days') <= 365) {
+      return moment(date).format('DD MMM')
+    }
+    else {
+      return moment(date).format('MM/DD/YYYY')
+    }
   }
 }
