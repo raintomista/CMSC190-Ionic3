@@ -7,6 +7,7 @@ import {
   NavController,
   NavParams
 } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
 import { ProjectProvider } from './../../providers/project/project';
@@ -25,6 +26,7 @@ export class HomePage {
     private events: Events,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
+    private nativeStorage: NativeStorage,
     private provider: ProjectProvider,
     private navParams: NavParams) {
     // Listen to events for reloading projects list
@@ -38,7 +40,8 @@ export class HomePage {
   async getProjects() {
     this.projects = null;
     try {
-      const response = await this.provider.getProjects() as any;
+      const user = await this.nativeStorage.getItem('facebook_user');
+      const response = await this.provider.getProjects(user.id) as any;
       this.projects = response.items;
     } catch (e) {
       throw new Error(e);

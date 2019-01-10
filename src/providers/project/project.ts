@@ -8,9 +8,9 @@ export class ProjectProvider {
   constructor(public http: HttpClient) {
   }
 
-  getProjects() {
+  getProjects(userId) {
     return new Promise((resolve, reject) => {
-      this.http.get(environment.apiUrl + '/projects')
+      this.http.get(environment.apiUrl + '/projects?user_id=' + userId)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
