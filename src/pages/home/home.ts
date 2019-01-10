@@ -19,6 +19,7 @@ import moment from 'moment';
   templateUrl: 'home.html',
 })
 export class HomePage {
+  user: any;
   projects: any;
 
   constructor(
@@ -29,23 +30,28 @@ export class HomePage {
     private nativeStorage: NativeStorage,
     private provider: ProjectProvider,
     private navParams: NavParams) {
-    // Listen to events for reloading projects list
-    this.events.subscribe('reload-home', () => {
+      this.getLoggedUser();
       this.getProjects();
-    });
 
-    this.getProjects();
+      // Listen to reload event
+      this.events.subscribe('reload-home', () => {
+        this.getProjects();
+      });
   }
 
   async getProjects() {
     this.projects = null;
     try {
-      const user = await this.nativeStorage.getItem('facebook_user');
-      const response = await this.provider.getProjects(user.id) as any;
+      this.user = await this.nativeStorage.getItem('facebook_user');
+      const response = await this.provider.getProjects(this.user.id) as any;
       this.projects = response.items;
     } catch (e) {
       throw new Error(e);
     }
+  }
+
+  async getLoggedUser() {
+    this.user = await this.nativeStorage.getItem('facebook_user');
   }
 
   handleView(projectId, projectName, aspectRatio) {

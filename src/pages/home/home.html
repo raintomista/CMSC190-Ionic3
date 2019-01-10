@@ -21,15 +21,21 @@
     <ion-item-sliding *ngFor="let project of projects" #slidingItem>
       <ion-item (click)="handleView(project.id, project.name, project.aspect_ratio)">
         <h2>{{project.name}}</h2>
-        <p class="total-screens">{{project.no_of_screens}} Screens</p>
-        <p class="timestamp" item-end>{{formatDate(project.date_modified)}}</p>
+        <p class="details">
+          <span>{{project.no_of_screens}} Screens</span>
+          <span *ngIf="user.id === project.author_id">&middot; Owner</span>
+          <span *ngIf="user.id !== project.author_id">&middot; Collaborator</span>
+        </p>
+        <p class="timestamp" item-end>{{formatDate(project.date_modified)}}
+
+        </p>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="primary" (click)="handleEdit(project, slidingItem)">
+        <button ion-button color="primary" (click)="handleEdit(project, slidingItem)" [disabled]="user.id !== project.author_id">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button ion-button color="danger" (click)="handleDelete(project.id, slidingItem)">
+        <button ion-button color="danger" (click)="handleDelete(project.id, slidingItem)" [disabled]="user.id !== project.author_id">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
