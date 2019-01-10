@@ -7,6 +7,7 @@ import {
   NavParams,
   ViewController
 } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ProjectProvider } from '../../providers/project/project';
 import moment from 'moment';
@@ -22,12 +23,13 @@ export class TargetPlatformPage {
   constructor(
     private alertCtrl: AlertController,
     private events: Events,
+    private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
     private projectProvider: ProjectProvider,
     private viewCtrl: ViewController) {
       this.formGroup = new FormGroup({
-        "aspectRatio": new FormControl({ value: '3:2', disabled: false }),
+        "aspect_ratio": new FormControl({ value: '3:2', disabled: false }),
         "platform": new FormControl({ value: 'android', disabled: false }),
         "name": new FormControl({ value: this.navParams.get('projectName'), disabled: false })
       });
@@ -47,20 +49,22 @@ export class TargetPlatformPage {
   }
 
   async submit() {
-    const newProject = Object.assign({
-      no_of_screens: 0,
-      date_created: moment().toISOString(),
-      date_modified: moment().toISOString(),
-    }, this.formGroup.value);
-
     this.viewCtrl.dismiss();
 
     try {
+      let author = await this.nativeStorage.getItem('facebook_user')
+      let newProject = Object.assign({
+        author_id: author.id,
+        date_created: null, //Update in rethink backend
+        date_modified: null, //Update in rethink backend
+        no_of_screens: 0,
+      }, this.formGroup.value);
+
       const response = await this.projectProvider.addProject(newProject);
-      this.showAlert('Success!', `${newProject.name} has been successfully created.`);
+      this.showAlert('Success', `${newProject.name} has been successfully created.`);
       this.events.publish('reload-home');
     } catch(e) {
-      this.showAlert('Error!', 'An error occurred. Please try again.');
+      this.showAlert('Unable to Create Project', 'An error occurred. Please try again.');
       throw new Error(e);
     }
   }
