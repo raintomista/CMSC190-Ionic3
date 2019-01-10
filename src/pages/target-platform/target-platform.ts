@@ -50,7 +50,7 @@ export class TargetPlatformPage {
     const newProject = Object.assign({
       no_of_screens: 0,
       date_created: moment().toISOString(),
-      date_modified: null,
+      date_modified: moment().toISOString(),
     }, this.formGroup.value);
 
     this.viewCtrl.dismiss();
