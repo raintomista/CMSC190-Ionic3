@@ -21,9 +21,9 @@ export class ScreenProvider {
     });
   }
 
-  deleteScreen(id) {
+  deleteScreen(id, screen) {
     return new Promise((resolve, reject) => {
-      this.http.delete(environment.apiUrl + '/screens/' + id)
+      this.http.request('delete', environment.apiUrl + '/screens/' + id, { body: screen })
         .subscribe((response) => {
           resolve(response);
         }, (err) => {

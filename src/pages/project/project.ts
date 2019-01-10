@@ -153,9 +153,9 @@ export class ProjectPage {
 
   async deleteScreen(screen) {
     try {
-      await this.provider.deleteScreen(screen.id);
+      await this.provider.deleteScreen(screen.id, screen);
+      this.getScreens(this.projectId);
       this.showAlert('Success', `${screen.name} has been successfully deleted.`);
-      this.screens.splice(screen.order, 1)
     } catch(e) {
       this.showAlert('Error', `Something went wrong. Please try again.`);
       throw new Error(e);
