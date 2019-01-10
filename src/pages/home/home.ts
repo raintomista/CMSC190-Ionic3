@@ -54,7 +54,7 @@ export class HomePage {
   }
 
   handleAdd() {
-    this.inputName(null, this.openModal)
+    this.inputName({ name: '' }, this.openModal)
   }
 
   openModal(id, projectName) {
@@ -62,14 +62,14 @@ export class HomePage {
     modal.present();
   }
 
-  handleEdit(id, slidingItem) {
-    this.inputName(id, this.editProject);
+  handleEdit(project, slidingItem) {
+    this.inputName(project, this.editProject);
     slidingItem.close();
   }
 
-  async editProject(id, newName) {
+  async editProject(project, newName) {
     try {
-      const response = await this.provider.editProject(id, newName) as any;
+      const response = await this.provider.editProject(project.id, newName) as any;
       this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
       this.getProjects();
     } catch (e) {
@@ -92,10 +92,10 @@ export class HomePage {
     }
   }
 
-  inputName(id, handler) {
+  inputName(project, handler) {
     const prompt = this.alertCtrl.create({
       title: 'Project Name',
-      inputs: [{ name: 'name' }],
+      inputs: [{ name: 'name', value: project.name }],
       buttons: [
         {
           text: 'Cancel'
@@ -104,7 +104,7 @@ export class HomePage {
           text: 'OK',
           handler: (data) => {
             if (data.name.length > 0) {
-              handler.call(this, id, data.name)
+              handler.call(this, project, data.name)
             } else {
               this.showAlert('Project name is required.', 'Please try again.');
             }
