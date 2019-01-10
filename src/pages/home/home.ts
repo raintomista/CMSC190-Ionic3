@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import {
   IonicPage,
+  ActionSheetController,
   AlertController,
   Events,
   ModalController,
   NavController,
   NavParams
 } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { LoginPage } from './../login/login';
 import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
 import { ProjectProvider } from './../../providers/project/project';
@@ -23,8 +26,10 @@ export class HomePage {
   projects: any;
 
   constructor(
+    private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private events: Events,
+    private fb: Facebook,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private nativeStorage: NativeStorage,
@@ -37,6 +42,39 @@ export class HomePage {
       this.events.subscribe('reload-home', () => {
         this.getProjects();
       });
+  }
+
+  async deleteProject(id) {
+    try {
+      const response = await this.provider.deleteProject(id) as any;
+      this.showAlert(null, `The project has been successfully deleted.`);
+      this.getProjects();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async editProject(project, newName) {
+    try {
+      const response = await this.provider.editProject(project.id, newName) as any;
+      this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
+      this.getProjects();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  formatDate(date) {
+    const currentDate = moment();
+
+    if(moment(currentDate).diff(date, 'days') < 1) {
+      return moment(date).format('hh:mm a')
+    } else if (moment(currentDate).diff(date, 'days') >= 1 && moment(currentDate).diff(date, 'days') <= 365) {
+      return moment(date).format('DD MMM')
+    }
+    else {
+      return moment(date).format('MM/DD/YYYY')
+    }
   }
 
   async getProjects() {
@@ -54,36 +92,8 @@ export class HomePage {
     this.user = await this.nativeStorage.getItem('facebook_user');
   }
 
-  handleView(projectId, projectName, aspectRatio) {
-    this.navCtrl.push(ProjectPage, {
-      projectId,
-      projectName,
-      aspectRatio
-    });
-  }
-
   handleAdd() {
     this.inputName({ name: '' }, this.openModal)
-  }
-
-  openModal(id, projectName) {
-    const modal = this.modalCtrl.create(TargetPlatformPage, { projectName: projectName });
-    modal.present();
-  }
-
-  handleEdit(project, slidingItem) {
-    this.inputName(project, this.editProject);
-    slidingItem.close();
-  }
-
-  async editProject(project, newName) {
-    try {
-      const response = await this.provider.editProject(project.id, newName) as any;
-      this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
-      this.getProjects();
-    } catch (e) {
-      throw new Error(e);
-    }
   }
 
   handleDelete(id, slidingItem) {
@@ -91,14 +101,17 @@ export class HomePage {
     slidingItem.close();
   }
 
-  async deleteProject(id) {
-    try {
-      const response = await this.provider.deleteProject(id) as any;
-      this.showAlert(null, `The project has been successfully deleted.`);
-      this.getProjects();
-    } catch (e) {
-      throw new Error(e);
-    }
+  handleEdit(project, slidingItem) {
+    this.inputName(project, this.editProject);
+    slidingItem.close();
+  }
+
+  handleView(projectId, projectName, aspectRatio) {
+    this.navCtrl.push(ProjectPage, {
+      projectId,
+      projectName,
+      aspectRatio
+    });
   }
 
   inputName(project, handler) {
@@ -123,6 +136,21 @@ export class HomePage {
     });
 
     prompt.present();
+  }
+
+  async logout() {
+    try {
+      this.fb.logout();
+      this.nativeStorage.remove('facebook_user');
+      this.navCtrl.setRoot(LoginPage);
+    } catch(e) {
+      this.showAlert('Logout Failed', 'An error occured. Please try again.')
+    }
+  }
+
+  openModal(id, projectName) {
+    const modal = this.modalCtrl.create(TargetPlatformPage, { projectName: projectName });
+    modal.present();
   }
 
   showAlert(title, subtitle) {
@@ -152,16 +180,24 @@ export class HomePage {
     confirm.present();
   }
 
-  formatDate(date) {
-    const currentDate = moment();
+  showUserActionsheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: `${this.user.name} (${this.user.email})`,
+      buttons: [
+        {
+          text: 'Log Out',
+          role: 'destructive',
+          handler: () => {
+            this.logout();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
 
-    if(moment(currentDate).diff(date, 'days') < 1) {
-      return moment(date).format('hh:mm a')
-    } else if (moment(currentDate).diff(date, 'days') >= 1 && moment(currentDate).diff(date, 'days') <= 365) {
-      return moment(date).format('DD MMM')
-    }
-    else {
-      return moment(date).format('MM/DD/YYYY')
-    }
+    actionSheet.present();
   }
 }
