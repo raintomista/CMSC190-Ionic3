@@ -54,9 +54,9 @@ export class ScreenProvider {
     });
   }
 
-  updateScreen(screen) {
+  updateScreen(screen, userId) {
     return new Promise((resolve, reject) => {
-      this.http.put(environment.apiUrl + '/screens/' + screen.id, screen)
+      this.http.put(environment.apiUrl + '/screens/' + screen.id + '?user_id=' + userId, screen)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActionSheetController, LoadingController, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { ReviewComponentsPage } from './../review-components/review-components';
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
@@ -11,6 +12,7 @@ import { ScreenProvider } from './../../providers/screen/screen';
   templateUrl: 'project.html',
 })
 export class ProjectPage {
+  user: any;
   projectId: string = null;
   projectName: string = null;
   aspectRatio: string;
@@ -18,18 +20,20 @@ export class ProjectPage {
   screens: any = [];
 
   constructor(
+    private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private camera: Camera,
     private file: File,
     private loadingCtrl: LoadingController,
-    private provider: ScreenProvider,
-    private actionSheetCtrl: ActionSheetController,
+    private nativeStorage: NativeStorage,
     private navCtrl: NavController,
-    private navParams: NavParams) {
-    this.projectId = this.navParams.get('projectId');
-    this.projectName = this.navParams.get('projectName');
-    this.aspectRatio = this.navParams.get('aspectRatio');
-    this.getScreens(this.projectId);
+    private navParams: NavParams,
+    private provider: ScreenProvider) {
+      this.projectId = this.navParams.get('projectId');
+      this.projectName = this.navParams.get('projectName');
+      this.aspectRatio = this.navParams.get('aspectRatio');
+      this.getLoggedUser();
+      this.getScreens(this.projectId);
   }
 
   handleView(screenId, screenName) {
@@ -166,8 +170,8 @@ export class ProjectPage {
     try {
       const newScreen = Object.assign({}, screen);
       newScreen.name = screenName;
-      await this.provider.updateScreen(newScreen);
-      this.showAlert('Success', `Screen name successfully changed to ${screenName}`);
+      await this.provider.updateScreen(newScreen, this.user.id);
+      this.showAlert('Success', `Successfully changed screen name to ${screenName}`);
       screen.name = screenName;
     } catch(e) {
       this.showAlert('Error', `Something went wrong. Please try again.`);
@@ -233,5 +237,9 @@ export class ProjectPage {
     });
 
     prompt.present();
+  }
+
+  async getLoggedUser() {
+    this.user = await this.nativeStorage.getItem('facebook_user');
   }
 }
