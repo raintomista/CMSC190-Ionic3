@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Project History</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="loader" *ngIf="loading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let logEntry of activityLogs">
+      <h2 class="heading">{{formatDate(logEntry.date_created)}}</h2>
+      <p class="details" ion-note>{{logEntry.activity_description}}</p>
+      <ion-badge>{{logEntry.name}}</ion-badge>
+      <ion-badge color="light" *ngIf="user.id === logEntry.user_id">Owner</ion-badge>
+      <ion-badge color="light" *ngIf="user.id !== logEntry.user_id">Collaborator</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

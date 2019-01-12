@@ -3,21 +3,21 @@
     <ion-title>
       {{projectName}}
     </ion-title>
+    <ion-buttons end>
+      <button (click)="showMore()" ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col col-6 *ngFor="let screen of screens; let i = index">
         <ion-note>{{screen.name}}</ion-note>
-        <div
-          class="thumbnail"
-          [ngStyle]="{'height.px': thumb.offsetWidth * computeMultiplier(aspectRatio)}"
-          (press)="manageScreen(screen)"
-          (tap)="handleView(screen.id, screen.name)"
-          #thumb>
-            <img [src]="screen.preview_url" alt="">
+        <div class="thumbnail" [ngStyle]="{'height.px': thumb.offsetWidth * computeMultiplier(aspectRatio)}" (press)="manageScreen(screen)"
+          (tap)="handleView(screen.id, screen.name)" #thumb>
+          <img [src]="screen.preview_url" alt="">
         </div>
       </ion-col>
     </ion-row>

@@ -30,6 +30,7 @@ import { ProjectProvider } from '../providers/project/project';
 import { ImageComponent } from '../components/image/image';
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
+import { ProjectHistoryPage } from '../pages/project-history/project-history';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LongPressModule } from 'ionic-long-press';
     LoginPage,
     HomePage,
     ProjectPage,
+    ProjectHistoryPage,
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,
@@ -60,6 +62,7 @@ import { LongPressModule } from 'ionic-long-press';
     LoginPage,
     HomePage,
     ProjectPage,
+    ProjectHistoryPage,
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,

@@ -117,7 +117,7 @@ export class SharedTabProvider {
       const response = await this.provider.updateScreen({
         preview_img:  canvas.toDataURL("image/png"),
         ...this.screen
-      });
+      }, '');
 
       this.appCtrl.getRootNavs()[0].setRoot(HomePage, null, { animate: true })
       this.appCtrl.getRootNavs()[0].push(ProjectPage, {

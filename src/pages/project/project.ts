@@ -3,6 +3,7 @@ import { ActionSheetController, LoadingController, NavController, NavParams, Ale
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { ProjectHistoryPage } from '../project-history/project-history';
 import { ReviewComponentsPage } from './../review-components/review-components';
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
@@ -179,6 +180,10 @@ export class ProjectPage {
     }
   }
 
+  async getLoggedUser() {
+    this.user = await this.nativeStorage.getItem('facebook_user');
+  }
+
   manageScreen(screen) {
     let actionSheet = this.actionSheetCtrl.create({
       title: screen.name,
@@ -239,7 +244,22 @@ export class ProjectPage {
     prompt.present();
   }
 
-  async getLoggedUser() {
-    this.user = await this.nativeStorage.getItem('facebook_user');
+  showMore() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons:[
+        {
+          text: 'View Project History',
+          handler: () => {
+            this.navCtrl.push(ProjectHistoryPage, { projectId: this.projectId})
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
 }
