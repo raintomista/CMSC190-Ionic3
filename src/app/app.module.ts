@@ -20,6 +20,8 @@ import { ScreenPreviewPage } from './../pages/screen-preview/screen-preview';
 import { ScreenInspectPage } from './../pages/screen-inspect/screen-inspect';
 import { ScreenBuildPage } from './../pages/screen-build/screen-build';
 import { InspectorPage } from './../pages/inspector/inspector';
+import { ProjectHistoryPage } from '../pages/project-history/project-history';
+import { ScreenHistoryPage } from '../pages/screen-history/screen-history';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
@@ -30,7 +32,7 @@ import { ProjectProvider } from '../providers/project/project';
 import { ImageComponent } from '../components/image/image';
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
-import { ProjectHistoryPage } from '../pages/project-history/project-history';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { ProjectHistoryPage } from '../pages/project-history/project-history';
     ScreenPreviewPage,
     ScreenBuildPage,
     ScreenInspectPage,
+    ScreenHistoryPage,
     InspectorPage,
     HeaderWithMenuComponent,
     ImageComponent
@@ -69,6 +72,7 @@ import { ProjectHistoryPage } from '../pages/project-history/project-history';
     ScreenPreviewPage,
     ScreenBuildPage,
     ScreenInspectPage,
+    ScreenHistoryPage,
     InspectorPage
   ],
   providers: [

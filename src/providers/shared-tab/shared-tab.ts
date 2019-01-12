@@ -1,10 +1,11 @@
-import { AlertController, App, ActionSheetController, LoadingController } from 'ionic-angular';
+import { AlertController, App, ActionSheetController, LoadingController, NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
 import { ProjectPage } from '../../pages/project/project';
 import * as html2canvas from 'html2canvas';
 import { ScreenProvider } from '../screen/screen';
+import { ScreenHistoryPage } from '../../pages/screen-history/screen-history';
 
 @Injectable()
 export class SharedTabProvider {
@@ -19,6 +20,7 @@ export class SharedTabProvider {
     private appCtrl: App,
     public http: HttpClient,
     private loadingCtrl: LoadingController,
+    private navCtrl: NavController,
     private provider: ScreenProvider) {
   }
 
@@ -137,9 +139,15 @@ export class SharedTabProvider {
     this.navParams = navParams;
   }
 
-  showMore() {
+  showMore(screenId) {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
+        {
+          text: 'View Screen History',
+          handler: () => {
+            this.navCtrl.push(ScreenHistoryPage, { screenId: screenId })
+          }
+        },
         {
           text: 'Exit Screen',
           role: 'destructive',
