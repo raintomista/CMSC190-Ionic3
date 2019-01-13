@@ -1,10 +1,11 @@
 page-edit-component {
-  .scroll-content {
-    padding-top: 0px !important;
-  }
-
   .list-header-md {
     margin-bottom: 0px;
   }
 
+  .loader {
+    height: 40px;
+    padding-top: 8px;
+    text-align: center;
+  }
 }

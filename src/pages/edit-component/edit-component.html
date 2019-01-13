@@ -11,17 +11,19 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content padding>
-  <ion-list no-lines>
+<ion-content>
+  <div class="loader" *ngIf="loading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-list no-lines  *ngIf="!loading">
     <ion-list-header>
       {{componentType}}
     </ion-list-header>
     <ion-list>
       <ion-item>
         <ion-label stacked>Value</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [value]="component.value"></ion-input>
       </ion-item>
     </ion-list>
-
   </ion-list>
 </ion-content>

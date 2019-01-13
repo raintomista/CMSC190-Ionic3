@@ -65,6 +65,17 @@ export class ScreenProvider {
     });
   }
 
+  getComponent(id) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.apiUrl + '/components/' + id)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   getHistory(id) {
     return new Promise((resolve, reject) => {
       this.http.get(environment.apiUrl + '/screens/' + id + '/history')
