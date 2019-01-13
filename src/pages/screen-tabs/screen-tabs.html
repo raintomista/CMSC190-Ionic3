@@ -20,7 +20,10 @@
       <div class="preview-content-container">
         <ng-container *ngFor="let component of sharedProvider.components">
           <!-- HeaderWithMenu -->
-          <header-with-menu [title]="component.value" *ngIf="component.type === 'HeaderWithMenu'">
+          <header-with-menu
+            [order]="component.order"
+            [title]="component.value"
+            *ngIf="component.type === 'HeaderWithMenu'">
           </header-with-menu>
 
           <!-- Image -->

@@ -5,6 +5,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'header-with-menu.html'
 })
 export class HeaderWithMenuComponent {
+  @Input('order')
+  order: Number;
+
   @Input('title')
   title: string;
 
