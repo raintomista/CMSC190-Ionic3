@@ -27,7 +27,7 @@
           <image
             [src]="component.value"
             [mode]="mode"
-            [action]="performAction.bind(this, component.type)"
+            [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'Image'">
           </image>
         </ng-container>

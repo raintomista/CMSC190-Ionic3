@@ -1,12 +1,27 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>edit-component</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar color="primary">
+    <ion-title>
+      Edit Component
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="light" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" color="light" showWhen="android"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
-
-
 <ion-content padding>
+  <ion-list no-lines>
+    <ion-list-header>
+      {{componentType}}
+    </ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Value</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    </ion-list>
 
+  </ion-list>
 </ion-content>

@@ -1,3 +1,4 @@
+import { EditComponentPage } from './../pages/edit-component/edit-component';
 
 
 
@@ -49,6 +50,7 @@ import { LongPressModule } from 'ionic-long-press';
     ScreenInspectPage,
     ScreenHistoryPage,
     InspectorPage,
+    EditComponentPage,
     HeaderWithMenuComponent,
     ImageComponent
   ],
@@ -73,7 +75,8 @@ import { LongPressModule } from 'ionic-long-press';
     ScreenBuildPage,
     ScreenInspectPage,
     ScreenHistoryPage,
-    InspectorPage
+    InspectorPage,
+    EditComponentPage
   ],
   providers: [
     StatusBar,
