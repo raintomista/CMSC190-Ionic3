@@ -50,6 +50,11 @@ export class SharedTabProvider {
     return this.screen.components;
   }
 
+  computeMultiplier(aspectRatio) {
+    const ratio = aspectRatio.split(':');
+    return parseInt(ratio[1]) / parseInt(ratio[0]);
+  }
+
   discard() {
     this.appCtrl.getRootNavs()[0].setRoot(HomePage, null, { animate: true })
     this.appCtrl.getRootNavs()[0].push(ProjectPage, {
@@ -146,17 +151,6 @@ export class SharedTabProvider {
           text: 'View Screen History',
           handler: () => {
             this.navCtrl.push(ScreenHistoryPage, { screenId: screenId })
-          }
-        },
-        {
-          text: 'Exit Screen',
-          role: 'destructive',
-          handler: () => {
-            if(this.hasChanges) {
-              this.exitPrompt();
-            } else {
-              this.discard();
-            }
           }
         },
         {

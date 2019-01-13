@@ -1,5 +1,81 @@
-<ion-tabs>
-  <ion-tab [root]="tab1" tabTitle="Preview" tabIcon="phone-landscape" [rootParams]="navParams"></ion-tab>
-  <ion-tab [root]="tab2" tabTitle="Build" tabIcon="build" [rootParams]="navParams"></ion-tab>
-  <ion-tab [root]="tab3" tabTitle="Inspect" tabIcon="code-working" [rootParams]="navParams"></ion-tab>
-</ion-tabs>
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title *ngIf="mode === 'preview'">Preview Mode</ion-title>
+    <ion-title *ngIf="mode === 'build'">Build Mode</ion-title>
+    <ion-title *ngIf="mode === 'inspect'">Inspect Mode</ion-title>
+    <ion-buttons end>
+      <button (click)="sharedProvider.showMore(screenId)" ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div id="preview-box" class="preview-box" [ngStyle]="{'width.px': previewBox.offsetHeight * sharedProvider.computeMultiplier(aspectRatio)}"
+    #previewBox>
+    <div class="loader" *ngIf="sharedProvider.loading">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div class="preview-scroll-content">
+      <div class="preview-content-container">
+        <ng-container *ngFor="let component of sharedProvider.components">
+          <!-- HeaderWithMenu -->
+          <header-with-menu [title]="component.value" *ngIf="component.type === 'HeaderWithMenu'">
+          </header-with-menu>
+
+          <!-- Image -->
+          <image
+            [src]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.type)"
+            *ngIf="component.type === 'Image'">
+          </image>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <div
+            class="tab-btn"
+            (click)="selectMode('preview')"
+            color="primary"
+            ion-item
+            ion-text
+            [ngClass]="{'active': mode === 'preview' }"
+            no-lines>
+              <ion-icon name="phone-portrait"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <div
+            class="tab-btn"
+            (click)="selectMode('build')"
+            color="primary"
+            ion-item
+            ion-text
+            [ngClass]="{'active': mode === 'build' }"
+            no-lines>
+              <ion-icon name="build"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <div
+            class="tab-btn"
+            (click)="selectMode('inspect')"
+            color="primary"
+            ion-item
+            ion-text
+            [ngClass]="{'active': mode === 'inspect' }"
+            no-lines>
+              <ion-icon name="code-working"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
