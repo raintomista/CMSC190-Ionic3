@@ -1,11 +1,31 @@
 page-edit-component {
-  .list-header-md {
-    margin-bottom: 0px;
-  }
+    .list-header-md {
+        margin-bottom: 0px;
+    }
+    .loader {
+        height: 40px;
+        padding-top: 8px;
+        text-align: center;
+    }
 
-  .loader {
-    height: 40px;
-    padding-top: 8px;
-    text-align: center;
-  }
+    .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+        border-bottom-color: transparent;
+        box-shadow: inset 0 -1px 0 0 #dedede;
+        --webkit-box-shadow: inset 0 -1px 0 0 #dedede;
+    }
+    .footer-md::before {
+        background-image: none;
+    }
+    .toolbar-background-ios,
+    .toolbar-background-md {
+        background-color: white;
+    }
+    .toolbar-content-ios,
+    .toolbar-content-md {
+        padding: 8px;
+    }
+    .save-btn {
+        margin: 0px;
+    }
 }

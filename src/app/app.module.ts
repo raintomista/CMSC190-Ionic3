@@ -33,6 +33,7 @@ import { ProjectProvider } from '../providers/project/project';
 import { ImageComponent } from '../components/image/image';
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
+import { AlertProvider } from '../providers/alert/alert';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { LongPressModule } from 'ionic-long-press';
     NativeStorage,
     ScreenProvider,
     ProjectProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AlertProvider
   ]
 })
 export class AppModule {}

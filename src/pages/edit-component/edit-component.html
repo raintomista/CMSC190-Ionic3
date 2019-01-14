@@ -15,15 +15,22 @@
   <div class="loader" *ngIf="loading">
     <ion-spinner color="primary"></ion-spinner>
   </div>
-  <ion-list no-lines  *ngIf="!loading">
+  <ion-list no-lines *ngIf="!loading" [formGroup]="form">
     <ion-list-header>
-      {{componentType}}
+      {{form.value.type}}
     </ion-list-header>
     <ion-list>
       <ion-item>
-        <ion-label stacked>Value</ion-label>
-        <ion-input type="text" [value]="component.value"></ion-input>
+        <ion-label stacked>Text</ion-label>
+        <ion-input type="text" formControlName="value"></ion-input>
       </ion-item>
     </ion-list>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button class="save-btn" ion-button full (click)="saveChanges()" [disabled]="loading">
+      Save Changes
+    </button>
+  </ion-toolbar>
+</ion-footer>
