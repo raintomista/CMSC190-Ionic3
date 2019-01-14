@@ -21,6 +21,8 @@
         <ng-container *ngFor="let component of sharedProvider.components">
           <!-- HeaderWithMenu -->
           <header-with-menu
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
             [order]="component.order"
             [title]="component.value"
             *ngIf="component.type === 'HeaderWithMenu'">

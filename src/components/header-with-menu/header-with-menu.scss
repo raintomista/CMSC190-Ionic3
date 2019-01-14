@@ -1,13 +1,15 @@
 header-with-menu {
     .ios-fixed-header-margin {
-      margin-bottom: 44px;
+        margin-bottom: 44px;
     }
-
     .md-fixed-header-margin {
-      margin-bottom: 56px;
+        margin-bottom: 56px;
+    }
+    .relative-header {
+        position: relative !important;
     }
 
-    .relative-header {
-      position: relative !important;
-  }
+    .selected {
+      opacity: 0.8;
+    }
 }
