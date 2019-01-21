@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Replace Component
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="light" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" color="light" showWhen="android"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="loader" *ngIf="loading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-list>
+    <ion-list-header>
+      Choose one
+    </ion-list-header>
+    <ion-item *ngFor="let item of items; let i = index" (tap)="select(i)" details-none>
+      {{ item }}
+      <ion-icon color="primary" *ngIf="selected === i" name="checkmark-circle" item-end>
+      </ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button class="save-btn" ion-button full (click)="replace()" [disabled]="selected === null">
+      Replace
+    </button>
+  </ion-toolbar>
+</ion-footer>

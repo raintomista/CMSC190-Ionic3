@@ -34,6 +34,7 @@ import { ImageComponent } from '../components/image/image';
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
 import { AlertProvider } from '../providers/alert/alert';
+import { ReplaceComponentPage } from '../pages/replace-component/replace-component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { AlertProvider } from '../providers/alert/alert';
     InspectorPage,
     EditComponentPage,
     HeaderWithMenuComponent,
-    ImageComponent
+    ImageComponent,
+    ReplaceComponentPage,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { AlertProvider } from '../providers/alert/alert';
     ScreenInspectPage,
     ScreenHistoryPage,
     InspectorPage,
-    EditComponentPage
+    EditComponentPage,
+    ReplaceComponentPage,
   ],
   providers: [
     StatusBar,

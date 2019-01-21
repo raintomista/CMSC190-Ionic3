@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ScreenPreviewPage } from './../screen-preview/screen-preview';
 import { ScreenBuildPage } from './../screen-build/screen-build';
 import { ScreenInspectPage } from './../screen-inspect/screen-inspect';
 import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 import { InspectorPage } from '../inspector/inspector';
 import { EditComponentPage } from '../edit-component/edit-component';
+import { ReplaceComponentPage } from '../replace-component/replace-component';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class ScreenTabsPage {
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
+    private events: Events,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -33,6 +35,10 @@ export class ScreenTabsPage {
       this.projectName = this.navParams.get('projectName');
       this.screenId = this.navParams.get('screenId');
       this.screenName = this.navParams.get('screenName')
+
+      this.events.subscribe('reload-screen', () => {
+        this.sharedProvider.getScreen(this.navParams.get('screenId'));
+      });
   }
 
   ionViewDidEnter() {
@@ -68,7 +74,11 @@ export class ScreenTabsPage {
         {
           text: 'Replace Component',
           handler: () => {
-
+            let modal = this.modalCtrl.create(ReplaceComponentPage, {
+              componentId,
+              componentType
+            });
+            modal.present();
           }
         },
         {

@@ -1,0 +1,31 @@
+page-replace-component {
+    .loader {
+        height: 40px;
+        padding-top: 8px;
+        text-align: center;
+    }
+
+    .list-header-md {
+      margin-bottom: 0px;
+    }
+
+    ion-icon {
+      margin-top: 0px !important;
+      margin-bottom: 0px !important;
+    }
+
+    .footer-md::before {
+        background-image: none;
+    }
+    .toolbar-background-ios,
+    .toolbar-background-md {
+        background-color: white;
+    }
+    .toolbar-content-ios,
+    .toolbar-content-md {
+        padding: 8px;
+    }
+    .save-btn {
+        margin: 0px;
+    }
+}

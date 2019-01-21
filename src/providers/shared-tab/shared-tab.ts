@@ -102,6 +102,7 @@ export class SharedTabProvider {
   }
 
   async getScreen(id) {
+    this.loading = true;
     try {
       const response = await this.provider.getScreen(id) as any;
       this.loading = false;
