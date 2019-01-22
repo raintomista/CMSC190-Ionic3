@@ -14,6 +14,7 @@ import { ScreenProvider } from './../../providers/screen/screen';
 })
 export class ProjectPage {
   user: any;
+  loading: boolean = true;
   projectId: string = null;
   projectName: string = null;
   aspectRatio: string;
@@ -49,9 +50,11 @@ export class ProjectPage {
   }
 
   async getScreens(projectId) {
+    this.loading = true;
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
+      this.loading = false;
     } catch (e) {
       throw new Error(e);
     }

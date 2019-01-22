@@ -1,8 +1,13 @@
 project-page {
-  .thumbnail {
-    background-color: #ececec;
-    margin: 5px 0px;
-    overflow: hidden;
-    width: 100%;
-  }
+    .loader {
+        height: 40px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .thumbnail {
+        background-color: #ececec;
+        margin: 5px 0px;
+        overflow: hidden;
+        width: 100%;
+    }
 }
