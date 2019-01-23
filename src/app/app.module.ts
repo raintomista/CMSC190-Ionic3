@@ -36,6 +36,10 @@ import { LongPressModule } from 'ionic-long-press';
 import { AlertProvider } from '../providers/alert/alert';
 import { ReplaceComponentPage } from '../pages/replace-component/replace-component';
 
+import { environment } from './../environments/environment';
+
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
   declarations: [
@@ -61,6 +65,7 @@ import { ReplaceComponentPage } from '../pages/replace-component/replace-compone
     BrowserModule,
     HttpClientModule,
     LongPressModule,
+    SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp, {
     })
   ],

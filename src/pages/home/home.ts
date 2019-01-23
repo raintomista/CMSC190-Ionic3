@@ -10,6 +10,7 @@ import {
 } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Socket } from 'ng-socket-io';
 import { LoginPage } from './../login/login';
 import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
@@ -32,11 +33,14 @@ export class HomePage {
     private fb: Facebook,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
+    private navParams: NavParams,
     private nativeStorage: NativeStorage,
     private provider: ProjectProvider,
-    private navParams: NavParams) {
+    private socket: Socket) {
       this.getLoggedUser();
       this.getProjects();
+
+      this.socket.connect();
 
       // Listen to reload event
       this.events.subscribe('reload-home', () => {

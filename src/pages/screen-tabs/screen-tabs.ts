@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ScreenPreviewPage } from './../screen-preview/screen-preview';
 import { ScreenBuildPage } from './../screen-build/screen-build';
@@ -7,6 +8,7 @@ import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 import { InspectorPage } from '../inspector/inspector';
 import { EditComponentPage } from '../edit-component/edit-component';
 import { ReplaceComponentPage } from '../replace-component/replace-component';
+import { Socket } from 'ng-socket-io';
 
 @IonicPage()
 @Component({
@@ -29,16 +31,23 @@ export class ScreenTabsPage {
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private sharedProvider: SharedTabProvider) {
-      this.aspectRatio = this.navParams.get('aspectRatio');
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
-      this.screenId = this.navParams.get('screenId');
-      this.screenName = this.navParams.get('screenName')
+    private sharedProvider: SharedTabProvider,
+    private socket: Socket) {
+    this.aspectRatio = this.navParams.get('aspectRatio');
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
+    this.screenId = this.navParams.get('screenId');
+    this.screenName = this.navParams.get('screenName')
 
-      this.events.subscribe('reload-screen', () => {
-        this.sharedProvider.getScreen(this.navParams.get('screenId'));
-      });
+    this.listenChanges().subscribe((screenId) => {
+      if(this.screenId === screenId) {
+        this.sharedProvider.getScreen(screenId);
+
+        setTimeout(() => {
+          this.sharedProvider.saveScreenshot();
+        }, 2000);
+      }
+    });
   }
 
   ionViewDidEnter() {
@@ -46,8 +55,18 @@ export class ScreenTabsPage {
     this.sharedProvider.getScreen(this.navParams.data.screenId);
   }
 
+  listenChanges() {
+    let observable = new Observable(observer => {
+      this.socket.on('component_changes', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
+  }
+
+
   performAction(componentId, componentType, targetElement) {
-    switch(this.mode) {
+    switch (this.mode) {
       case 'build':
         this.presentBuildActions(componentId, componentType);
         break;

@@ -1,6 +1,6 @@
-import { AlertController, App, ActionSheetController, LoadingController, NavController } from 'ionic-angular';
+import { AlertController, App, ActionSheetController, LoadingController, NavController, Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
 import { ProjectPage } from '../../pages/project/project';
 import * as html2canvas from 'html2canvas';
@@ -18,9 +18,11 @@ export class SharedTabProvider {
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private appCtrl: App,
+    private events: Events,
     public http: HttpClient,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
+    private ngZone: NgZone,
     private provider: ScreenProvider) {
   }
 
@@ -43,7 +45,7 @@ export class SharedTabProvider {
   }
 
   get components() {
-    if(!this.screen) {
+    if (!this.screen) {
       return [];
     }
 
@@ -123,7 +125,7 @@ export class SharedTabProvider {
       });
 
       const response = await this.provider.updateScreen({
-        preview_img:  canvas.toDataURL("image/png"),
+        preview_img: canvas.toDataURL("image/png"),
         ...this.screen
       }, '');
 
@@ -134,12 +136,30 @@ export class SharedTabProvider {
         projectName: this.navParams.data.projectName,
       });
       this.alertSuccess();
-    } catch(e) {
+    } catch (e) {
       savingAlert.dismiss()
       this.alertError();
       throw new Error(e);
     }
   }
+
+
+  saveScreenshot() {
+    this.ngZone.runOutsideAngular(async () => {
+      html2canvas(document.getElementById('preview-box'), {
+        allowTaint: false,
+        logging: false,
+        scale: 2.5,
+        useCORS: true
+      }).then(async (canvas) => {
+        await this.provider.updateScreen({
+          preview_img: canvas.toDataURL("image/png"),
+          ...this.screen
+        }, '');
+      });
+    });
+  }
+
 
   setParams(navParams) {
     this.navParams = navParams;
