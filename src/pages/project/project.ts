@@ -1,5 +1,6 @@
+import { Socket } from 'ng-socket-io';
 import { Component } from '@angular/core';
-import { ActionSheetController, LoadingController, NavController, NavParams, AlertController } from 'ionic-angular';
+import { ActionSheetController, LoadingController, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -7,6 +8,7 @@ import { ProjectHistoryPage } from '../project-history/project-history';
 import { ReviewComponentsPage } from './../review-components/review-components';
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'project-page',
@@ -30,12 +32,19 @@ export class ProjectPage {
     private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private provider: ScreenProvider) {
+    private provider: ScreenProvider,
+    private socket: Socket) {
       this.projectId = this.navParams.get('projectId');
       this.projectName = this.navParams.get('projectName');
       this.aspectRatio = this.navParams.get('aspectRatio');
       this.getLoggedUser();
       this.getScreens(this.projectId);
+
+      this.listenChanges().subscribe((projectId) => {
+        if(this.projectId === projectId) {
+          this.getScreens(this.projectId);
+        }
+      });
   }
 
   handleView(screenId, screenName) {
@@ -51,6 +60,7 @@ export class ProjectPage {
 
   async getScreens(projectId) {
     this.loading = true;
+    this.screens = [];
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
@@ -185,6 +195,15 @@ export class ProjectPage {
 
   async getLoggedUser() {
     this.user = await this.nativeStorage.getItem('facebook_user');
+  }
+
+  listenChanges() {
+    let observable = new Observable(observer => {
+      this.socket.on('screens_changes', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
   }
 
   manageScreen(screen) {

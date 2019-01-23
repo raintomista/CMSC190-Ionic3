@@ -149,7 +149,7 @@ export class SharedTabProvider {
       html2canvas(document.getElementById('preview-box'), {
         allowTaint: false,
         logging: false,
-        scale: 2.5,
+        scale: 0.8,
         useCORS: true
       }).then(async (canvas) => {
         await this.provider.updateScreen({
