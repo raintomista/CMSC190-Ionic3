@@ -1,3 +1,4 @@
+import { ImagePicker } from '@ionic-native/image-picker';
 import { Socket } from 'ng-socket-io';
 import { Component } from '@angular/core';
 import { ActionSheetController, LoadingController, NavController, NavParams, AlertController, Events } from 'ionic-angular';
@@ -33,6 +34,7 @@ export class ProjectPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private provider: ScreenProvider,
+    private imagePicker: ImagePicker,
     private socket: Socket) {
       this.projectId = this.navParams.get('projectId');
       this.projectName = this.navParams.get('projectName');
@@ -45,17 +47,6 @@ export class ProjectPage {
           this.getScreens(this.projectId);
         }
       });
-  }
-
-  handleView(screenId, screenName) {
-    this.navCtrl.push(ScreenTabsPage, {
-      aspectRatio: this.aspectRatio,
-      projectId: this.projectId,
-      projectName: this.projectName,
-      screenId: screenId,
-      screenName: screenName,
-    });
-
   }
 
   async getScreens(projectId) {
@@ -82,7 +73,7 @@ export class ProjectPage {
         }, {
           text: 'Choose from Library',
           handler: () => {
-            // this.choosePhoto();
+            this.choosePhoto();
           }
         },
         {
@@ -109,7 +100,7 @@ export class ProjectPage {
       const filename = imagePath.substr(imagePath.lastIndexOf('/') + 1);
       const filepath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
       await this.copyFileToLocal(filepath, filename); // Store image from cache to local storage
-      await this.uploadFile()
+      await this.uploadFile(this.file.dataDirectory + this.selectedFile)
     }, (e) => {
       throw new Error(e);
     });
@@ -125,11 +116,10 @@ export class ProjectPage {
     }
   }
 
-  async uploadFile() {
-    const filePath = this.file.dataDirectory + this.selectedFile;
-
+  async uploadFile(filePath) {
     try {
       // Resolve file from local storage
+
       const entry = await this.file.resolveLocalFilesystemUrl(filePath);
       (<FileEntry>entry).file((file) => {
         const reader = new FileReader();
@@ -161,6 +151,23 @@ export class ProjectPage {
     } catch (e) {
       throw new Error(e);
     }
+  }
+
+  choosePhoto() {
+    let options = {
+      maximumImagesCount: 1,
+      quality: 100
+    }
+
+    this.imagePicker.getPictures(options)
+      .then(async (results) => {
+        if(results.length > 0) {
+          await this.uploadFile(results[0]);
+        }
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
   }
 
   /* Helper Functions for Templates */
@@ -195,6 +202,17 @@ export class ProjectPage {
 
   async getLoggedUser() {
     this.user = await this.nativeStorage.getItem('facebook_user');
+  }
+
+  handleView(screenId, screenName) {
+    this.navCtrl.push(ScreenTabsPage, {
+      aspectRatio: this.aspectRatio,
+      projectId: this.projectId,
+      projectName: this.projectName,
+      screenId: screenId,
+      screenName: screenName,
+    });
+
   }
 
   listenChanges() {

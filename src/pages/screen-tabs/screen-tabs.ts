@@ -45,7 +45,7 @@ export class ScreenTabsPage {
 
         setTimeout(() => {
           this.sharedProvider.saveScreenshot();
-        }, 2000);
+        }, 3000);
       }
     });
   }

@@ -1,3 +1,4 @@
+import { ImagePicker } from '@ionic-native/image-picker';
 import { EditComponentPage } from './../pages/edit-component/edit-component';
 
 
@@ -94,6 +95,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     Facebook,
     File,
     FilePath,
+    ImagePicker,
     NativeStorage,
     ScreenProvider,
     ProjectProvider,
