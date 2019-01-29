@@ -17,12 +17,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ProjectPage {
   user: any;
+  aspectRatio: string;
   loading: boolean = true;
   projectId: string = null;
   projectName: string = null;
-  aspectRatio: string;
-  selectedFile: string = null;
   screens: any = [];
+  selectedFile: string = null;
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
@@ -147,7 +147,14 @@ export class ProjectPage {
 
     try {
       const results = await this.provider.addScreen(formData);
-      this.navCtrl.push(ReviewComponentsPage, results);
+      this.navCtrl.push(ReviewComponentsPage, {
+        aspectRatio: this.aspectRatio,
+        order: this.screens.length,
+        projectId: this.projectId,
+        projectName: this.projectName,
+
+        ...results
+      });
     } catch (e) {
       throw new Error(e);
     }

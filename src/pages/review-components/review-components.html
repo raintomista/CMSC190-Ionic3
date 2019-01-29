@@ -1,11 +1,11 @@
-<ion-header>
+  <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Review Components</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="exit()">
         <ion-icon name="close"></ion-icon>
       </button>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="proceed()">
         <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,19 +14,13 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      Labelled Image ({{processing_time}} sec)
+      Detected Components ({{processing_time}} sec)
     </ion-list-header>
-    <img [src]="labelled_file">
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Detected Components
-    </ion-list-header>
-    <ion-item-group [reorder]="reorder_mode">
+    <ion-item-group [reorder]="reorder_mode" (ionItemReorder)="reorderItems($event)">
       <ion-item-sliding *ngFor="let component of detected_components">
         <ion-item>
           <ion-thumbnail item-start>
-            <img [src]="getComponentPreview(component)">
+            <img [src]="component.preview_url">
           </ion-thumbnail>
           <h2>{{component.name}}</h2>
           <p>{{component.percentage_probability}}</p>
