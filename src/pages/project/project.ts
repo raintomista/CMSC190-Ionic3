@@ -44,21 +44,9 @@ export class ProjectPage {
 
       this.listenChanges().subscribe((projectId) => {
         if(this.projectId === projectId) {
-          this.getScreens(this.projectId);
+          this.refreshScreens (this.projectId);
         }
       });
-  }
-
-  async getScreens(projectId) {
-    this.loading = true;
-    this.screens = [];
-    try {
-      const response = await this.provider.getScreens(projectId) as any;
-      this.screens = response.items;
-      this.loading = false;
-    } catch (e) {
-      throw new Error(e);
-    }
   }
 
   addNewScreen() {
@@ -211,6 +199,18 @@ export class ProjectPage {
     this.user = await this.nativeStorage.getItem('facebook_user');
   }
 
+  async getScreens(projectId) {
+    this.loading = true;
+    this.screens = [];
+    try {
+      const response = await this.provider.getScreens(projectId) as any;
+      this.screens = response.items;
+      this.loading = false;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   handleView(screenId, screenName) {
     this.navCtrl.push(ScreenTabsPage, {
       aspectRatio: this.aspectRatio,
@@ -256,6 +256,15 @@ export class ProjectPage {
     });
 
     actionSheet.present();
+  }
+
+  async refreshScreens(projectId) {
+    try {
+      const response = await this.provider.getScreens(projectId) as any;
+      this.screens = response.items;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   showAlert(title, subtitle) {

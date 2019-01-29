@@ -70,8 +70,8 @@ export class ReviewComponentsPage {
         project_id: this.projectId
       }) as any;
 
-      loading.dismiss()
       this.navCtrl.pop();
+      loading.dismiss()
       this.navCtrl.push(ScreenTabsPage, {
         aspectRatio: this.aspectRatio,
         projectId: this.projectId,
