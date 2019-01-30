@@ -26,8 +26,8 @@
         <p class="details">
           <span *ngIf="project.no_of_screens === 1">{{project.no_of_screens}} Screen</span>
           <span *ngIf="project.no_of_screens !== 1">{{project.no_of_screens}} Screens</span>
-          <span *ngIf="user.id === project.author_id">&middot; Owner</span>
-          <span *ngIf="user.id !== project.author_id">&middot; Collaborator</span>
+          <!-- <span *ngIf="user.id === project.author_id">&middot; Owner</span>
+          <span *ngIf="user.id !== project.author_id">&middot; Collaborator</span> -->
         </p>
         <p class="timestamp" item-end>{{formatDate(project.date_modified)}}
 
