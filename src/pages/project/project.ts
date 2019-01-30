@@ -171,6 +171,27 @@ export class ProjectPage {
     return parseInt(ratio[0]) / parseInt(ratio[1]);
   }
 
+  confirmDelete(screen) {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Delete',
+      message: 'Are you sure you want to delete this screen?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteScreen(screen);
+          }
+        }
+      ]
+    });
+
+    alert.present();
+  }
+
   async deleteScreen(screen) {
     try {
       await this.provider.deleteScreen(screen, this.user.id);
@@ -245,7 +266,7 @@ export class ProjectPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.deleteScreen(screen)
+            this.confirmDelete(screen)
           }
         },
         {
