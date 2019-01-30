@@ -6,6 +6,16 @@ page-screen-tabs {
     overflow: hidden;
   }
 
+  .scroll-content .loader {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .scroll-content .loader .spinner {
+    align-self: center;
+  }
+
   .preview-box {
     position: relative;
     background-color: rgb(246, 246, 246);
@@ -13,16 +23,6 @@ page-screen-tabs {
     height: 95%;
     max-height: 95%;
     overflow: hidden;
-  }
-
-  .preview-box .loader {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-  }
-
-  .preview-box .loader .spinner {
-    align-self: center;
   }
 
   .preview-scroll-content {
