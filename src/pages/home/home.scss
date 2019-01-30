@@ -1,6 +1,11 @@
 page-home {
   .list-header-md {
     margin-bottom: 0px;
+    min-height: auto;
+  }
+
+  .label-md {
+    margin-bottom: 0px;
   }
 
   ion-item .details {

@@ -43,11 +43,6 @@ export class HomePage {
 
       this.socket.connect();
 
-      // Listen to reload event
-      this.events.subscribe('reload-home', () => {
-        this.getProjects();
-      });
-
       this.listenChanges().subscribe((id) => {
           this.refreshProjects();
       });
@@ -56,8 +51,7 @@ export class HomePage {
   async deleteProject(id) {
     try {
       const response = await this.provider.deleteProject(id) as any;
-      this.showAlert(null, `The project has been successfully deleted.`);
-      this.getProjects();
+      this.showAlert('Success', `You have successfully deleted the project.`);
     } catch (e) {
       throw new Error(e);
     }
@@ -66,8 +60,7 @@ export class HomePage {
   async editProject(project, newName) {
     try {
       const response = await this.provider.editProject(project.id, newName) as any;
-      this.showAlert(null, `The project has been successfully renamed to ${newName}.`);
-      this.getProjects();
+      this.showAlert('Success', `You have successfully renamed the project to ${newName}.`);
     } catch (e) {
       throw new Error(e);
     }
@@ -171,6 +164,18 @@ export class HomePage {
     modal.present();
   }
 
+  async pullToRefresh(refresher) {
+    try {
+      this.user = await this.nativeStorage.getItem('facebook_user');
+      const response = await this.provider.getProjects(this.user.id) as any;
+      this.projects = response.items;
+      refresher.complete()
+    } catch (e) {
+      refresher.complete()
+      throw new Error(e);
+    }
+  }
+
   async refreshProjects() {
     try {
       this.user = await this.nativeStorage.getItem('facebook_user');
@@ -192,7 +197,7 @@ export class HomePage {
 
   showConfirm(handler) {
     const confirm = this.alertCtrl.create({
-      title: 'Confirm',
+      title: 'Confirm Delete',
       message: 'Are you sure you want to delete this project?',
       buttons: [
         {
