@@ -71,7 +71,8 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
-
+$refresher-icon-color: color($colors, primary);
+$refresher-text-color: color($colors, primary);
 
 // Ionicons
 // --------------------------------------------------

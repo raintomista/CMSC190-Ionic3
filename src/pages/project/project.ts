@@ -258,6 +258,17 @@ export class ProjectPage {
     actionSheet.present();
   }
 
+  async pullToRefresh(refresher) {
+    try {
+      const response = await this.provider.getScreens(this.projectId) as any;
+      this.screens = response.items;
+      refresher.complete();
+    } catch (e) {
+      refresher.complete();
+      throw new Error(e);
+    }
+  }
+
   async refreshScreens(projectId) {
     try {
       const response = await this.provider.getScreens(projectId) as any;
