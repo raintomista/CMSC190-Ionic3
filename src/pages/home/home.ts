@@ -16,6 +16,7 @@ import { ProjectPage } from './../project/project';
 import { TargetPlatformPage } from './../target-platform/target-platform';
 import { ProjectProvider } from './../../providers/project/project';
 import moment from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -45,6 +46,10 @@ export class HomePage {
       // Listen to reload event
       this.events.subscribe('reload-home', () => {
         this.getProjects();
+      });
+
+      this.listenChanges().subscribe((id) => {
+          this.refreshProjects();
       });
   }
 
@@ -142,6 +147,15 @@ export class HomePage {
     prompt.present();
   }
 
+  listenChanges() {
+    let observable = new Observable(observer => {
+      this.socket.on('project_changes', (data) => {
+        observer.next(data);
+      });
+    })
+    return observable;
+  }
+
   async logout() {
     try {
       this.fb.logout();
@@ -155,6 +169,16 @@ export class HomePage {
   openModal(id, projectName) {
     const modal = this.modalCtrl.create(TargetPlatformPage, { projectName: projectName });
     modal.present();
+  }
+
+  async refreshProjects() {
+    try {
+      this.user = await this.nativeStorage.getItem('facebook_user');
+      const response = await this.provider.getProjects(this.user.id) as any;
+      this.projects = response.items;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   showAlert(title, subtitle) {
