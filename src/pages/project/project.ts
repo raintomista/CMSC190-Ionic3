@@ -196,9 +196,9 @@ export class ProjectPage {
     try {
       await this.provider.deleteScreen(screen, this.user.id);
       this.getScreens(this.projectId);
-      this.showAlert('Success', `Successfully deleted ${screen.name}`);
+      this.showAlert('Success', `You have successfully deleted ${screen.name}`);
     } catch(e) {
-      this.showAlert('Error', `Something went wrong. Please try again.`);
+      this.showAlert('Error', `Unable to delete screen. Please try again.`);
       throw new Error(e);
     }
   }
@@ -208,10 +208,10 @@ export class ProjectPage {
       const newScreen = Object.assign({}, screen);
       newScreen.name = screenName;
       await this.provider.updateScreen(newScreen, this.user.id);
-      this.showAlert('Success', `Successfully changed screen name to ${screenName}`);
+      this.showAlert('Success', `You have successfully renamed screen to ${screenName}`);
       screen.name = screenName;
     } catch(e) {
-      this.showAlert('Error', `Something went wrong. Please try again.`);
+      this.showAlert('Error', `Unable to rename screen. Please try again.`);
       throw new Error(e);
     }
   }
@@ -256,6 +256,12 @@ export class ProjectPage {
     let actionSheet = this.actionSheetCtrl.create({
       title: screen.name,
       buttons: [
+        {
+          text: 'View',
+          handler: () => {
+            this.handleView(screen.id, screen.name);
+          }
+        },
         {
           text: 'Edit',
           handler: () => {
