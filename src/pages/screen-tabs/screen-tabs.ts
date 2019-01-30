@@ -43,10 +43,6 @@ export class ScreenTabsPage {
     this.listenChanges().subscribe((screenId) => {
       if(this.screenId === screenId) {
         this.sharedProvider.getScreen(screenId);
-
-        setTimeout(() => {
-          this.sharedProvider.saveScreenshot();
-        }, 3000);
       }
     });
   }
