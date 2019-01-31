@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController } from 
 import { ScreenProvider } from './../../providers/screen/screen';
 import { HeaderWithMenu } from './../../models/header-with-menu.model';
 import { Image } from '../../models/image.model';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -22,26 +23,34 @@ export class ReviewComponentsPage {
   order: number;
   projectId: string;
   projectName: string;
+  user: any;
 
   constructor(
     private alertProvider: AlertProvider,
     private loadingCtrl: LoadingController,
+    private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
     private provider: ScreenProvider) {
-    this.original_file = this.navParams.get('original_file');
-    this.labelled_file = this.navParams.get('labelled_file');
-    this.detected_components = this.navParams.get('detected_components');
-    this.processing_time = this.navParams.get('processing_time');
+      this.getLoggedUser();
 
-    this.aspectRatio = this.navParams.get('aspectRatio');
-    this.order = this.navParams.get('order');
-    this.projectId = this.navParams.get('projectId');
-    this.projectName = this.navParams.get('projectName');
+      this.original_file = this.navParams.get('original_file');
+      this.labelled_file = this.navParams.get('labelled_file');
+      this.detected_components = this.navParams.get('detected_components');
+      this.processing_time = this.navParams.get('processing_time');
+
+      this.aspectRatio = this.navParams.get('aspectRatio');
+      this.order = this.navParams.get('order');
+      this.projectId = this.navParams.get('projectId');
+      this.projectName = this.navParams.get('projectName');
   }
 
   exit() {
     this.navCtrl.pop();
+  }
+
+  async getLoggedUser() {
+    this.user = await this.nativeStorage.getItem('facebook_user');
   }
 
   async proceed() {
@@ -63,12 +72,14 @@ export class ReviewComponentsPage {
 
     loading.present();
 
+    let data = {
+      components: components,
+      order: this.order,
+      project_id: this.projectId
+    };
+
     try {
-      let response = await this.provider.createComponents({
-        components: components,
-        order: this.order,
-        project_id: this.projectId
-      }) as any;
+      let response = await this.provider.createComponents(this.user.id, data) as any;
 
       this.navCtrl.pop();
       loading.dismiss()

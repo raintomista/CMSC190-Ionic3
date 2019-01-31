@@ -87,9 +87,9 @@ export class ScreenProvider {
     });
   }
 
-  createComponents(data) {
+  createComponents(userId, data) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.apiUrl + '/components', data)
+      this.http.post(environment.apiUrl + '/components?user_id=' + userId, data)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
