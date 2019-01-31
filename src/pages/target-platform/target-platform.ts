@@ -60,7 +60,7 @@ export class TargetPlatformPage {
         no_of_screens: 0,
       }, this.formGroup.value);
 
-      const response = await this.projectProvider.addProject(newProject);
+      const response = await this.projectProvider.addProject(newProject, author.id);
       this.showAlert('Success', `You have successfully created ${newProject.name}.`);
     } catch(e) {
       this.showAlert('Unable to Create Project', 'An error occurred. Please try again.');

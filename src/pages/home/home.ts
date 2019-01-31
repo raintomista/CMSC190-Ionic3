@@ -59,7 +59,7 @@ export class HomePage {
 
   async editProject(project, newName) {
     try {
-      const response = await this.provider.editProject(project.id, newName) as any;
+      const response = await this.provider.editProject(project.id, newName, this.user.id) as any;
       this.showAlert('Success', `You have successfully renamed the project to ${newName}.`);
     } catch (e) {
       throw new Error(e);

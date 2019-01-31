@@ -19,9 +19,9 @@ export class ProjectProvider {
     });
   }
 
-  addProject(data) {
+  addProject(data, userId) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.apiUrl + '/projects', data)
+      this.http.post(environment.apiUrl + '/projects?user_id=' + userId, data)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
@@ -30,9 +30,9 @@ export class ProjectProvider {
     });
   }
 
-  editProject(id, name) {
+  editProject(id, name, userId) {
     return new Promise((resolve, reject) => {
-      this.http.put(environment.apiUrl + '/projects/' + id, { name })
+      this.http.put(environment.apiUrl + '/projects/' + id + '?user_id=' + userId, { name })
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
