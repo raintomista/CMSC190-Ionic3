@@ -171,7 +171,7 @@ export class ProjectPage {
     return parseInt(ratio[0]) / parseInt(ratio[1]);
   }
 
-  confirmDelete(screen) {
+  confirmDelete(screen, index) {
     let alert = this.alertCtrl.create({
       title: 'Confirm Delete',
       message: 'Are you sure you want to delete this screen?',
@@ -183,7 +183,7 @@ export class ProjectPage {
         {
           text: 'Delete',
           handler: () => {
-            this.deleteScreen(screen);
+            this.deleteScreen(screen, index);
           }
         }
       ]
@@ -192,10 +192,10 @@ export class ProjectPage {
     alert.present();
   }
 
-  async deleteScreen(screen) {
+  async deleteScreen(screen, index) {
     try {
       await this.provider.deleteScreen(screen, this.user.id);
-      this.getScreens(this.projectId);
+      this.screens.splice(index, 1);
       this.showAlert('Success', `You have successfully deleted ${screen.name}`);
     } catch(e) {
       this.showAlert('Error', `Unable to delete screen. Please try again.`);
@@ -252,7 +252,7 @@ export class ProjectPage {
     return observable;
   }
 
-  manageScreen(screen) {
+  manageScreen(screen, index) {
     let actionSheet = this.actionSheetCtrl.create({
       title: screen.name,
       buttons: [
@@ -272,7 +272,7 @@ export class ProjectPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.confirmDelete(screen)
+            this.confirmDelete(screen, index)
           }
         },
         {
