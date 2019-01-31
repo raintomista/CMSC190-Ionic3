@@ -50,7 +50,7 @@ export class HomePage {
 
   async deleteProject(id) {
     try {
-      const response = await this.provider.deleteProject(id) as any;
+      const response = await this.provider.deleteProject(id, this.user.id) as any;
       this.showAlert('Success', `You have successfully deleted the project.`);
     } catch (e) {
       throw new Error(e);

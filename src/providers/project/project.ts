@@ -41,9 +41,9 @@ export class ProjectProvider {
     });
   }
 
-  deleteProject(id) {
+  deleteProject(id, userId) {
     return new Promise((resolve, reject) => {
-      this.http.delete(environment.apiUrl + '/projects/' + id)
+      this.http.delete(environment.apiUrl + '/projects/' + id + '?user_id=' + userId)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
