@@ -1,0 +1,23 @@
+page-project-settings {
+    .list-header-md {
+        margin-bottom: 0px;
+        min-height: auto;
+    }
+    .label-md {
+        margin-bottom: 0px;
+    }
+    .footer-md::before {
+        background-image: none;
+    }
+    .toolbar-background-ios,
+    .toolbar-background-md {
+        background-color: white;
+    }
+    .toolbar-content-ios,
+    .toolbar-content-md {
+        padding: 8px;
+    }
+    .save-btn {
+        margin: 0px;
+    }
+}

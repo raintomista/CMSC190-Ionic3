@@ -10,6 +10,7 @@ import { ReviewComponentsPage } from './../review-components/review-components';
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { Observable } from 'rxjs/Observable';
+import { ProjectSettingsPage } from '../project-settings/project-settings';
 
 @Component({
   selector: 'project-page',
@@ -345,6 +346,16 @@ export class ProjectPage {
           text: 'View Project History',
           handler: () => {
             this.navCtrl.push(ProjectHistoryPage, { projectId: this.projectId})
+          }
+        },
+        {
+          text: 'Edit Project Settings',
+          handler: () => {
+            this.navCtrl.push(ProjectSettingsPage, {
+              aspectRatio: this.aspectRatio,
+              projectId: this.projectId,
+              projectName: this.projectName
+            });
           }
         },
         {

@@ -40,6 +40,7 @@ import { ReplaceComponentPage } from '../pages/replace-component/replace-compone
 import { environment } from './../environments/environment';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { ProjectSettingsPage } from '../pages/project-settings/project-settings';
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
@@ -49,6 +50,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HomePage,
     ProjectPage,
     ProjectHistoryPage,
+    ProjectSettingsPage,
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,
@@ -77,6 +79,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HomePage,
     ProjectPage,
     ProjectHistoryPage,
+    ProjectSettingsPage,
     TargetPlatformPage,
     ReviewComponentsPage,
     ScreenTabsPage,

@@ -41,6 +41,17 @@ export class ProjectProvider {
     });
   }
 
+  editProjectSettings(id, settings, userId) {
+    return new Promise((resolve, reject) => {
+      this.http.put(environment.apiUrl + '/projects/' + id + '?user_id=' + userId, settings)
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   deleteProject(id, userId) {
     return new Promise((resolve, reject) => {
       this.http.delete(environment.apiUrl + '/projects/' + id + '?user_id=' + userId)

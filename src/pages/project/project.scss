@@ -4,25 +4,24 @@ project-page {
         padding-top: 8px;
         text-align: center;
     }
-
     .empty-state {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
     }
-
     .screen-name {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-
     .thumbnail {
-        background-color: #ececec;
+        background-color: rgb(246, 246, 246);
         margin: 5px 0px;
         overflow: hidden;
+    }
+    .thumbnail img {
         width: 100%;
     }
 }

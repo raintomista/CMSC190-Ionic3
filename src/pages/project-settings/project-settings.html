@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Project Settings
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <ion-list radio-group formControlName="platform">
+      <ion-list-header>
+        Platform
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Android</ion-label>
+        <ion-radio value="android"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="aspect_ratio">
+      <ion-list-header>
+        Aspect Ratio
+      </ion-list-header>
+      <ion-item>
+        <ion-label>3:2</ion-label>
+        <ion-radio value="3:2"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>16:9</ion-label>
+        <ion-radio value="16:9"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>16:10</ion-label>
+        <ion-radio value="16:10"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>18:9</ion-label>
+        <ion-radio value="18:9"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button type="submit" ion-button full (click)="submit()">Save Changes</button>
+  </ion-toolbar>
+</ion-footer>
