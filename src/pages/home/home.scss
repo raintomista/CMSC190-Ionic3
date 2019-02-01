@@ -1,28 +1,29 @@
 page-home {
-  .list-header-md {
-    margin-bottom: 0px;
-    min-height: auto;
-  }
-
-  .label-md {
-    margin: 8px 0px;
-  }
-
-  ion-item .details {
-    color: gray;
-  }
-
-  .loader {
-    text-align: center;
-    height: 40px;
-  }
-
-  .loader ion-spinner * {
-    height: 40px;
-    width: 40px;
-  }
-
-  .timestamp {
-    margin-top: 0px !important;
-  }
+    .list-header-md {
+        margin-bottom: 0px;
+        min-height: auto;
+    }
+    .label-md {
+        margin: 8px 0px;
+    }
+    ion-item .details {
+        color: gray;
+    }
+    .loader {
+        text-align: center;
+        height: 40px;
+    }
+    .loader ion-spinner * {
+        height: 40px;
+        width: 40px;
+    }
+    .empty-state {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    .timestamp {
+        margin-top: 0px !important;
+    }
 }

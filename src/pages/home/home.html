@@ -9,14 +9,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher
-    (ionRefresh)="pullToRefresh($event)"
-    pullingIcon="arrow-dropdown"
-    pullingText="Pull to refresh"
-    color="primary">
-      <ion-refresher-content></ion-refresher-content>
+  <ion-refresher (ionRefresh)="pullToRefresh($event)" pullingIcon="arrow-dropdown" pullingText="Pull to refresh" color="primary">
+    <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-list>
+  <div class="loader" *ngIf="!projects">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <div class="empty-state" *ngIf="projects && projects.length === 0">
+    <ion-note>No projects yet!</ion-note>
+  </div>
+  <ion-list *ngIf="projects && projects.length > 0">
     <ion-list-header>
       My Projects
     </ion-list-header>
@@ -44,9 +46,6 @@
         </button>
       </ion-item-options>
     </ion-item-sliding>
-    <div class="loader" *ngIf="!projects">
-      <ion-spinner color="primary"></ion-spinner>
-    </div>
   </ion-list>
   <ion-fab right bottom (click)="handleAdd()">
     <button ion-fab color="primary">
