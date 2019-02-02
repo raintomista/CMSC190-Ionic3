@@ -37,17 +37,17 @@ export class ProjectPage {
     private provider: ScreenProvider,
     private imagePicker: ImagePicker,
     private socket: Socket) {
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
-      this.aspectRatio = this.navParams.get('aspectRatio');
-      this.getLoggedUser();
-      this.getScreens(this.projectId);
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
+    this.aspectRatio = this.navParams.get('aspectRatio');
+    this.getLoggedUser();
+    this.getScreens(this.projectId);
 
-      this.listenChanges().subscribe((projectId) => {
-        if(this.projectId === projectId) {
-          this.refreshScreens (this.projectId);
-        }
-      });
+    this.listenChanges().subscribe((projectId) => {
+      if (this.projectId === projectId) {
+        this.refreshScreens(this.projectId);
+      }
+    });
   }
 
   addNewScreen() {
@@ -157,7 +157,7 @@ export class ProjectPage {
 
     this.imagePicker.getPictures(options)
       .then(async (results) => {
-        if(results.length > 0) {
+        if (results.length > 0) {
           await this.uploadFile(results[0]);
         }
       })
@@ -198,7 +198,7 @@ export class ProjectPage {
       await this.provider.deleteScreen(screen, this.user.id);
       this.screens.splice(index, 1);
       this.showAlert('Success', `You have successfully deleted ${screen.name}`);
-    } catch(e) {
+    } catch (e) {
       this.showAlert('Error', `Unable to delete screen. Please try again.`);
       throw new Error(e);
     }
@@ -211,8 +211,34 @@ export class ProjectPage {
       await this.provider.updateScreen(newScreen, this.user.id);
       this.showAlert('Success', `You have successfully renamed screen to ${screenName}`);
       screen.name = screenName;
-    } catch(e) {
+    } catch (e) {
       this.showAlert('Error', `Unable to rename screen. Please try again.`);
+      throw new Error(e);
+    }
+  }
+
+  async exportScreen(screen) {
+    let files = {
+      "hello_world.rb": {
+        "content": "class HelloWorld\n   def initialize(name)\n      @name = name.capitalize\n   end\n   def sayHi\n      puts \"Hello !\"\n   end\nend\n\nhello = HelloWorld.new(\"World\")\nhello.sayHi"
+      },
+      "hello_world1.rb": {
+        "content": "class HelloWorld\n   def initialize(name)\n      @name = name.capitalize\n   end\n   def sayHi\n      puts \"Hello !\"\n   end\nend\n\nhello = HelloWorld.new(\"World\")\nhello.sayHi"
+      }
+    }
+
+    let data = {
+      description: this.projectName + " - " + screen.name,
+      public: true,
+      files: files
+    }
+
+    try {
+      const gist = await this.provider.exportScreen(data) as any;
+      const response = await this.provider.shortenURL(gist.html_url) as any;
+      this.showAlert('Export Success', `You may now access its source code at ${response.link}`);
+    } catch (e) {
+      this.showAlert('Error', `Unable to export screen. Please try again.`);
       throw new Error(e);
     }
   }
@@ -277,6 +303,12 @@ export class ProjectPage {
           }
         },
         {
+          text: 'Export',
+          handler: () => {
+            this.exportScreen(screen);
+          }
+        },
+        {
           text: 'Cancel',
           role: 'cancel'
         }
@@ -318,7 +350,7 @@ export class ProjectPage {
   showInputPrompt(screen) {
     const prompt = this.alertCtrl.create({
       title: 'Edit Screen Name',
-      inputs: [{ name:  'screenName', value: screen.name }],
+      inputs: [{ name: 'screenName', value: screen.name }],
       buttons: [
         {
           text: 'Cancel'
@@ -341,11 +373,11 @@ export class ProjectPage {
 
   showMore() {
     let actionSheet = this.actionSheetCtrl.create({
-      buttons:[
+      buttons: [
         {
           text: 'View Project History',
           handler: () => {
-            this.navCtrl.push(ProjectHistoryPage, { projectId: this.projectId})
+            this.navCtrl.push(ProjectHistoryPage, { projectId: this.projectId })
           }
         },
         {

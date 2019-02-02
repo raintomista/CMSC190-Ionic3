@@ -41,6 +41,8 @@ import { environment } from './../environments/environment';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ProjectSettingsPage } from '../pages/project-settings/project-settings';
+import { HttpModule } from '@angular/http';
+
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
@@ -68,6 +70,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     BrowserModule,
     HttpClientModule,
     LongPressModule,
+    HttpModule,
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp, {
     })
