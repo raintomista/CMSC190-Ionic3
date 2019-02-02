@@ -252,6 +252,40 @@ export class ProjectPage {
     }
   }
 
+  async exportScreens() {
+    let loading = this.loadingCtrl.create({
+      content: `Exporting ${this.projectName}`,
+    });
+
+    loading.present();
+
+    let files = {}
+
+    for(let screen of this.screens) {
+      let filename = this.generateFilename(screen.name);
+      files[filename] = {
+        "content": await this.generateSourceCode(screen.id)
+      }
+    }
+
+    let data = {
+      description: this.projectName,
+      public: true,
+      files: files
+    }
+
+    try {
+      const gist = await this.provider.exportScreen(data) as any;
+      const response = await this.provider.shortenURL(gist.html_url) as any;
+      loading.dismiss();
+      this.showAlert('Export Success', `You may now access its source code at <a>${response.link}</a>`);
+    } catch (e) {
+      loading.dismiss();
+      this.showAlert('Error', `Unable to export screen. Please try again.`);
+      throw new Error(e);
+    }
+  }
+
   async generateSourceCode(screenId) {
     let sourceCode = '<ion-content>\n\t</ion-content>';
     let parsedComponents = '';
@@ -433,6 +467,16 @@ export class ProjectPage {
               projectId: this.projectId,
               projectName: this.projectName
             });
+          }
+        },
+        {
+          text: 'Export Project as Source Code',
+          handler: () => {
+            if(this.screens.length > 0) {
+              this.exportScreens();
+            } else {
+              this.showAlert('Export Failed', 'This project has no screens yet.');
+            }
           }
         },
         {
