@@ -1,3 +1,4 @@
+import { HeaderWithMenu } from './../../models/header-with-menu.model';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Socket } from 'ng-socket-io';
 import { Component } from '@angular/core';
@@ -11,6 +12,8 @@ import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { Observable } from 'rxjs/Observable';
 import { ProjectSettingsPage } from '../project-settings/project-settings';
+import { Image } from '../../models/image.model';
+import pretty from 'pretty';
 
 @Component({
   selector: 'project-page',
@@ -218,13 +221,11 @@ export class ProjectPage {
   }
 
   async exportScreen(screen) {
+    const filename = this.generateFilename(screen.name);
     let files = {
-      "hello_world.rb": {
-        "content": "class HelloWorld\n   def initialize(name)\n      @name = name.capitalize\n   end\n   def sayHi\n      puts \"Hello !\"\n   end\nend\n\nhello = HelloWorld.new(\"World\")\nhello.sayHi"
+      [filename]: {
+        "content": await this.generateSourceCode(screen.id)
       },
-      "hello_world1.rb": {
-        "content": "class HelloWorld\n   def initialize(name)\n      @name = name.capitalize\n   end\n   def sayHi\n      puts \"Hello !\"\n   end\nend\n\nhello = HelloWorld.new(\"World\")\nhello.sayHi"
-      }
     }
 
     let data = {
@@ -233,14 +234,58 @@ export class ProjectPage {
       files: files
     }
 
+    let loading = this.loadingCtrl.create({
+      content: `Exporting ${screen.name}`,
+    });
+
+    loading.present();
+
     try {
       const gist = await this.provider.exportScreen(data) as any;
       const response = await this.provider.shortenURL(gist.html_url) as any;
-      this.showAlert('Export Success', `You may now access its source code at ${response.link}`);
+      loading.dismiss();
+      this.showAlert('Export Success', `You may now access its source code at <a>${response.link}</a>`);
     } catch (e) {
+      loading.dismiss();
       this.showAlert('Error', `Unable to export screen. Please try again.`);
       throw new Error(e);
     }
+  }
+
+  async generateSourceCode(screenId) {
+    let sourceCode = '<ion-content>\n\t</ion-content>';
+    let parsedComponents = '';
+
+    try {
+      const response = await this.provider.getScreen(screenId) as any;
+      for(let i = 0; i < response.item.components.length; i++) {
+        let component = response.item.components[i];
+        if(i === 0 && component.type === 'HeaderWithMenu') {
+          let header = new HeaderWithMenu(component.value);
+          sourceCode = header.toSourceCode() + sourceCode;
+        }
+        else {
+          switch(component.type) {
+            case 'HeaderWithMenu':
+              let header = new HeaderWithMenu(component.value);
+              parsedComponents = parsedComponents.concat(header.toSourceCode());
+              break;
+            case 'Image':
+              let image = new Image(component.value);
+              parsedComponents = parsedComponents.concat(image.toSourceCode());
+              break;
+          }
+        }
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+
+    return pretty(sourceCode.replace('\t', parsedComponents), {ocd: true})
+  }
+
+  generateFilename(screenName) {
+    return screenName.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase() + '.html'
   }
 
   async getLoggedUser() {
@@ -303,7 +348,7 @@ export class ProjectPage {
           }
         },
         {
-          text: 'Export',
+          text: 'Export as Source Code',
           handler: () => {
             this.exportScreen(screen);
           }
