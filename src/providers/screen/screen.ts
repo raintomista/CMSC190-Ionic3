@@ -78,9 +78,9 @@ export class ScreenProvider {
     });
   }
 
-  updateComponent(id, component) {
+  updateComponent(id, mode, requestBody) {
     return new Promise((resolve, reject) => {
-      this.http.put(environment.apiUrl + '/components/' + id, component)
+      this.http.put(`${environment.apiUrl}/components/${id}?mode=${mode}`, requestBody)
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
