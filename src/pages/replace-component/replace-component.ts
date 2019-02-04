@@ -76,7 +76,7 @@ export class ReplaceComponentPage {
 
     try {
       const response = await this.provider.updateComponent(this.componentId, 'replace', {
-        screen_name: this.screenName,
+        activity_description: `Replaced ${this.componentType} with ${selectedItem}`,
         updated_component: updated_component,
         user_id: this.user.id,
       });
@@ -84,6 +84,7 @@ export class ReplaceComponentPage {
       loadingAlert.dismiss();
       this.alertProvider.showAlert('Success', `You have successfully replaced ${this.componentType} with ${selectedItem}.`);
     } catch (e) {
+      loadingAlert.dismiss();
       this.alertProvider.showAlert('Error', `Unable to replace the selected component. Please try again.`);
       throw new Error(e);
     }
