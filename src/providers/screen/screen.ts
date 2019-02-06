@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
@@ -152,5 +152,17 @@ export class ScreenProvider {
           reject(err);
         });
     });
+  }
+
+
+  uploadImage(file) {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    let req = new HttpRequest('POST', environment.apiUrl + '/upload', formData, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
   }
 }

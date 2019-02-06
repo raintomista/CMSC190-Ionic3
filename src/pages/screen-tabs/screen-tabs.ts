@@ -48,6 +48,7 @@ export class ScreenTabsPage {
         }
       });
   }
+
   ionViewWillLeave() {
     this.sharedProvider.saveScreenshot();
   }

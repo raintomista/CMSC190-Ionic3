@@ -7,13 +7,29 @@ page-edit-component {
         padding-top: 8px;
         text-align: center;
     }
-
     .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
-    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
         border-bottom-color: transparent;
         box-shadow: inset 0 -1px 0 0 #dedede;
         --webkit-box-shadow: inset 0 -1px 0 0 #dedede;
     }
+
+    .image-preview .list-header-md {
+        border-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .image-preview .label.label-md {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .preview-img {
+      width: 50%;
+    }
+
     .footer-md::before {
         background-image: none;
     }

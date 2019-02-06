@@ -42,6 +42,7 @@ import { environment } from './../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ProjectSettingsPage } from '../pages/project-settings/project-settings';
 import { HttpModule } from '@angular/http';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -71,6 +72,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HttpClientModule,
     LongPressModule,
     HttpModule,
+    IonicImageLoader.forRoot(),
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp, {
     })

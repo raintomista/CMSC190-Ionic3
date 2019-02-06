@@ -19,12 +19,24 @@
     <ion-list-header>
       {{form.value.type}}
     </ion-list-header>
-    <ion-list>
-      <ion-item>
-        <ion-label stacked>Text</ion-label>
-        <ion-input type="text" formControlName="value"></ion-input>
-      </ion-item>
-    </ion-list>
+    <ion-item *ngIf="componentType !== 'Image'">
+      <ion-label stacked>Text</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="componentType === 'Image'">
+      <ion-input type="text" formControlName="value" disabled></ion-input>
+      <button ion-button clear item-right (click)="replaceImage()">Replace Image</button>
+    </ion-item>
+  </ion-list>
+  <ion-list no-lines class="image-preview" *ngIf="!loading && componentType === 'Image'">
+    <ion-list-header>
+      Image Preview
+    </ion-list-header>
+    <ion-item>
+      <div class="preview-img">
+        <img-loader [src]="form.value.value" useImg></img-loader>
+      </div>
+    </ion-item>
   </ion-list>
 </ion-content>
 <ion-footer>
