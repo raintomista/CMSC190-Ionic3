@@ -15,14 +15,19 @@ import { ScreenTabsPage } from './../pages/screen-tabs/screen-tabs';
 })
 export class MyApp {
   rootPage: any;
+
   constructor(
-    private nativeStorage: NativeStorage,
-    private platform: Platform,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen) {
+    public nativeStorage: NativeStorage,
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen) {
       this.platform.ready().then(() => {
         nativeStorage.getItem('facebook_user')
           .then((data) => {
+            if(typeof(data) === 'undefined') {
+              throw new Error('');
+            }
+
             this.rootPage = HomePage;
             this.splashScreen.hide();
             this.statusBar.styleDefault();
@@ -30,7 +35,7 @@ export class MyApp {
           .catch((e) => {
             this.rootPage = LoginPage;
             this.splashScreen.hide();
-          this.statusBar.styleDefault();
+            this.statusBar.styleDefault();
           });
 
       });
