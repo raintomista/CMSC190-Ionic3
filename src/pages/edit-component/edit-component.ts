@@ -118,6 +118,9 @@ export class EditComponentPage {
       case 'Image':
         activityDescription += ' src';
         break;
+      case 'TextInput':
+        activityDescription += ' text';
+        break;
     }
 
     try {

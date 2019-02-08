@@ -36,6 +36,14 @@
             [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'Image'">
           </image>
+
+          <!-- Text Input -->
+          <text-input
+            [text]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            *ngIf="component.type === 'TextInput'">
+          </text-input>
         </ng-container>
       </div>
     </div>

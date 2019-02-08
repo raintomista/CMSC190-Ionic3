@@ -5,6 +5,7 @@ import { Events, IonicPage, NavController, NavParams, ViewController, LoadingCon
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HeaderWithMenu } from './../../models/header-with-menu.model';
 import { Image } from '../../models/image.model';
+import { TextInput } from '../../models/text-input.model';
 import { AlertProvider } from './../../providers/alert/alert';
 import { ScreenProvider } from './../../providers/screen/screen';
 
@@ -21,7 +22,7 @@ export class ReplaceComponentPage {
 
   /* Properties */
   alertVisible: boolean = false;
-  items: any[] = ['HeaderWithMenu', 'Image'];
+  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput'];
   loadingAlert: any = null;
   selected: number = null;
   user: any = null;
@@ -63,6 +64,9 @@ export class ReplaceComponentPage {
         break;
       case 'Image':
         updated_component = new Image();
+        break;
+      case 'TextInput':
+        updated_component = new TextInput();
         break;
     }
 

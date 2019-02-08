@@ -1,0 +1,7 @@
+<ion-item
+  [ngClass]="{'selected': selected}"
+  (press)="press($event)"
+  (onPressEnd)="onPressEnd()"
+  ion-long-press>
+  <ion-input type="text" [value]="text" disabled></ion-input>
+</ion-item>

@@ -1,3 +1,4 @@
+import { TextInputComponent } from './../components/text-input/text-input';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { EditComponentPage } from './../pages/edit-component/edit-component';
 
@@ -65,6 +66,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     EditComponentPage,
     HeaderWithMenuComponent,
     ImageComponent,
+    TextInputComponent,
     ReplaceComponentPage,
   ],
   imports: [
