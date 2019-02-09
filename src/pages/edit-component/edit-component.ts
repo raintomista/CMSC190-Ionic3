@@ -175,6 +175,9 @@ export class EditComponentPage {
       case 'Radio':
         activityDescription += ' text';
         break;
+      case 'ListItem':
+        activityDescription += ' text';
+        break;
     }
 
     try {

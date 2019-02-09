@@ -20,6 +20,7 @@ import { PasswordInput } from '../../models/password-input.model';
 import { FAB } from '../../models/floating-action-button.model';
 import { Checkbox } from '../../models/checkbox.model';
 import { Radio } from '../../models/radio.model';
+import { ListItem } from './../../models/list-item.model';
 
 @Component({
   selector: 'project-page',
@@ -293,7 +294,7 @@ export class ProjectPage {
   }
 
   async generateSourceCode(screenId) {
-    let sourceCode = '<ion-content>\n\t</ion-content>';
+    let sourceCode = '<ion-content padding>\n\t</ion-content>';
     let parsedComponents = '';
 
     try {
@@ -333,6 +334,10 @@ export class ProjectPage {
             case 'Radio':
               let radio = new Radio(component.value);
               parsedComponents = parsedComponents.concat(radio.toSourceCode());
+              break;
+            case 'ListItem':
+              let listItem = new ListItem(component.value);
+              parsedComponents = parsedComponents.concat(listItem.toSourceCode());
               break;
           }
         }
