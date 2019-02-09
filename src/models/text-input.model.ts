@@ -10,8 +10,7 @@ export class TextInput {
   toSourceCode() {
     return ` \
       <ion-item>
-        <ion-label floating>{{label}}</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" value="${this.value}"></ion-input>
       </ion-item>
     \ `
   }

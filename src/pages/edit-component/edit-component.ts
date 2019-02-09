@@ -121,6 +121,9 @@ export class EditComponentPage {
       case 'TextInput':
         activityDescription += ' text';
         break;
+      case 'PasswordInput':
+        activityDescription += ' value';
+        break;
     }
 
     try {

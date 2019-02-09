@@ -1,4 +1,3 @@
-import { HeaderWithMenu } from './../../models/header-with-menu.model';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Socket } from 'ng-socket-io';
 import { Component } from '@angular/core';
@@ -12,8 +11,12 @@ import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { Observable } from 'rxjs/Observable';
 import { ProjectSettingsPage } from '../project-settings/project-settings';
-import { Image } from '../../models/image.model';
 import pretty from 'pretty';
+
+import { HeaderWithMenu } from './../../models/header-with-menu.model';
+import { Image } from '../../models/image.model';
+import { TextInput } from '../../models/text-input.model';
+import { PasswordInput } from '../../models/password-input.model';
 
 @Component({
   selector: 'project-page',
@@ -307,6 +310,14 @@ export class ProjectPage {
             case 'Image':
               let image = new Image(component.value);
               parsedComponents = parsedComponents.concat(image.toSourceCode());
+              break;
+            case 'TextInput':
+              let textInput = new TextInput(component.value);
+              parsedComponents = parsedComponents.concat(textInput.toSourceCode());
+              break;
+            case 'PasswordInput':
+              let passwordInput = new PasswordInput(component.value);
+              parsedComponents = parsedComponents.concat(passwordInput.toSourceCode());
               break;
           }
         }

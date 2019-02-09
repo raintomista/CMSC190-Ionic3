@@ -44,6 +44,14 @@
             [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'TextInput'">
           </text-input>
+
+          <!-- Password Input -->
+          <password-input
+            [value]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            *ngIf="component.type === 'PasswordInput'">
+          </password-input>
         </ng-container>
       </div>
     </div>
