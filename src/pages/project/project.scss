@@ -17,7 +17,9 @@ project-page {
         text-overflow: ellipsis;
     }
     .thumbnail {
-        background-color: rgb(246, 246, 246);
+        background-color: white;
+        border: 1px solid rgb(246, 246, 246);
+        box-shadow: 1px 4px 7px 0px #d4d4d4;
         margin: 5px 0px;
         overflow: hidden;
     }
