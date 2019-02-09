@@ -19,14 +19,46 @@
     <ion-list-header>
       {{form.value.type}}
     </ion-list-header>
-    <ion-item *ngIf="componentType !== 'Image'">
-      <ion-label stacked>Text</ion-label>
+
+    <!-- Header With Menu Component -->
+    <ion-item *ngIf="componentType === 'HeaderWithMenu'">
+      <ion-label stacked>Title</ion-label>
       <ion-input type="text" formControlName="value"></ion-input>
     </ion-item>
+
+    <!-- Image Component -->
     <ion-item *ngIf="componentType === 'Image'">
       <ion-input type="text" formControlName="value" disabled></ion-input>
       <button ion-button clear item-right (click)="replaceImage()">Replace Image</button>
     </ion-item>
+
+    <!-- Text Input Component -->
+    <ion-item *ngIf="componentType === 'TextInput'">
+      <ion-label stacked>Value</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
+
+    <!-- Text Input Component -->
+    <ion-item *ngIf="componentType === 'PasswordInput'">
+      <ion-label stacked>Value</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
+
+    <!-- FAB Component -->
+    <ng-container *ngIf="componentType === 'FAB'">
+      <ion-list-header class="select-icon-header">
+        Select icon
+      </ion-list-header>
+      <ion-grid>
+        <ion-row *ngFor="let row of icons">
+          <ion-col col-2 *ngFor="let icon of row">
+            <button ion-button full icon-only clear [ngClass]="{'selected': icon == form.value.value }" (click)="selectIcon(icon)">
+              <ion-icon [name]="icon"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
   </ion-list>
   <ion-list no-lines class="image-preview" *ngIf="!loading && componentType === 'Image'">
     <ion-list-header>

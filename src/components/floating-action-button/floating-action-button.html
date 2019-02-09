@@ -1,0 +1,10 @@
+<ion-fab
+  right bottom
+  [ngClass]="{'selected': selected}"
+  (press)="press($event)"
+  (onPressEnd)="onPressEnd()"
+  ion-long-press>
+    <button ion-fab color="light">
+      <ion-icon [name]="icon"></ion-icon>
+    </button>
+</ion-fab>

@@ -17,6 +17,7 @@ import { HeaderWithMenu } from './../../models/header-with-menu.model';
 import { Image } from '../../models/image.model';
 import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
+import { FAB } from '../../models/floating-action-button.model';
 
 @Component({
   selector: 'project-page',
@@ -318,6 +319,10 @@ export class ProjectPage {
             case 'PasswordInput':
               let passwordInput = new PasswordInput(component.value);
               parsedComponents = parsedComponents.concat(passwordInput.toSourceCode());
+              break;
+            case 'FAB':
+              let fab = new FAB(component.value);
+              parsedComponents = parsedComponents.concat(fab.toSourceCode());
               break;
           }
         }

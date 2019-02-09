@@ -44,4 +44,18 @@ page-edit-component {
     .save-btn {
         margin: 0px;
     }
+
+
+    /** Ion Icon Picker **/
+    .select-icon-header {
+      border-top: 0px;
+    }
+
+    .selected, .button-clear-md.activated {
+      background-color: #488aff;
+    }
+
+    .selected *, .button-clear-md.activated * {
+      color: white;
+    }
 }

@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+
 import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { File, FileEntry } from '@ionic-native/file';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { NativeStorage } from '@ionic-native/native-storage';
+
 import { AlertProvider } from './../../providers/alert/alert';
 import { ScreenProvider } from './../../providers/screen/screen';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { JsonProvider } from '../../providers/json/json';
 
 @IonicPage()
 @Component({
   selector: 'page-edit-component',
   templateUrl: 'edit-component.html',
+  providers: [JsonProvider]
 })
 export class EditComponentPage {
   /* Nav Params */
@@ -21,6 +25,7 @@ export class EditComponentPage {
   user: any;
 
   form: FormGroup = null;
+  icons: string[] = []
   loading: Boolean = true;
 
   constructor(
@@ -28,25 +33,30 @@ export class EditComponentPage {
     private file: File,
     private fb: FormBuilder,
     private imagePicker: ImagePicker,
+    private jsonProvider: JsonProvider,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
     private provider: ScreenProvider,
     private viewCtrl: ViewController) {
-    this.componentId = this.navParams.get('componentId');
-    this.componentType = this.navParams.get('componentType');
-    this.screenName = this.navParams.get('screenName');
+      this.componentId = this.navParams.get('componentId');
+      this.componentType = this.navParams.get('componentType');
+      this.screenName = this.navParams.get('screenName');
 
-    // Instantiate form
-    this.form = this.fb.group({
-      'order': '',
-      'type': '',
-      'value': '',
-    });
+      // Instantiate form
+      this.form = this.fb.group({
+        'order': '',
+        'type': '',
+        'value': '',
+      });
 
-    this.getComponent(); // Get value of the selected component
-    this.getLoggedUser(); // Get logged user
+      this.getComponent(); // Get value of the selected component
+      this.getLoggedUser(); // Get logged user
+
+      if(this.componentType === 'FAB') {
+        this.getIonIcons();
+      }
   }
 
   dismiss() {
@@ -62,6 +72,28 @@ export class EditComponentPage {
         'value': response.item.value,
       });
       this.loading = false;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async getIonIcons() {
+    try {
+      const response = await this.jsonProvider.getIonIcons() as any;
+      let rows = Math.ceil(response.icons.length/6);
+      let icons = [];
+
+      for(let i = 0; i < rows; i++) {
+        let row = [];
+        for(let j = (i*6); j < (i*6)+6; j++) {
+          if(typeof response.icons[j] !== 'undefined') {
+            row.push(response.icons[j]);
+          }
+        }
+        icons.push(row);
+      }
+
+      this.icons = icons;
     } catch (e) {
       throw new Error(e);
     }
@@ -88,6 +120,17 @@ export class EditComponentPage {
       });
   }
 
+  selectIcon(icon) {
+    this.form.patchValue({
+      'value': icon,
+    });
+  }
+
+  setLoadingText(text: string) {
+    const elem = document.querySelector('div.loading-wrapper div.loading-content');
+    if (elem) elem.innerHTML = text;
+  }
+
   async resolveImage(filePath) {
     try {
       const entry = await this.file.resolveLocalFilesystemUrl(filePath);
@@ -106,7 +149,6 @@ export class EditComponentPage {
     }
   }
 
-
   async saveChanges() {
     let loadingAlert = this.alertProvider.showLoading('Saving changes');
     let activityDescription = `Edited ${this.componentType}`;
@@ -119,10 +161,13 @@ export class EditComponentPage {
         activityDescription += ' src';
         break;
       case 'TextInput':
-        activityDescription += ' text';
+        activityDescription += ' value';
         break;
       case 'PasswordInput':
         activityDescription += ' value';
+        break;
+      case 'FAB':
+        activityDescription += ' icon';
         break;
     }
 
@@ -159,10 +204,5 @@ export class EditComponentPage {
           this.form.patchValue({ value: event.body.file_url });
         }
       });
-  }
-
-  setLoadingText(text: string) {
-    const elem = document.querySelector('div.loading-wrapper div.loading-content');
-    if (elem) elem.innerHTML = text;
   }
 }

@@ -52,6 +52,14 @@
             [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'PasswordInput'">
           </password-input>
+
+          <!-- FAB Button -->
+          <floating-action-button
+            [icon]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            *ngIf="component.type === 'FAB'">
+          </floating-action-button>
         </ng-container>
       </div>
     </div>

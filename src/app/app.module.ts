@@ -1,9 +1,12 @@
-import { PasswordInputComponent } from './../components/password-input/password-input';
-import { TextInputComponent } from './../components/text-input/text-input';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { EditComponentPage } from './../pages/edit-component/edit-component';
 
-
+// Component Imports
+import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
+import { ImageComponent } from '../components/image/image';
+import { TextInputComponent } from './../components/text-input/text-input';
+import { PasswordInputComponent } from './../components/password-input/password-input';
+import { FloatingActionButtonComponent } from './../components/floating-action-button/floating-action-button';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -33,8 +36,6 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { ScreenProvider } from '../providers/screen/screen';
 import { ProjectProvider } from '../providers/project/project';
-import { ImageComponent } from '../components/image/image';
-import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
 import { LongPressModule } from 'ionic-long-press';
 import { AlertProvider } from '../providers/alert/alert';
 import { ReplaceComponentPage } from '../pages/replace-component/replace-component';
@@ -45,6 +46,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { ProjectSettingsPage } from '../pages/project-settings/project-settings';
 import { HttpModule } from '@angular/http';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { JsonProvider } from '../providers/json/json';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -69,7 +71,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HeaderWithMenuComponent,
     ImageComponent,
     TextInputComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    FloatingActionButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     ScreenProvider,
     ProjectProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AlertProvider
+    AlertProvider,
+    JsonProvider
   ]
 })
 export class AppModule {}
