@@ -169,6 +169,9 @@ export class EditComponentPage {
       case 'FAB':
         activityDescription += ' icon';
         break;
+      case 'Checkbox':
+        activityDescription += ' text';
+        break;
     }
 
     try {

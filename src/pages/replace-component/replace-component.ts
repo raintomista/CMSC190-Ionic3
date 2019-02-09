@@ -8,6 +8,7 @@ import { Image } from '../../models/image.model';
 import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
 import { FAB } from '../../models/floating-action-button.model';
+import { Checkbox } from '../../models/checkbox.model';
 import { AlertProvider } from './../../providers/alert/alert';
 import { ScreenProvider } from './../../providers/screen/screen';
 
@@ -24,7 +25,7 @@ export class ReplaceComponentPage {
 
   /* Properties */
   alertVisible: boolean = false;
-  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput', 'PasswordInput', 'FAB'];
+  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput', 'PasswordInput', 'FAB', 'Checkbox'];
   loadingAlert: any = null;
   selected: number = null;
   user: any = null;
@@ -75,6 +76,9 @@ export class ReplaceComponentPage {
         break;
       case 'FAB':
         updated_component = new FAB();
+        break;
+      case 'Checkbox':
+        updated_component = new Checkbox();
         break;
     }
 

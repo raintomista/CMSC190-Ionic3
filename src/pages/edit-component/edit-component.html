@@ -38,7 +38,7 @@
       <ion-input type="text" formControlName="value"></ion-input>
     </ion-item>
 
-    <!-- Text Input Component -->
+    <!-- Password Input Component -->
     <ion-item *ngIf="componentType === 'PasswordInput'">
       <ion-label stacked>Value</ion-label>
       <ion-input type="text" formControlName="value"></ion-input>
@@ -59,6 +59,12 @@
         </ion-row>
       </ion-grid>
     </ng-container>
+
+    <!-- Checkbox Component -->
+    <ion-item *ngIf="componentType === 'Checkbox'">
+      <ion-label stacked>Text</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
   </ion-list>
   <ion-list no-lines class="image-preview" *ngIf="!loading && componentType === 'Image'">
     <ion-list-header>

@@ -18,6 +18,7 @@ import { Image } from '../../models/image.model';
 import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
 import { FAB } from '../../models/floating-action-button.model';
+import { Checkbox } from '../../models/checkbox.model';
 
 @Component({
   selector: 'project-page',
@@ -323,6 +324,10 @@ export class ProjectPage {
             case 'FAB':
               let fab = new FAB(component.value);
               parsedComponents = parsedComponents.concat(fab.toSourceCode());
+              break;
+            case 'Checkbox':
+              let checkbox = new Checkbox(component.value);
+              parsedComponents = parsedComponents.concat(checkbox.toSourceCode());
               break;
           }
         }
