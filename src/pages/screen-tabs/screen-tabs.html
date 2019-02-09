@@ -68,6 +68,14 @@
             [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'Checkbox'">
           </checkbox>
+
+          <!-- Radio -->
+          <radio
+            [text]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            *ngIf="component.type === 'Radio'">
+          </radio>
         </ng-container>
       </div>
     </div>

@@ -65,6 +65,12 @@
       <ion-label stacked>Text</ion-label>
       <ion-input type="text" formControlName="value"></ion-input>
     </ion-item>
+
+    <!-- Checkbox Component -->
+    <ion-item *ngIf="componentType === 'Radio'">
+      <ion-label stacked>Text</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
   </ion-list>
   <ion-list no-lines class="image-preview" *ngIf="!loading && componentType === 'Image'">
     <ion-list-header>

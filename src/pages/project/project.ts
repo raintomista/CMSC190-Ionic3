@@ -19,6 +19,7 @@ import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
 import { FAB } from '../../models/floating-action-button.model';
 import { Checkbox } from '../../models/checkbox.model';
+import { Radio } from '../../models/radio.model';
 
 @Component({
   selector: 'project-page',
@@ -328,6 +329,10 @@ export class ProjectPage {
             case 'Checkbox':
               let checkbox = new Checkbox(component.value);
               parsedComponents = parsedComponents.concat(checkbox.toSourceCode());
+              break;
+            case 'Radio':
+              let radio = new Radio(component.value);
+              parsedComponents = parsedComponents.concat(radio.toSourceCode());
               break;
           }
         }

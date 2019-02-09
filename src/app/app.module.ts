@@ -8,6 +8,7 @@ import { TextInputComponent } from './../components/text-input/text-input';
 import { PasswordInputComponent } from './../components/password-input/password-input';
 import { FloatingActionButtonComponent } from './../components/floating-action-button/floating-action-button';
 import { CheckboxComponent } from './../components/checkbox/checkbox';
+import { RadioComponent } from './../components/radio/radio';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -74,7 +75,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     TextInputComponent,
     PasswordInputComponent,
     FloatingActionButtonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    RadioComponent
   ],
   imports: [
     BrowserModule,

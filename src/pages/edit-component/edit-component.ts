@@ -172,6 +172,9 @@ export class EditComponentPage {
       case 'Checkbox':
         activityDescription += ' text';
         break;
+      case 'Radio':
+        activityDescription += ' text';
+        break;
     }
 
     try {

@@ -1,9 +1,9 @@
-export class Checkbox {
+export class Radio {
   type: string;
   value: string;
 
   constructor(value?) {
-    this.type = 'Checkbox';
+    this.type = 'Radio';
     this.value = value || 'Item 1';
   }
 
@@ -11,7 +11,7 @@ export class Checkbox {
     return `\
       <ion-item>
         <ion-label>${this.value}</ion-label>
-        <ion-checkbox color="dark" checked="false"></ion-checkbox>
+        <ion-radio value="${this.value}"></ion-radio>
       </ion-item>
     \ `;
   }
