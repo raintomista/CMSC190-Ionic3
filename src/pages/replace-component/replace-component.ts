@@ -11,6 +11,7 @@ import { FAB } from '../../models/floating-action-button.model';
 import { Checkbox } from '../../models/checkbox.model';
 import { Radio } from '../../models/radio.model';
 import { ListItem } from '../../models/list-item.model';
+import { Button } from '../../models/button.model';
 import { AlertProvider } from './../../providers/alert/alert';
 import { ScreenProvider } from './../../providers/screen/screen';
 
@@ -27,7 +28,7 @@ export class ReplaceComponentPage {
 
   /* Properties */
   alertVisible: boolean = false;
-  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput', 'PasswordInput', 'FAB', 'Checkbox', 'Radio', 'ListItem'];
+  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput', 'PasswordInput', 'FAB', 'Checkbox', 'Radio', 'ListItem', 'Button'];
   loadingAlert: any = null;
   selected: number = null;
   user: any = null;
@@ -87,6 +88,9 @@ export class ReplaceComponentPage {
         break;
       case 'ListItem':
         updated_component = new ListItem();
+        break;
+      case 'Button':
+        updated_component = new Button();
         break;
     }
 

@@ -1,0 +1,8 @@
+<button
+  ion-button
+  [ngClass]="{'selected': selected}"
+  (press)="press($event)"
+  (onPressEnd)="onPressEnd()"
+  ion-long-press>
+    {{text}}
+</button>

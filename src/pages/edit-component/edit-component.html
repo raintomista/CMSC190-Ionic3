@@ -77,6 +77,12 @@
       <ion-label stacked>Text</ion-label>
       <ion-input type="text" formControlName="value"></ion-input>
     </ion-item>
+
+    <!-- Button Component -->
+    <ion-item *ngIf="componentType === 'Button'">
+      <ion-label stacked>Text</ion-label>
+      <ion-input type="text" formControlName="value"></ion-input>
+    </ion-item>
   </ion-list>
   <ion-list no-lines class="image-preview" *ngIf="!loading && componentType === 'Image'">
     <ion-list-header>

@@ -10,6 +10,7 @@ import { FloatingActionButtonComponent } from './../components/floating-action-b
 import { CheckboxComponent } from './../components/checkbox/checkbox';
 import { RadioComponent } from './../components/radio/radio';
 import { ListItemComponent } from '../components/list-item/list-item';
+import { ButtonComponent } from '../components/button/button';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -78,7 +79,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     FloatingActionButtonComponent,
     CheckboxComponent,
     RadioComponent,
-    ListItemComponent
+    ListItemComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

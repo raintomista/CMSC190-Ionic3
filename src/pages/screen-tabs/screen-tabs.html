@@ -84,6 +84,14 @@
             [action]="performAction.bind(this, component.id, component.type)"
             *ngIf="component.type === 'ListItem'">
           </list-item>
+
+          <!-- Button -->
+          <button-component
+            [text]="component.value"
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            *ngIf="component.type === 'Button'">
+          </button-component>
         </ng-container>
       </div>
     </div>

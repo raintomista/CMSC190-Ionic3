@@ -178,6 +178,9 @@ export class EditComponentPage {
       case 'ListItem':
         activityDescription += ' text';
         break;
+      case 'Button':
+        activityDescription += ' text';
+        break;
     }
 
     try {

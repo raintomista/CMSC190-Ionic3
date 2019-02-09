@@ -21,6 +21,7 @@ import { FAB } from '../../models/floating-action-button.model';
 import { Checkbox } from '../../models/checkbox.model';
 import { Radio } from '../../models/radio.model';
 import { ListItem } from './../../models/list-item.model';
+import { Button } from './../../models/button.model';
 
 @Component({
   selector: 'project-page',
@@ -338,6 +339,10 @@ export class ProjectPage {
             case 'ListItem':
               let listItem = new ListItem(component.value);
               parsedComponents = parsedComponents.concat(listItem.toSourceCode());
+              break;
+            case 'Button':
+              let button = new Button(component.value);
+              parsedComponents = parsedComponents.concat(button.toSourceCode());
               break;
           }
         }
