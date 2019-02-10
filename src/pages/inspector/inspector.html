@@ -16,9 +16,16 @@
     <ion-list-header>
       Computed Styles  ({{componentType}})
     </ion-list-header>
-    <button detail-none ion-item *ngFor="let key of componentStyles">
+    <button detail-none ion-item *ngFor="let key of componentStyleKeys">
       <h3 class="property-name" item-start>{{key}}:</h3>
-      <h3 class="property-value" item-end>{{componentStyles[key]}}</h3>
+      <div class="color-preview"
+        *ngIf="key === 'background-color' || key === 'color'"
+        [ngStyle]="{'background-color': componentStyles[key]}"
+        item-end>
+      </div>
+      <h3 class="property-value" item-end>
+        {{componentStyles[key]}}
+      </h3>
     </button>
   </ion-list>
 </ion-content>

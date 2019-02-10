@@ -5,4 +5,12 @@ page-inspector {
   .property-name {
     color: gray;
   }
+
+  .color-preview {
+    border-radius: 100%;
+    border: 1px solid #dedede;
+    margin-right: 5px !important;
+    height: 15px;
+    width: 15px;
+  }
 }

@@ -8,6 +8,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class InspectorPage {
   componentType: string;
+  componentStyleKeys: any;
   componentStyles: any;
   // componentStyleKeys: any[];
 
@@ -16,8 +17,8 @@ export class InspectorPage {
     private navParams: NavParams,
     private viewCtrl: ViewController) {
       this.componentType = this.navParams.get('componentType');
+      this.componentStyleKeys = Object.keys(this.navParams.get('componentStyles'));
       this.componentStyles = this.navParams.get('componentStyles');
-      // this.componentStyleKeys = ['background-color', 'border', 'height', 'margin', 'padding', 'width']
   }
 
   dismiss() {

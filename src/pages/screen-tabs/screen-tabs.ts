@@ -63,6 +63,15 @@ export class ScreenTabsPage {
   }
 
 
+  parseRGB(rgb) {
+    rgb = rgb.replace('rgb(', '').replace(')', '');
+    let r = rgb.split(',')[0].trim();
+    let g = rgb.split(',')[1].trim();
+    let b = rgb.split(',')[2].trim();
+    return '#' + this.rgbToHex(r) + this.rgbToHex(g) + this.rgbToHex(b);
+  }
+
+
   performAction(componentId, componentType, targetElement) {
     switch (this.mode) {
       case 'build':
@@ -111,9 +120,97 @@ export class ScreenTabsPage {
   }
 
   presentInspector(componentType, targetElement) {
-    const componentStyles = getComputedStyle(targetElement);
+    let componentStyles = {};
+    switch (componentType) {
+      case 'HeaderWithMenu':
+        let element1 = document.querySelector('.preview-box .toolbar-md');
+        let computedStyle1 = getComputedStyle(element1);
+
+        let element2 = document.querySelector('.preview-box .toolbar-background-md')
+        let computedStyle2 = getComputedStyle(element2);
+
+        let element3 = document.querySelector('.preview-box .toolbar-title-md');
+        let computedStyle3 = getComputedStyle(element3);
+
+        this.parseRGB(computedStyle2['background-color']);
+
+        componentStyles = {
+          'background-color': this.parseRGB(computedStyle2['background-color']),
+          'color': this.parseRGB(computedStyle3['color']),
+          'font-size': computedStyle3['font-size'],
+          'font-weight': computedStyle3['font-weight'],
+          'height': computedStyle1['height'],
+          'min-height': computedStyle1['min-height'],
+          'padding': computedStyle1['padding'],
+          'width': computedStyle1['width']
+        }
+        break;
+      case 'Image':
+        let computedStyle = getComputedStyle(targetElement);
+        componentStyles = {
+          'height': computedStyle['height'],
+          'width': computedStyle['width']
+        }
+        break;
+      case 'TextInput':
+      case 'PasswordInput':
+      case 'Checkbox':
+      case 'Radio':
+      case 'ListItem':
+        element1 = document.querySelector('.preview-box .item-md');
+        computedStyle1 = getComputedStyle(element1);
+
+        element2 = document.querySelector('.preview-box .item-md .item-inner')
+        computedStyle2 = getComputedStyle(element2);
+
+        componentStyles = {
+          'background-color': this.parseRGB(computedStyle1['background-color']),
+          'border-bottom': computedStyle2['border-bottom'],
+          'color': this.parseRGB(computedStyle1['color']),
+          'font-size': computedStyle1['font-size'],
+          'font-weight': computedStyle1['font-weight'],
+          'height': computedStyle1['height'],
+          'margin': computedStyle1['margin'],
+          'padding': computedStyle1['padding'],
+          'width': computedStyle1['width'],
+        }
+        break;
+      case 'FAB':
+        let element = document.querySelector('.preview-box .fab-md');
+        computedStyle = getComputedStyle(element);
+        componentStyles = {
+          'background-color': this.parseRGB(computedStyle['background-color']),
+          'box-shadow': computedStyle['box-shadow'],
+          'color': this.parseRGB(computedStyle['color']),
+        }
+        break;
+      case 'Button':
+        element = document.querySelector('.preview-box .button-md');
+        computedStyle = getComputedStyle(element);
+        componentStyles = {
+          'background-color': this.parseRGB(computedStyle['background-color']),
+          'border-radius': computedStyle['border-radius'],
+          'color': this.parseRGB(computedStyle['color']),
+          'height': computedStyle['height'],
+          'font-size': computedStyle['font-size'],
+          'font-weight': computedStyle['font-weight'],
+          'text-transform': computedStyle['text-transform'],
+        }
+        break;
+    }
+
+
     let modal = this.modalCtrl.create(InspectorPage, { componentType, componentStyles });
     modal.present();
+  }
+
+
+  rgbToHex(rgb) {
+    let hex = Number(rgb).toString(16);
+    if (hex.length < 2) {
+         hex = "0" + hex;
+    }
+    return hex;
   }
 
   selectMode(mode) {
