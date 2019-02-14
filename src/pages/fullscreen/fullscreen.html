@@ -1,0 +1,73 @@
+<ion-content padding (press)="pressEvent($event)">
+  <div class="preview-scroll-content" *ngIf="!loading">
+    <div class="preview-content-container">
+      <ng-container *ngFor="let component of components">
+        <!-- HeaderWithMenu -->
+        <header-with-menu
+          mode="preview"
+          [action]="navigateTo.bind(this, component.target_screen)"
+          [order]="component.order"
+          [title]="component.value"
+          *ngIf="component.type === 'HeaderWithMenu'">
+        </header-with-menu>
+
+        <!-- Image -->
+        <image
+          [src]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'Image'">
+        </image>
+
+        <!-- Text Input -->
+        <text-input
+          [text]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'TextInput'">
+        </text-input>
+
+        <!-- Password Input -->
+        <password-input
+          [value]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'PasswordInput'">
+        </password-input>
+
+        <!-- FAB Button -->
+        <floating-action-button
+          [icon]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'FAB'">
+        </floating-action-button>
+
+        <!-- Checkbox -->
+        <checkbox
+          [text]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'Checkbox'">
+        </checkbox>
+
+        <!-- Radio -->
+        <radio
+          [text]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'Radio'">
+        </radio>
+
+        <!-- List Item -->
+        <list-item
+          [text]="component.value"
+          [mode]="mode"
+          *ngIf="component.type === 'ListItem'">
+        </list-item>
+
+        <!-- Button -->
+        <button-component
+          mode="preview"
+          [action]="navigateTo.bind(this, component.target_screen)"
+          [text]="component.value"
+          *ngIf="component.type === 'Button'">
+        </button-component>
+      </ng-container>
+    </div>
+  </div>
+</ion-content>

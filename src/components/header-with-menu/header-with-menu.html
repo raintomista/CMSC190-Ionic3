@@ -1,11 +1,10 @@
 <ion-header [ngClass]="{'fixed-header': order === 0, 'relative-header': order !== 0 }">
   <ion-toolbar
     [ngClass]="{'selected': selected}"
-    (tap)="tap()"
     (press)="press($event)"
     (onPressEnd)="onPressEnd()"
     ion-long-press>
-      <button ion-button menuToggle icon-only>
+      <button ion-button menuToggle icon-only (tap)="tap()">
         <ion-icon name='menu'></ion-icon>
       </button>
     <ion-title>

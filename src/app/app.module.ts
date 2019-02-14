@@ -1,3 +1,4 @@
+import { FullscreenPage } from './../pages/fullscreen/fullscreen';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { EditComponentPage } from './../pages/edit-component/edit-component';
 
@@ -51,6 +52,7 @@ import { ProjectSettingsPage } from '../pages/project-settings/project-settings'
 import { HttpModule } from '@angular/http';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { JsonProvider } from '../providers/json/json';
+import { Toast } from '@ionic-native/toast';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -72,6 +74,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     InspectorPage,
     EditComponentPage,
     ReplaceComponentPage,
+    FullscreenPage,
     HeaderWithMenuComponent,
     ImageComponent,
     TextInputComponent,
@@ -110,6 +113,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     InspectorPage,
     EditComponentPage,
     ReplaceComponentPage,
+    FullscreenPage
   ],
   providers: [
     StatusBar,
@@ -122,6 +126,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     NativeStorage,
     ScreenProvider,
     ProjectProvider,
+    Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider,
     JsonProvider

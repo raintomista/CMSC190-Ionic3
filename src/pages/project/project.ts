@@ -11,6 +11,8 @@ import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { Observable } from 'rxjs/Observable';
 import { ProjectSettingsPage } from '../project-settings/project-settings';
+import { FullscreenPage } from '../fullscreen/fullscreen';
+
 import pretty from 'pretty';
 
 import { HeaderWithMenu } from './../../models/header-with-menu.model';
@@ -442,6 +444,13 @@ export class ProjectPage {
       refresher.complete();
       throw new Error(e);
     }
+  }
+
+  toggleFullscreen() {
+    this.navCtrl.push(FullscreenPage, {
+      projectId: this.projectId,
+      screenId: this.screens[0].id
+    })
   }
 
   async refreshScreens(projectId) {

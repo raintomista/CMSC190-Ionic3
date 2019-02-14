@@ -3,7 +3,7 @@
     <name>CMSC190-Ionic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.254.110:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -102,4 +102,5 @@
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
     <plugin name="cordova-plugin-telerik-imagepicker" spec="git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.7.2" />
 </widget>

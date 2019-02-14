@@ -22,6 +22,7 @@ export class ButtonComponent {
   tap() {
     switch (this.mode) {
       case 'preview':
+        this.action();
         break;
     }
   }
