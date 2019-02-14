@@ -45,6 +45,17 @@ export class ScreenProvider {
     });
   }
 
+  getScreenNames(projectId) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.apiUrl + '/screens?project_id=' + projectId + '&show_only=name')
+        .subscribe((response) => {
+          resolve(response);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   getScreen(id) {
     return new Promise((resolve, reject) => {
       this.http.get(environment.apiUrl + '/screens/' + id)

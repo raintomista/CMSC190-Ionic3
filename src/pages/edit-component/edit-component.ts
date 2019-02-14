@@ -21,12 +21,15 @@ export class EditComponentPage {
   /* Nav Params */
   componentId: string;
   componentType: string;
+  projectId: string;
+  screenId: string;
   screenName: string;
   user: any;
 
   form: FormGroup = null;
   icons: string[] = []
   loading: Boolean = true;
+  screens: any [] = [{id: null, name: 'Select a page'}];
 
   constructor(
     private alertProvider: AlertProvider,
@@ -42,6 +45,8 @@ export class EditComponentPage {
     private viewCtrl: ViewController) {
       this.componentId = this.navParams.get('componentId');
       this.componentType = this.navParams.get('componentType');
+      this.projectId = this.navParams.get('projectId');
+      this.screenId = this.navParams.get('screenId');
       this.screenName = this.navParams.get('screenName');
 
       // Instantiate form
@@ -49,10 +54,12 @@ export class EditComponentPage {
         'order': '',
         'type': '',
         'value': '',
+        'target_screen': ''
       });
 
       this.getComponent(); // Get value of the selected component
       this.getLoggedUser(); // Get logged user
+      this.getScreenNames();
 
       if(this.componentType === 'FAB') {
         this.getIonIcons();
@@ -70,6 +77,7 @@ export class EditComponentPage {
         'order': response.item.order,
         'type': response.item.type,
         'value': response.item.value,
+        'target_screen': response.item.target_screen
       });
       this.loading = false;
     } catch (e) {
@@ -103,6 +111,15 @@ export class EditComponentPage {
     this.user = await this.nativeStorage.getItem('facebook_user');
   }
 
+  async getScreenNames() {
+    try {
+      const response = await this.provider.getScreenNames(this.projectId) as any;
+      this.screens.push(...response.items);
+    } catch(e) {
+      throw new Error(e);
+    }
+  }
+
   replaceImage() {
     let options = {
       maximumImagesCount: 1,
@@ -123,6 +140,12 @@ export class EditComponentPage {
   selectIcon(icon) {
     this.form.patchValue({
       'value': icon,
+    });
+  }
+
+  selectScreen(screen) {
+    this.form.patchValue({
+      'target_screen': screen
     });
   }
 
@@ -155,10 +178,10 @@ export class EditComponentPage {
 
     switch (this.componentType) {
       case 'HeaderWithMenu':
-        activityDescription += ' title';
+        activityDescription += ' title and target screen';
         break;
       case 'Image':
-        activityDescription += ' src';
+        activityDescription += ' src and target screen';
         break;
       case 'TextInput':
         activityDescription += ' value';
@@ -167,7 +190,7 @@ export class EditComponentPage {
         activityDescription += ' value';
         break;
       case 'FAB':
-        activityDescription += ' icon';
+        activityDescription += ' icon and target screen';
         break;
       case 'Checkbox':
         activityDescription += ' text';
@@ -179,7 +202,7 @@ export class EditComponentPage {
         activityDescription += ' text';
         break;
       case 'Button':
-        activityDescription += ' text';
+        activityDescription += ' text and target screen';
         break;
     }
 

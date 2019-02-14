@@ -93,6 +93,8 @@ export class ScreenTabsPage {
             let modal = this.modalCtrl.create(EditComponentPage, {
               componentId: componentId,
               componentType: componentType,
+              projectId: this.projectId,
+              screenId: this.screenId,
               screenName: this.screenName
             })
             modal.present();
