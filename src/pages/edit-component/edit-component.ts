@@ -29,7 +29,7 @@ export class EditComponentPage {
   form: FormGroup = null;
   icons: string[] = []
   loading: Boolean = true;
-  screens: any [] = [{id: null, name: 'Select a page'}];
+  screens: any [] = [{id: null, name: 'Select a screen'}];
 
   constructor(
     private alertProvider: AlertProvider,
@@ -145,7 +145,7 @@ export class EditComponentPage {
 
   selectScreen(screen) {
     this.form.patchValue({
-      'target_screen': screen
+      'target_screen': screen === 'Select a screen' ? null : screen
     });
   }
 

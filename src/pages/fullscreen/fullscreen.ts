@@ -45,9 +45,13 @@ export class FullscreenPage {
   }
 
   navigateTo(targetId) {
-    this.screenId = targetId;
-    this.screen = this.screens.find((screen) => screen.id === this.screenId);
-    this.toast.show(`Navigated to ${this.screen.name}`, '1000', 'bottom').subscribe();
+    if(targetId === null) {
+      this.toast.show(`This component has no target screen`, '1000', 'bottom').subscribe();
+    } else {
+      this.screenId = targetId;
+      this.screen = this.screens.find((screen) => screen.id === this.screenId);
+      this.toast.show(`Navigated to ${this.screen.name}`, '1000', 'bottom').subscribe();
+    }
   }
 
   pressEvent(event) {
