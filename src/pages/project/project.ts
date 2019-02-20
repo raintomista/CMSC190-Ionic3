@@ -142,10 +142,24 @@ export class ProjectPage {
     const formData = new FormData();
     formData.append('file', file, filename);
 
-    this.loadingCtrl.create({
-      content: 'Please wait...',
+    let loading = this.loadingCtrl.create({
+      content: 'Processing image...',
       dismissOnPageChange: true
-    }).present();
+    });
+
+    loading.present();
+
+
+    setTimeout(async () => {
+      loading.dismiss();
+
+      loading = this.loadingCtrl.create({
+        content: 'This may take a while depending on internet connection...',
+        dismissOnPageChange: true
+      });
+
+      loading.present();
+    }, 1500);
 
     try {
       const results = await this.provider.addScreen(formData);

@@ -4,7 +4,7 @@
       {{projectName}}
     </ion-title>
     <ion-buttons end>
-      <button (click)="toggleFullscreen()" ion-button icon-only>
+      <button (click)="toggleFullscreen()" ion-button icon-only [disabled]="loading === true">
         <ion-icon name="expand"></ion-icon>
       </button>
       <button (click)="showMore()" ion-button icon-only>
