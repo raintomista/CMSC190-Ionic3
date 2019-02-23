@@ -1,8 +1,10 @@
 export class HeaderWithMenu {
+  target_screen: string;
   type: string;
   value: string;
 
   constructor(value?) {
+    this.target_screen = null;
     this.type = 'HeaderWithMenu';
     this.value = value || 'Title';
   }
