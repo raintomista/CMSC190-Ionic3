@@ -1,6 +1,7 @@
 <ion-fab
   right bottom
   [ngClass]="{'selected': selected}"
+  (tap)="tap()"
   (press)="press($event)"
   (onPressEnd)="onPressEnd()"
   ion-long-press>

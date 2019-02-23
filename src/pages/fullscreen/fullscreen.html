@@ -22,42 +22,43 @@
         <!-- Text Input -->
         <text-input
           [text]="component.value"
-          [mode]="mode"
+          mode="preview"
           *ngIf="component.type === 'TextInput'">
         </text-input>
 
         <!-- Password Input -->
         <password-input
           [value]="component.value"
-          [mode]="mode"
+          mode="preview"
           *ngIf="component.type === 'PasswordInput'">
         </password-input>
 
         <!-- FAB Button -->
         <floating-action-button
+          mode="preview"
+          [action]="navigateTo.bind(this, component.target_screen)"
           [icon]="component.value"
-          [mode]="mode"
           *ngIf="component.type === 'FAB'">
         </floating-action-button>
 
         <!-- Checkbox -->
         <checkbox
           [text]="component.value"
-          [mode]="mode"
+          mode="preview"
           *ngIf="component.type === 'Checkbox'">
         </checkbox>
 
         <!-- Radio -->
         <radio
           [text]="component.value"
-          [mode]="mode"
+          mode="preview"
           *ngIf="component.type === 'Radio'">
         </radio>
 
         <!-- List Item -->
         <list-item
           [text]="component.value"
-          [mode]="mode"
+          mode="preview"
           *ngIf="component.type === 'ListItem'">
         </list-item>
 
