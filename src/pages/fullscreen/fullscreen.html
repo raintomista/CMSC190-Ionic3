@@ -13,8 +13,9 @@
 
         <!-- Image -->
         <image
+          mode="preview"
+          [action]="navigateTo.bind(this, component.target_screen)"
           [src]="component.value"
-          [mode]="mode"
           *ngIf="component.type === 'Image'">
         </image>
 

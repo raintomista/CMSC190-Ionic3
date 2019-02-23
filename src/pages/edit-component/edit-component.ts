@@ -29,7 +29,7 @@ export class EditComponentPage {
   form: FormGroup = null;
   icons: string[] = []
   loading: Boolean = true;
-  screens: any [] = [{id: null, name: 'Select a screen'}];
+  screens: any [] = [{id: '-', name: 'Select a screen'}];
 
   constructor(
     private alertProvider: AlertProvider,
@@ -77,7 +77,7 @@ export class EditComponentPage {
         'order': response.item.order,
         'type': response.item.type,
         'value': response.item.value,
-        'target_screen': response.item.target_screen
+        'target_screen': response.item.target_screen === null ? '-' : response.item.target_screen
       });
       this.loading = false;
     } catch (e) {
@@ -144,9 +144,7 @@ export class EditComponentPage {
   }
 
   selectScreen(screen) {
-    this.form.patchValue({
-      'target_screen': screen === 'Select a screen' ? null : screen
-    });
+    this.form.patchValue({ 'target_screen': screen });
   }
 
   setLoadingText(text: string) {
@@ -206,6 +204,10 @@ export class EditComponentPage {
         break;
     }
 
+    let formValue = this.form.value;
+    if(formValue.target_screen === '-') {
+      formValue.target_screen = null;
+    }
     try {
       const response = await this.provider.updateComponent(this.componentId, 'edit', {
         activity_description: activityDescription,
