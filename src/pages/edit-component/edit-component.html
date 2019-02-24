@@ -20,7 +20,7 @@
       {{form.value.type}}
     </ion-list-header>
 
-    <ion-item *ngIf="componentType === 'HeaderWithMenu' || componentType === 'Image' || componentType === 'FAB' || componentType === 'Button'">
+    <ion-item *ngIf="componentType === 'HeaderWithMenu' || componentType === 'HeaderWithBack' || componentType === 'Image' || componentType === 'FAB' || componentType === 'Button'">
       <ion-label>Navigate to</ion-label>
       <ion-select formControlName="target_screen" (ionChange)="selectScreen($event)">
         <ng-container *ngFor="let screen of screens">
@@ -32,7 +32,7 @@
     </ion-item>
 
     <!-- Header With Menu Component -->
-    <ion-item *ngIf="componentType === 'HeaderWithMenu'">
+    <ion-item *ngIf="componentType === 'HeaderWithMenu' || componentType === 'HeaderWithBack'">
       <ion-label stacked>Title</ion-label>
       <ion-input type="text" formControlName="value"></ion-input>
     </ion-item>

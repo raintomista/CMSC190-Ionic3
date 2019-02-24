@@ -29,6 +29,15 @@
             *ngIf="component.type === 'HeaderWithMenu'">
           </header-with-menu>
 
+          <!-- HeaderWithBack -->
+          <header-with-back
+            [mode]="mode"
+            [action]="performAction.bind(this, component.id, component.type)"
+            [order]="component.order"
+            [title]="component.value"
+            *ngIf="component.type === 'HeaderWithBack'">
+          </header-with-back>
+
           <!-- Image -->
           <image
             [src]="component.value"

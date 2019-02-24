@@ -11,6 +11,15 @@
           *ngIf="component.type === 'HeaderWithMenu'">
         </header-with-menu>
 
+        <!-- HeaderWithBack -->
+        <header-with-back
+          mode="preview"
+          [action]="navigateTo.bind(this, component.target_screen)"
+          [order]="component.order"
+          [title]="component.value"
+          *ngIf="component.type === 'HeaderWithBack'">
+        </header-with-back>
+
         <!-- Image -->
         <image
           mode="preview"

@@ -4,6 +4,7 @@ import { Socket } from 'ng-socket-io';
 import { Events, IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HeaderWithMenu } from './../../models/header-with-menu.model';
+import { HeaderWithBack } from '../../models/header-with-back.model';
 import { Image } from '../../models/image.model';
 import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
@@ -28,7 +29,7 @@ export class ReplaceComponentPage {
 
   /* Properties */
   alertVisible: boolean = false;
-  items: any[] = ['HeaderWithMenu', 'Image', 'TextInput', 'PasswordInput', 'FAB', 'Checkbox', 'Radio', 'ListItem', 'Button'];
+  items: any[] = ['HeaderWithMenu', 'HeaderWithBack', 'Image', 'TextInput', 'PasswordInput', 'FAB', 'Checkbox', 'Radio', 'ListItem', 'Button'];
   loadingAlert: any = null;
   selected: number = null;
   user: any = null;
@@ -67,6 +68,9 @@ export class ReplaceComponentPage {
     switch (selectedItem) {
       case 'HeaderWithMenu':
         updated_component = new HeaderWithMenu();
+        break;
+      case 'HeaderWithBack':
+        updated_component = new HeaderWithBack();
         break;
       case 'Image':
         updated_component = new Image();

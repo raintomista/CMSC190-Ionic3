@@ -16,6 +16,7 @@ import { FullscreenPage } from '../fullscreen/fullscreen';
 import pretty from 'pretty';
 
 import { HeaderWithMenu } from './../../models/header-with-menu.model';
+import { HeaderWithBack } from './../../models/header-with-back.model';
 import { Image } from '../../models/image.model';
 import { TextInput } from '../../models/text-input.model';
 import { PasswordInput } from '../../models/password-input.model';
@@ -321,11 +322,18 @@ export class ProjectPage {
         if(i === 0 && component.type === 'HeaderWithMenu') {
           let header = new HeaderWithMenu(component.value);
           sourceCode = header.toSourceCode() + sourceCode;
+        } else if(i === 0 && component.type === 'HeaderWithBack') {
+          let header = new HeaderWithBack(component.value);
+          sourceCode = header.toSourceCode() + sourceCode;
         }
         else {
           switch(component.type) {
             case 'HeaderWithMenu':
               let header = new HeaderWithMenu(component.value);
+              parsedComponents = parsedComponents.concat(header.toSourceCode());
+              break;
+            case 'HeaderWithBack':
+              header = new HeaderWithBack(component.value);
               parsedComponents = parsedComponents.concat(header.toSourceCode());
               break;
             case 'Image':

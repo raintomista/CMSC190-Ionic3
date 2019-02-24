@@ -4,6 +4,7 @@ import { EditComponentPage } from './../pages/edit-component/edit-component';
 
 // Component Imports
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
+import { HeaderWithBackComponent } from './../components/header-with-back/header-with-back';
 import { ImageComponent } from '../components/image/image';
 import { TextInputComponent } from './../components/text-input/text-input';
 import { PasswordInputComponent } from './../components/password-input/password-input';
@@ -76,6 +77,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     ReplaceComponentPage,
     FullscreenPage,
     HeaderWithMenuComponent,
+    HeaderWithBackComponent,
     ImageComponent,
     TextInputComponent,
     PasswordInputComponent,

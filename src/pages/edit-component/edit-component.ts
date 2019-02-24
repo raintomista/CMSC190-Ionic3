@@ -178,6 +178,9 @@ export class EditComponentPage {
       case 'HeaderWithMenu':
         activityDescription += ' title and target screen';
         break;
+      case 'HeaderWithBack':
+        activityDescription += ' title and target screen';
+        break;
       case 'Image':
         activityDescription += ' src and target screen';
         break;
