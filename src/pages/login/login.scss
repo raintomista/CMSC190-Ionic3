@@ -1,3 +1,22 @@
 page-login {
+    .scroll-content {
+      background-color: #488aff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    h1 {
+      color: white;
+    }
+
+    .toolbar {
+      padding: 15px !important;
+    }
+
+    .fb-login {
+      background-color: #4267b2;
+      margin: 0px;
+      padding: 26px 26px;
+    }
 }
