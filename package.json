@@ -42,6 +42,7 @@
     "@ionic-native/status-bar": "~4.17.0",
     "@ionic-native/toast": "^4.20.0",
     "@ionic/storage": "2.2.0",
+    "@types/uuid": "^3.4.4",
     "android-versions": "^1.4.0",
     "brace-expansion": "^1.1.11",
     "continuable-cache": "^0.3.1",

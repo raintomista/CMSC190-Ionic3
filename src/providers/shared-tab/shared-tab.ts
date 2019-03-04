@@ -1,4 +1,4 @@
-import { AlertController, App, ActionSheetController, LoadingController, NavController, Events } from 'ionic-angular';
+import { AlertController, App, ActionSheetController, LoadingController, NavController, Events, normalizeURL } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
@@ -6,6 +6,9 @@ import { ProjectPage } from '../../pages/project/project';
 import * as html2canvas from 'html2canvas';
 import { ScreenProvider } from '../screen/screen';
 import { ScreenHistoryPage } from '../../pages/screen-history/screen-history';
+import { File, Entry } from '@ionic-native/file';
+import { v4 as uuid } from 'uuid';
+
 
 @Injectable()
 export class SharedTabProvider {
@@ -19,6 +22,7 @@ export class SharedTabProvider {
     private alertCtrl: AlertController,
     private appCtrl: App,
     private events: Events,
+    public file: File,
     public http: HttpClient,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
@@ -42,6 +46,18 @@ export class SharedTabProvider {
       buttons: ['Dismiss']
     });
     alert.present();
+  }
+
+  saveBlob(b64Data, contentType) {
+    const bytes: string = atob(b64Data);
+    const byteNumbers = new Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) {
+      byteNumbers[i] = bytes.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+
+    const blob: Blob = new Blob([byteArray], { type: contentType });
+    return this.file.writeFile(this.file.cacheDirectory, uuid() + '.png', blob);
   }
 
   get components() {
@@ -152,6 +168,17 @@ export class SharedTabProvider {
         scale: 0.8,
         useCORS: true
       }).then(async (canvas) => {
+        let base64 = canvas.toDataURL("image/png").replace('data:image/png;base64,', ''); //remove header
+
+        this.saveBlob(base64, "image/png")
+          .then(async (entry: Entry) => {
+            // Set cache screenshot
+            await this.provider.updateScreen({
+              ...this.screen,
+              preview_url: normalizeURL(entry.nativeURL)
+            }, '');
+          }).catch(e => console.log(e))
+
         await this.provider.updateScreen({
           preview_img: canvas.toDataURL("image/png"),
           ...this.screen
