@@ -51,6 +51,7 @@
             [text]="component.value"
             [mode]="mode"
             [action]="performAction.bind(this, component.id, component.type)"
+            disabled="true"
             *ngIf="component.type === 'TextInput'">
           </text-input>
 
@@ -59,6 +60,7 @@
             [value]="component.value"
             [mode]="mode"
             [action]="performAction.bind(this, component.id, component.type)"
+            disabled="true"
             *ngIf="component.type === 'PasswordInput'">
           </password-input>
 

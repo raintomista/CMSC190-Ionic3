@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 export class TextInputComponent {
   selected: Boolean = false;
 
+  @Input('disabled')
+  disabled: string;
+
   @Input('text')
   text: string;
 

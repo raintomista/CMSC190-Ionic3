@@ -1,4 +1,4 @@
-<ion-content padding (press)="pressEvent($event)">
+<ion-content padding>
   <div class="preview-scroll-content" *ngIf="!loading">
     <div class="preview-content-container">
       <ng-container *ngFor="let component of components">
@@ -31,6 +31,7 @@
         <!-- Text Input -->
         <text-input
           [text]="component.value"
+          disabled="false"
           mode="preview"
           *ngIf="component.type === 'TextInput'">
         </text-input>
@@ -38,6 +39,7 @@
         <!-- Password Input -->
         <password-input
           [value]="component.value"
+          disabled="false"
           mode="preview"
           *ngIf="component.type === 'PasswordInput'">
         </password-input>

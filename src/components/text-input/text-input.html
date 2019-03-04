@@ -3,5 +3,7 @@
   (press)="press($event)"
   (onPressEnd)="onPressEnd()"
   ion-long-press>
-  <ion-input type="text" [value]="text" disabled></ion-input>
+  <!-- <ion-input type="text" [value]="text" disabled></ion-input> -->
+  <input type="text" [value]="text"  disabled *ngIf="disabled === 'true'" />
+  <ion-input type="text" [value]="text"  *ngIf="disabled === 'false'"></ion-input>
 </ion-item>

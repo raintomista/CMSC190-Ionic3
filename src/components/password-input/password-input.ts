@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 export class PasswordInputComponent {
   selected: Boolean = false;
 
+  @Input('disabled')
+  disabled: string;
+
   @Input('value')
   value: string;
 
