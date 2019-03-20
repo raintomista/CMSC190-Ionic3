@@ -120,20 +120,18 @@ export class ProjectPage {
   }
 
   async uploadFile(filePath) {
+    let fileName;
     try {
-      // Resolve file from local storage
-
-      const entry = await this.file.resolveLocalFilesystemUrl(filePath);
-      (<FileEntry>entry).file((file) => {
-        const reader = new FileReader();
-
-        // Executes when the reading operation is completed
-        reader.onloadend = () => {
-          const blob = new Blob([reader.result], { type: file.type });
-          this.sendForm(blob, this.selectedFile);
-        };
-        reader.readAsArrayBuffer(file);
-      });
+        this.file.resolveLocalFilesystemUrl(filePath)
+          .then((fileEntry) => {
+            fileName = fileEntry.name;
+            let filePath = fileEntry.nativeURL.substring(0, fileEntry.nativeURL.lastIndexOf('/'));
+            return this.file.readAsArrayBuffer(filePath, fileName);
+          })
+          .then((buffer) => {
+            let blob = new Blob([buffer], { type: 'image/jpeg' });
+            this.sendForm(blob, fileName);
+          })
     } catch (e) {
       throw new Error(e);
     }

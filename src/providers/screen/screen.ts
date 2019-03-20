@@ -14,7 +14,7 @@ export class ScreenProvider {
     headers.append('Content-Type', 'multipart/form-data');
 
     return new Promise((resolve, reject) => {
-      this.http.post(environment.apiUrl + '/screens', formData, { headers: headers })
+      this.http.request('post', environment.apiUrl + '/screens', { body: formData, headers: headers })
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
