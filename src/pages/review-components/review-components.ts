@@ -3,9 +3,19 @@ import { AlertProvider } from './../../providers/alert/alert';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { ScreenProvider } from './../../providers/screen/screen';
-import { HeaderWithMenu } from './../../models/header-with-menu.model';
+import { NativeStorage } from '@ionic-native/native-storage'
+
+// Component Models
+import { HeaderWithMenu } from './../../models/header-with-menu.model';;
+import { HeaderWithBack } from '../../models/header-with-back.model';
 import { Image } from '../../models/image.model';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { TextInput } from '../../models/text-input.model';
+import { PasswordInput } from '../../models/password-input.model';
+import { FAB } from '../../models/floating-action-button.model';
+import { Checkbox } from '../../models/checkbox.model';
+import { Radio } from '../../models/radio.model';
+import { ListItem } from '../../models/list-item.model';
+import { Button } from '../../models/button.model';
 
 @IonicPage()
 @Component({
@@ -32,17 +42,17 @@ export class ReviewComponentsPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private provider: ScreenProvider) {
-      this.getLoggedUser();
+    this.getLoggedUser();
 
-      this.original_file = this.navParams.get('original_file');
-      this.labelled_file = this.navParams.get('labelled_file');
-      this.detected_components = this.navParams.get('detected_components');
-      this.processing_time = this.navParams.get('processing_time');
+    this.original_file = this.navParams.get('original_file');
+    this.labelled_file = this.navParams.get('labelled_file');
+    this.detected_components = this.navParams.get('detected_components');
+    this.processing_time = this.navParams.get('processing_time');
 
-      this.aspectRatio = this.navParams.get('aspectRatio');
-      this.order = this.navParams.get('order');
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
+    this.aspectRatio = this.navParams.get('aspectRatio');
+    this.order = this.navParams.get('order');
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
   }
 
   exit() {
@@ -60,8 +70,32 @@ export class ReviewComponentsPage {
         case 'HeaderWithMenu':
           components.push(new HeaderWithMenu());
           break;
+        case 'HeaderWithBack':
+          components.push(new HeaderWithBack());
+          break;
         case 'Image':
-          components.push(new Image())
+          components.push(new Image());
+          break;
+        case 'TextInput':
+          components.push(new TextInput());
+          break;
+        case 'PasswordInput':
+          components.push(new PasswordInput());
+          break;
+        case 'FAB':
+          components.push(new FAB());
+          break;
+        case 'Checkbox':
+          components.push(new Checkbox());
+          break;
+        case 'Radio':
+          components.push(new Radio());
+          break;
+        case 'ListItem':
+          components.push(new ListItem());
+          break;
+        case 'Button':
+          components.push(new Button());
           break;
       }
     }
