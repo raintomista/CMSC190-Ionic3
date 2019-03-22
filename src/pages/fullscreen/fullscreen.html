@@ -1,14 +1,28 @@
+<header-with-menu
+  mode="preview"
+  [action]="navigateTo.bind(this, components[0].target_screen)"
+  [order]="components[0].order"
+  [title]="components[0].value"
+  *ngIf="components[0] && components[0].type === 'HeaderWithMenu'">
+</header-with-menu>
+<header-with-back
+  mode="preview"
+  [action]="navigateTo.bind(this, components[0].target_screen)"
+  [order]="components[0].order"
+  [title]="components[0].value"
+  *ngIf="components[0] && components[0].type === 'HeaderWithBack'">
+</header-with-back>
 <ion-content padding>
   <div class="preview-scroll-content" *ngIf="!loading">
     <div class="preview-content-container">
-      <ng-container *ngFor="let component of components">
+      <ng-container *ngFor="let component of components; let i = index">
         <!-- HeaderWithMenu -->
         <header-with-menu
           mode="preview"
           [action]="navigateTo.bind(this, component.target_screen)"
           [order]="component.order"
           [title]="component.value"
-          *ngIf="component.type === 'HeaderWithMenu'">
+          *ngIf="component.type === 'HeaderWithMenu' && i !== 0">
         </header-with-menu>
 
         <!-- HeaderWithBack -->
@@ -17,7 +31,7 @@
           [action]="navigateTo.bind(this, component.target_screen)"
           [order]="component.order"
           [title]="component.value"
-          *ngIf="component.type === 'HeaderWithBack'">
+          *ngIf="component.type === 'HeaderWithBack' && i !== 0">
         </header-with-back>
 
         <!-- Image -->
