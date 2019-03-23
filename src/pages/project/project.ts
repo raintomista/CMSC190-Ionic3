@@ -105,7 +105,7 @@ export class ProjectPage {
       await this.copyFileToLocal(filepath, filename); // Store image from cache to local storage
       await this.uploadFile(this.file.dataDirectory + this.selectedFile)
     }, (e) => {
-      throw new Error(e);
+      // throw new Error(e);
     });
   }
 
