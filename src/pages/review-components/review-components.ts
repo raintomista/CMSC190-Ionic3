@@ -1,7 +1,7 @@
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { AlertProvider } from './../../providers/alert/alert';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, } from 'ionic-angular';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { NativeStorage } from '@ionic-native/native-storage'
 
@@ -36,6 +36,7 @@ export class ReviewComponentsPage {
   user: any;
 
   constructor(
+    private alertCtrl: AlertController,
     private alertProvider: AlertProvider,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage,
@@ -55,12 +56,49 @@ export class ReviewComponentsPage {
     this.projectName = this.navParams.get('projectName');
   }
 
+  deleteItem(i, component) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
+    setTimeout(() => {
+      this.detected_components.splice(i, 1);
+      loading.dismiss();
+      this.alertCtrl.create({
+        title: 'Success',
+        subTitle: `You have successfully deleted ${component.name}.`,
+        buttons: ['OK']
+      }).present();
+    }, 1000);
+  }
+
   exit() {
     this.navCtrl.pop();
   }
 
   async getLoggedUser() {
     this.user = await this.nativeStorage.getItem('facebook_user');
+  }
+
+  handleDelete(i, component) {
+    const confirm = this.alertCtrl.create({
+      title: 'Confirm Delete',
+      message: `Are you sure you want to delete ${component.name}?`,
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteItem(i, component)
+          }
+        }
+      ]
+    });
+
+    confirm.present();
   }
 
   async proceed() {
