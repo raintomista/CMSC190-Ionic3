@@ -1,9 +1,14 @@
 page-review-components {
-  .list-header-md {
-    margin-bottom: 0px;
-  }
-
-  img {
-    width: 100%;
-  }
+    .empty-state {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 102px);
+    }
+    .list-header-md {
+        margin-bottom: 0px;
+    }
+    img {
+        width: 100%;
+    }
 }

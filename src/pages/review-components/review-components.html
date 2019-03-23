@@ -16,6 +16,9 @@
     <ion-list-header>
       Detected Components ({{processing_time}} sec)
     </ion-list-header>
+    <div class="empty-state" *ngIf="detected_components.length === 0">
+      <ion-note>No components detected!</ion-note>
+    </div>
     <ion-item-group [reorder]="reorder_mode" (ionItemReorder)="reorderItems($event)">
       <ion-item-sliding *ngFor="let component of detected_components">
         <ion-item>
