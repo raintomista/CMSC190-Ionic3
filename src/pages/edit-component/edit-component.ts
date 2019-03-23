@@ -10,6 +10,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { AlertProvider } from './../../providers/alert/alert';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { JsonProvider } from '../../providers/json/json';
+import { ImageLoader } from 'ionic-image-loader';
 
 @IonicPage()
 @Component({
@@ -31,10 +32,13 @@ export class EditComponentPage {
   loading: Boolean = true;
   screens: any [] = [{id: '-', name: 'Select a screen'}];
 
+  imgVisible = true;
+
   constructor(
     private alertProvider: AlertProvider,
     private file: File,
     private fb: FormBuilder,
+    private imageLoader: ImageLoader,
     private imagePicker: ImagePicker,
     private jsonProvider: JsonProvider,
     private loadingCtrl: LoadingController,
@@ -247,8 +251,15 @@ export class EditComponentPage {
         if (event.type === HttpEventType.UploadProgress) {
           this.setLoadingText(`Uploading ${Math.round(100 * event.loaded / event.total)}%`);
         } else if (event instanceof HttpResponse) {
+          this.imageLoader.clearCache();
           loadingAlert.dismiss();
           this.form.patchValue({ value: event.body.file_url });
+
+          this.imgVisible = false;
+
+          setTimeout(() => {
+            this.imgVisible = true;
+          }, 200);
         }
       });
   }

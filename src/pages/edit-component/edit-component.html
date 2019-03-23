@@ -100,8 +100,8 @@
       Image Preview
     </ion-list-header>
     <ion-item>
-      <div class="preview-img">
-        <img-loader [src]="form.value.value" useImg></img-loader>
+      <div class="preview-img" *ngIf="imgVisible === true">
+        <img-loader [src]="form.value.value" useImg #imgLoader></img-loader>
       </div>
     </ion-item>
   </ion-list>
