@@ -41,9 +41,9 @@ export class ProjectProvider {
     });
   }
 
-  editProjectSettings(id, settings, userId) {
+  editProjectSettings(id, settings, userId, new_preview_url, old_preview_url) {
     return new Promise((resolve, reject) => {
-      this.http.put(environment.apiUrl + '/projects/' + id + '?user_id=' + userId, settings)
+      this.http.put(environment.apiUrl + '/projects/' + id + '?user_id=' + userId, { settings, new_preview_url,  old_preview_url })
         .subscribe((response) => {
           resolve(response);
         }, (err) => {

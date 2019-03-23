@@ -106,9 +106,27 @@ export class ReviewComponentsPage {
 
     loading.present();
 
+
+    let preview_url = ''
+    switch (this.aspectRatio) {
+      case '3:2':
+        preview_url = '../../assets/default-3-2.png';
+        break;
+      case '16:9':
+        preview_url = '../../assets/default-16-9.png';
+        break;
+      case '16:10':
+        preview_url = '../../assets/default-16-10.png';
+        break;
+      case '18:9':
+        preview_url = '../../assets/default-18-9.png';
+        break;
+    }
+
     let data = {
       components: components,
       order: this.order,
+      preview_url: preview_url,
       project_id: this.projectId
     };
 

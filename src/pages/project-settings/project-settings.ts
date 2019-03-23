@@ -64,10 +64,44 @@ export class ProjectSettingsPage {
 
     loading.present();
 
+
+    let new_preview_url = '';
+    switch (this.formGroup.get('aspect_ratio').value) {
+      case '3:2':
+        new_preview_url = '../../assets/default-3-2.png';
+        break;
+      case '16:9':
+        new_preview_url = '../../assets/default-16-9.png';
+        break;
+      case '16:10':
+        new_preview_url = '../../assets/default-16-10.png';
+        break;
+      case '18:9':
+        new_preview_url = '../../assets/default-18-9.png';
+        break;
+    }
+
+
+    let old_preview_url = '';
+    switch (this.aspectRatio) {
+      case '3:2':
+        old_preview_url = '../../assets/default-3-2.png';
+        break;
+      case '16:9':
+        old_preview_url = '../../assets/default-16-9.png';
+        break;
+      case '16:10':
+        old_preview_url = '../../assets/default-16-10.png';
+        break;
+      case '18:9':
+        old_preview_url = '../../assets/default-18-9.png';
+        break;
+    }
+
     try {
       let author = await this.nativeStorage.getItem('facebook_user')
       let settings = this.formGroup.value;
-      await this.projectProvider.editProjectSettings(this.projectId, settings, author.id);
+      await this.projectProvider.editProjectSettings(this.projectId, settings, author.id, new_preview_url, old_preview_url);
       this.navCtrl.popToRoot();
       this.navCtrl.push(ProjectPage, {
         aspectRatio: settings.aspect_ratio,
