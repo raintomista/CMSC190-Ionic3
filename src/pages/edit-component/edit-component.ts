@@ -171,7 +171,14 @@ export class EditComponentPage {
   }
 
   async saveChanges() {
-    let loadingAlert = this.alertProvider.showLoading('Saving changes');
+    let loading = this.loadingCtrl.create({
+      content: 'Saving changes...',
+      dismissOnPageChange: true
+    });
+
+    loading.present();
+    this.dismiss();
+
     let activityDescription = `Edited ${this.componentType}`;
 
     switch (this.componentType) {
@@ -212,18 +219,18 @@ export class EditComponentPage {
       formValue.target_screen = null;
     }
     try {
+
       const response = await this.provider.updateComponent(this.componentId, 'edit', {
         activity_description: activityDescription,
         updated_component: this.form.value,
         user_id: this.user.id
       });
 
+      loading.dismiss()
       this.alertProvider.showAlert('Success', `You have successfully edited ${this.componentType}.`);
-      loadingAlert.dismiss();
-      this.dismiss();
     } catch (e) {
       this.alertProvider.showAlert('Error', `Unable to edit ${this.form.get('type').value}. Please try again.`);
-      loadingAlert.dismiss();
+      loading.dismiss()
       throw new Error(e);
     }
   }

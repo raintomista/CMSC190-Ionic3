@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
 import { ScreenPreviewPage } from './../screen-preview/screen-preview';
 import { ScreenBuildPage } from './../screen-build/screen-build';
 import { ScreenInspectPage } from './../screen-inspect/screen-inspect';
@@ -28,6 +28,7 @@ export class ScreenTabsPage {
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private events: Events,
+    private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private navParams: NavParams,

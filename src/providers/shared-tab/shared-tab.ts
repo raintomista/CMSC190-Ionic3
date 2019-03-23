@@ -120,11 +120,19 @@ export class SharedTabProvider {
   }
 
   async getScreen(id) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+    });
+
+    // loading.present();
+
     this.loading = true;
+
     try {
       const response = await this.provider.getScreen(id) as any;
       this.loading = false;
       this.screen = response.item;
+      // loading.dismiss();
     } catch (e) {
       throw new Error(e);
     }

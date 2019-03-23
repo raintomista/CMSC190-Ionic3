@@ -105,6 +105,7 @@ export class ReplaceComponentPage {
 
     // Display loading
     loadingAlert.present();
+    this.dismiss();
 
     try {
       const response = await this.provider.updateComponent(this.componentId, 'replace', {
@@ -112,7 +113,6 @@ export class ReplaceComponentPage {
         updated_component: updated_component,
         user_id: this.user.id,
       });
-      this.dismiss();
       loadingAlert.dismiss();
       this.alertProvider.showAlert('Success', `You have successfully replaced ${this.componentType} with ${selectedItem}.`);
     } catch (e) {
