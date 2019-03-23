@@ -220,9 +220,16 @@ export class ProjectPage {
   }
 
   async deleteScreen(screen, index) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+    });
+
+    loading.present();
+
     try {
       await this.provider.deleteScreen(screen, this.user.id);
       this.screens.splice(index, 1);
+      loading.dismiss();
       this.showAlert('Success', `You have successfully deleted ${screen.name}`);
     } catch (e) {
       this.showAlert('Error', `Unable to delete screen. Please try again.`);
@@ -231,10 +238,17 @@ export class ProjectPage {
   }
 
   async editScreenName(screen, screenName) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+    });
+
+    loading.present();
+
     try {
       const newScreen = Object.assign({}, screen);
       newScreen.name = screenName;
       await this.provider.updateScreen(newScreen, this.user.id);
+      loading.dismiss();
       this.showAlert('Success', `You have successfully renamed screen to ${screenName}`);
       screen.name = screenName;
     } catch (e) {
