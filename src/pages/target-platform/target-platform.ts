@@ -5,7 +5,8 @@ import {
   Events,
   NavController,
   NavParams,
-  ViewController
+  ViewController,
+  LoadingController
 } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -23,6 +24,7 @@ export class TargetPlatformPage {
   constructor(
     private alertCtrl: AlertController,
     private events: Events,
+    private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -50,6 +52,11 @@ export class TargetPlatformPage {
 
   async submit() {
     this.viewCtrl.dismiss();
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
 
     try {
       let author = await this.nativeStorage.getItem('facebook_user')
@@ -61,6 +68,7 @@ export class TargetPlatformPage {
       }, this.formGroup.value);
 
       const response = await this.projectProvider.addProject(newProject, author.id);
+      loading.dismiss();
       this.showAlert('Success', `You have successfully created ${newProject.name}.`);
     } catch(e) {
       this.showAlert('Unable to Create Project', 'An error occurred. Please try again.');

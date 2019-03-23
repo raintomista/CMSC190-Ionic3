@@ -6,7 +6,8 @@ import {
   Events,
   ModalController,
   NavController,
-  NavParams
+  NavParams,
+  LoadingController
 } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -32,6 +33,7 @@ export class HomePage {
     private alertCtrl: AlertController,
     private events: Events,
     private fb: Facebook,
+    private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -49,8 +51,15 @@ export class HomePage {
   }
 
   async deleteProject(id) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
     try {
       const response = await this.provider.deleteProject(id, this.user.id) as any;
+      loading.dismiss();
       this.showAlert('Success', `You have successfully deleted the project.`);
     } catch (e) {
       throw new Error(e);
@@ -58,8 +67,15 @@ export class HomePage {
   }
 
   async editProject(project, newName) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
     try {
       const response = await this.provider.editProject(project.id, newName, this.user.id) as any;
+      loading.dismiss();
       this.showAlert('Success', `You have successfully renamed the project to ${newName}.`);
     } catch (e) {
       throw new Error(e);
@@ -118,7 +134,7 @@ export class HomePage {
 
   inputName(project, handler) {
     const prompt = this.alertCtrl.create({
-      title: 'Project Name',
+      title: 'New Project Name',
       inputs: [{ name: 'name', value: project.name }],
       buttons: [
         {
@@ -130,7 +146,7 @@ export class HomePage {
             if (data.name.length > 0) {
               handler.call(this, project, data.name)
             } else {
-              this.showAlert('Project name is required.', 'Please try again.');
+              this.showAlert('Cannot create project', 'A project name is required to create a new project.');
             }
           }
         }
