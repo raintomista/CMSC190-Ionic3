@@ -54,6 +54,7 @@ import { HttpModule } from '@angular/http';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { JsonProvider } from '../providers/json/json';
 import { Toast } from '@ionic-native/toast';
+import { Shake } from '@ionic-native/shake';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -128,6 +129,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     NativeStorage,
     ScreenProvider,
     ProjectProvider,
+    Shake,
     Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider,

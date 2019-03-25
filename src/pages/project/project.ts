@@ -483,6 +483,7 @@ export class ProjectPage {
   toggleFullscreen() {
     this.navCtrl.push(FullscreenPage, {
       projectId: this.projectId,
+      projectName: this.projectName,
       screenId: this.screens[0].id
     })
   }
