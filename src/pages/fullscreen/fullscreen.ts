@@ -35,10 +35,12 @@ export class FullscreenPage {
   }
 
   async getScreen(id) {
+    this.loading = true;
     try {
       const response = await this.provider.getScreens(this.projectId) as any;
       this.screens = response.items;
       this.screen = this.screens.find((screen) => screen.id === id);
+      this.loading = false;
     } catch (e) {
       throw new Error(e);
     }
