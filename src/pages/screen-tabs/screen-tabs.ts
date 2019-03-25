@@ -125,6 +125,7 @@ export class ScreenTabsPage {
   presentInspector(componentType, targetElement) {
     let componentStyles = {};
     switch (componentType) {
+      case 'HeaderWithBack':
       case 'HeaderWithMenu':
         let element1 = document.querySelector('.preview-box .toolbar-md');
         let computedStyle1 = getComputedStyle(element1);
