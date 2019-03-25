@@ -1,3 +1,4 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { Component } from '@angular/core';
 import { Toast } from '@ionic-native/toast';
 import { Shake } from '@ionic-native/shake';
@@ -24,8 +25,11 @@ export class FullscreenPage {
     private navParams: NavParams,
     private provider: ScreenProvider,
     private shake: Shake,
+    private statusBar: StatusBar,
     private toast: Toast) {
       this.toast.show('Entering fullscreen mode', '1000', 'bottom').subscribe();
+      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#f4f4f4');
 
       this.projectId = this.navParams.get('projectId');
       this.projectName = this.navParams.get('projectName');
@@ -41,6 +45,9 @@ export class FullscreenPage {
   ionViewWillLeave() {
     // Remove shake event listener
     this.watch.unsubscribe();
+
+    this.statusBar.styleLightContent();
+    this.statusBar.backgroundColorByHexString('#2270e5');
   }
 
   get components() {

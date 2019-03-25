@@ -34,12 +34,14 @@ export class MyApp {
 
             this.rootPage = HomePage;
             this.splashScreen.hide();
-            this.statusBar.styleDefault();
+            this.statusBar.styleLightContent();
+            this.statusBar.backgroundColorByHexString('#2270e5');
           })
           .catch((e) => {
             this.rootPage = LoginPage;
             this.splashScreen.hide();
-            this.statusBar.styleDefault();
+            this.statusBar.styleLightContent();
+            this.statusBar.backgroundColorByHexString('#2270e5');
           });
 
       });
