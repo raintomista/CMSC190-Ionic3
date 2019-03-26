@@ -25,6 +25,7 @@ import { Checkbox } from '../../models/checkbox.model';
 import { Radio } from '../../models/radio.model';
 import { ListItem } from './../../models/list-item.model';
 import { Button } from './../../models/button.model';
+import { TutorialPage } from '../tutorial/tutorial';
 
 @Component({
   selector: 'project-page',
@@ -62,7 +63,7 @@ export class ProjectPage {
   }
 
   addNewScreen() {
-    const actionSheet = this.actionSheetCtrl.create({
+    this.actionSheetCtrl.create({
       title: 'Add screen to your project',
       buttons: [
         {
@@ -81,8 +82,35 @@ export class ProjectPage {
           role: 'cancel',
         }
       ]
-    });
-    actionSheet.present();
+    }).present();
+  }
+
+  handleAdd() {
+    if(this.screens.length === null || this.screens.length < 1) {
+      this.alertCtrl.create({
+        title: 'Adding new screen?',
+        subTitle: 'Would you like to see a tutorial on how to properly draw your screen and take a photo of it?',
+        buttons: [
+          {
+            text: 'Yes',
+            handler: () => {
+              this.navCtrl.push(TutorialPage)
+            }
+          },
+          {
+            text: 'No',
+            handler: () => {
+
+              setTimeout(() => {
+                this.addNewScreen()
+              }, 200);
+            }
+          }
+        ]
+      }).present();
+    } else {
+      this.addNewScreen();
+    }
   }
 
   takePhoto() {
@@ -450,6 +478,7 @@ export class ProjectPage {
 
   listenChanges() {
     this.event.subscribe(('screen_changes'), _ => {
+      console.log('hahaha')
       this.refreshScreens(this.projectId);
     });
   }

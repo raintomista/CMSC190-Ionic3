@@ -55,6 +55,7 @@ import { IonicImageLoader } from 'ionic-image-loader';
 import { JsonProvider } from '../providers/json/json';
 import { Toast } from '@ionic-native/toast';
 import { Shake } from '@ionic-native/shake';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -77,6 +78,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     EditComponentPage,
     ReplaceComponentPage,
     FullscreenPage,
+    TutorialPage,
     HeaderWithMenuComponent,
     HeaderWithBackComponent,
     ImageComponent,
@@ -116,7 +118,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     InspectorPage,
     EditComponentPage,
     ReplaceComponentPage,
-    FullscreenPage
+    FullscreenPage,
+    TutorialPage,
   ],
   providers: [
     StatusBar,
