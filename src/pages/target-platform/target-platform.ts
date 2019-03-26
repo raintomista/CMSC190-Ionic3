@@ -68,6 +68,7 @@ export class TargetPlatformPage {
       }, this.formGroup.value);
 
       const response = await this.projectProvider.addProject(newProject, author.id);
+      this.events.publish('project_changes');
       loading.dismiss();
       this.showAlert('Success', `You have successfully created ${newProject.name}.`);
     } catch(e) {

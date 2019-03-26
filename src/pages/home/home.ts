@@ -45,9 +45,7 @@ export class HomePage {
 
       this.socket.connect();
 
-      this.listenChanges().subscribe((id) => {
-          this.refreshProjects();
-      });
+      this.listenChanges();
   }
 
   async deleteProject(id) {
@@ -59,6 +57,7 @@ export class HomePage {
 
     try {
       const response = await this.provider.deleteProject(id, this.user.id) as any;
+      this.refreshProjects();
       loading.dismiss();
       this.showAlert('Success', `You have successfully deleted the project.`);
     } catch (e) {
@@ -75,6 +74,7 @@ export class HomePage {
 
     try {
       const response = await this.provider.editProject(project.id, newName, this.user.id) as any;
+      this.refreshProjects();
       loading.dismiss();
       this.showAlert('Success', `You have successfully renamed the project to ${newName}.`);
     } catch (e) {
@@ -157,12 +157,10 @@ export class HomePage {
   }
 
   listenChanges() {
-    let observable = new Observable(observer => {
-      this.socket.on('project_changes', (data) => {
-        observer.next(data);
-      });
-    })
-    return observable;
+    this.events.subscribe(('project_changes'), _ => {
+      console.log('test')
+      this.refreshProjects();
+    });
   }
 
   async logout() {
@@ -196,6 +194,7 @@ export class HomePage {
     try {
       this.user = await this.nativeStorage.getItem('facebook_user');
       const response = await this.provider.getProjects(this.user.id) as any;
+      console.log(JSON.stringify(response.items))
       this.projects = response.items;
     } catch (e) {
       throw new Error(e);
