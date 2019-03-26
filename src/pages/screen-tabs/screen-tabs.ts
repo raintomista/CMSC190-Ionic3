@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
+import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController, LoadingController, AlertController } from 'ionic-angular';
 import { ScreenPreviewPage } from './../screen-preview/screen-preview';
 import { ScreenBuildPage } from './../screen-build/screen-build';
 import { ScreenInspectPage } from './../screen-inspect/screen-inspect';
@@ -23,10 +23,12 @@ export class ScreenTabsPage {
   projectName: string;
   screenId: string;
   screenName: string;
+  screensLength: number;
   components: any = [];
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController,
     private events: Events,
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
@@ -38,12 +40,19 @@ export class ScreenTabsPage {
     this.projectId = this.navParams.get('projectId');
     this.projectName = this.navParams.get('projectName');
     this.screenId = this.navParams.get('screenId');
-    this.screenName = this.navParams.get('screenName')
+    this.screenName = this.navParams.get('screenName');
+    this.screensLength = this.navParams.get('screensLength');
 
     this.sharedProvider.setParams(this.navParams)
     this.sharedProvider.getScreen(this.navParams.data.screenId);
 
     this.listenChanges();
+  }
+
+  ionViewDidLoad() {
+    if(this.screensLength == null || this.screensLength <= 1) {
+      this.showAlert('Preview Mode', 'This mode allows you to preview your selected screen and interact with its components.')
+    }
   }
 
   ionViewWillLeave() {
@@ -215,5 +224,25 @@ export class ScreenTabsPage {
 
   selectMode(mode) {
     this.mode = mode;
+
+    if(this.screensLength == null || this.screensLength <= 1) {
+      switch(this.mode) {
+        case 'build':
+          this.showAlert('Build Mode', 'This mode allows you to edit or replace components. <b>TAP</b> and <b>HOLD</b> your desired component to start.')
+          break;
+        case 'inspect':
+          this.showAlert('Inspect Mode', 'This mode allows you to inspect the dimensions and styles of a component. <b>TAP</b> and <b>HOLD</b> your desired component to start.')
+          break;
+      }
+    }
+  }
+
+  showAlert(title, subtitle) {
+    const alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

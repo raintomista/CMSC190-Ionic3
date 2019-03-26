@@ -443,6 +443,7 @@ export class ProjectPage {
       projectName: this.projectName,
       screenId: screenId,
       screenName: screenName,
+      screensLength: this.screens.length
     });
 
   }
