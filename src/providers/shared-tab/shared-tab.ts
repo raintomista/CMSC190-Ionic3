@@ -195,10 +195,6 @@ export class SharedTabProvider {
           preview_img: canvas.toDataURL("image/png"),
           ...this.screen
         }, '');
-
-        // setTimeout(() => {
-        //   this.events.publish('screen_changes');
-        // }, 200);
       });
     });
   }
