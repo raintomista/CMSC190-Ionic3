@@ -158,7 +158,6 @@ export class HomePage {
 
   listenChanges() {
     this.events.subscribe(('project_changes'), _ => {
-      console.log('test')
       this.refreshProjects();
     });
   }
@@ -194,7 +193,6 @@ export class HomePage {
     try {
       this.user = await this.nativeStorage.getItem('facebook_user');
       const response = await this.provider.getProjects(this.user.id) as any;
-      console.log(JSON.stringify(response.items))
       this.projects = response.items;
     } catch (e) {
       throw new Error(e);

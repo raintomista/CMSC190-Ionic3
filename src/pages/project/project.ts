@@ -43,6 +43,7 @@ export class ProjectPage {
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private camera: Camera,
+    private event: Events,
     private file: File,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage,
@@ -57,11 +58,7 @@ export class ProjectPage {
     this.getLoggedUser();
     this.getScreens(this.projectId);
 
-    this.listenChanges().subscribe((projectId) => {
-      if (this.projectId === projectId) {
-        this.refreshScreens(this.projectId);
-      }
-    });
+    this.listenChanges();
   }
 
   addNewScreen() {
@@ -422,12 +419,9 @@ export class ProjectPage {
   }
 
   listenChanges() {
-    let observable = new Observable(observer => {
-      this.socket.on('screens_changes', (data) => {
-        observer.next(data);
-      });
-    })
-    return observable;
+    this.event.subscribe(('screen_changes'), _ => {
+      this.refreshScreens(this.projectId);
+    });
   }
 
   manageScreen(screen, index) {
@@ -489,9 +483,23 @@ export class ProjectPage {
   }
 
   async refreshScreens(projectId) {
+    let active = this.navCtrl.last().instance instanceof ProjectPage;
+    let loader = null;
+
+    if(active === true) {
+      loader = this.loadingCtrl.create({
+        content: 'Please wait...',
+      });
+      loader.present()
+    }
+
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
+
+      if(loader !== null) {
+        loader.dismiss();
+      }
     } catch (e) {
       throw new Error(e);
     }

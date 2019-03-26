@@ -103,5 +103,5 @@
     <plugin name="cordova-plugin-telerik-imagepicker" spec="git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git" />
     <plugin name="cordova-plugin-x-toast" spec="^2.7.2" />
     <plugin name="cordova-plugin-shake" spec="^0.6.0" />
-    <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git" />
+    <plugin name="cordova-plugin-statusbar" spec="git+https://github.com/apache/cordova-plugin-statusbar.git" />
 </widget>

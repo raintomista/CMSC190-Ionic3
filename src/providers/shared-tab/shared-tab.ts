@@ -185,12 +185,20 @@ export class SharedTabProvider {
               ...this.screen,
               preview_url: normalizeURL(entry.nativeURL)
             }, '');
+
+            this.events.publish('screen_changes');
+
           }).catch(e => console.log(e))
+
 
         await this.provider.updateScreen({
           preview_img: canvas.toDataURL("image/png"),
           ...this.screen
         }, '');
+
+        // setTimeout(() => {
+        //   this.events.publish('screen_changes');
+        // }, 200);
       });
     });
   }

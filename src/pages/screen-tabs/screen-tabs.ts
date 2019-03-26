@@ -48,6 +48,9 @@ export class ScreenTabsPage {
 
   ionViewWillLeave() {
     this.sharedProvider.saveScreenshot();
+    // setTimeout(() => {
+    //   this.events.publish('screen_changes');
+    // }, 500);
   }
 
   listenChanges() {
