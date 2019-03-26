@@ -278,7 +278,21 @@ export class ProjectPage {
       const gist = await this.provider.exportScreen(data) as any;
       const response = await this.provider.shortenURL(gist.html_url) as any;
       loading.dismiss();
-      this.showAlert('Export Success', `You may now access its source code at <a>${response.link}</a>`);
+      this.alertCtrl.create({
+        title: 'Export Success',
+        subTitle: `You may now access its source code at <a>${response.link}</a>`,
+        buttons: [
+          {
+            text: 'Open link',
+            handler: () => {
+              window.open(gist.html_url, '_system');
+            }
+          },
+          {
+            text: 'Dismiss',
+          },
+        ]
+      }).present();
     } catch (e) {
       loading.dismiss();
       this.showAlert('Error', `Unable to export screen. Please try again.`);
@@ -312,7 +326,22 @@ export class ProjectPage {
       const gist = await this.provider.exportScreen(data) as any;
       const response = await this.provider.shortenURL(gist.html_url) as any;
       loading.dismiss();
-      this.showAlert('Export Success', `You may now access its source code at <a>${response.link}</a>`);
+
+      this.alertCtrl.create({
+        title: 'Export Success',
+        subTitle: `You may now access its source code at <a>${response.link}</a>`,
+        buttons: [
+          {
+            text: 'Open link',
+            handler: () => {
+              window.open(response.link, '_system');
+            }
+          },
+          {
+            text: 'Dismiss',
+          },
+        ]
+      }).present();
     } catch (e) {
       loading.dismiss();
       this.showAlert('Error', `Unable to export screen. Please try again.`);
