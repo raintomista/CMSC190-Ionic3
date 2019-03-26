@@ -113,6 +113,12 @@ export class ReplaceComponentPage {
         updated_component: updated_component,
         user_id: this.user.id,
       });
+
+      this.events.publish('component_changes');
+      this.events.publish('project_changes');
+
+
+
       loadingAlert.dismiss();
       this.alertProvider.showAlert('Success', `You have successfully replaced ${this.componentType} with ${selectedItem}.`);
     } catch (e) {

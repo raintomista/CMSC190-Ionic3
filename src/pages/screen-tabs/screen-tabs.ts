@@ -34,20 +34,16 @@ export class ScreenTabsPage {
     private navParams: NavParams,
     private sharedProvider: SharedTabProvider,
     private socket: Socket) {
-      this.aspectRatio = this.navParams.get('aspectRatio');
-      this.projectId = this.navParams.get('projectId');
-      this.projectName = this.navParams.get('projectName');
-      this.screenId = this.navParams.get('screenId');
-      this.screenName = this.navParams.get('screenName')
+    this.aspectRatio = this.navParams.get('aspectRatio');
+    this.projectId = this.navParams.get('projectId');
+    this.projectName = this.navParams.get('projectName');
+    this.screenId = this.navParams.get('screenId');
+    this.screenName = this.navParams.get('screenName')
 
-      this.sharedProvider.setParams(this.navParams)
-      this.sharedProvider.getScreen(this.navParams.data.screenId);
+    this.sharedProvider.setParams(this.navParams)
+    this.sharedProvider.getScreen(this.navParams.data.screenId);
 
-      this.listenChanges().subscribe((screenId) => {
-        if(this.screenId === screenId) {
-          this.sharedProvider.getScreen(screenId);
-        }
-      });
+    this.listenChanges();
   }
 
   ionViewWillLeave() {
@@ -55,12 +51,9 @@ export class ScreenTabsPage {
   }
 
   listenChanges() {
-    let observable = new Observable(observer => {
-      this.socket.on('component_changes', (data) => {
-        observer.next(data);
-      });
+    this.events.subscribe('component_changes', _ => {
+        this.sharedProvider.getScreen(this.screenId);
     })
-    return observable;
   }
 
 
@@ -212,7 +205,7 @@ export class ScreenTabsPage {
   rgbToHex(rgb) {
     let hex = Number(rgb).toString(16);
     if (hex.length < 2) {
-         hex = "0" + hex;
+      hex = "0" + hex;
     }
     return hex;
   }

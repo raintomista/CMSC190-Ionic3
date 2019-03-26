@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, Events } from 'ionic-angular';
 import { File, FileEntry } from '@ionic-native/file';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -36,6 +36,7 @@ export class EditComponentPage {
 
   constructor(
     private alertProvider: AlertProvider,
+    private events: Events,
     private file: File,
     private fb: FormBuilder,
     private imageLoader: ImageLoader,
@@ -229,6 +230,9 @@ export class EditComponentPage {
         updated_component: this.form.value,
         user_id: this.user.id
       });
+
+      this.events.publish('component_changes');
+      this.events.publish('project_changes');
 
       loading.dismiss()
       this.alertProvider.showAlert('Success', `You have successfully edited ${this.componentType}.`);
