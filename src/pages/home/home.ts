@@ -157,6 +157,12 @@ export class HomePage {
   }
 
   listenChanges() {
+    this.events.subscribe('get_started', _ => {
+      setTimeout(() => {
+        this.handleAdd();
+      }, 1000);
+    });
+
     this.events.subscribe(('project_changes'), _ => {
       this.refreshProjects();
     });
