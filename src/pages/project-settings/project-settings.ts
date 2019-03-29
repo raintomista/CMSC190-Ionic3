@@ -110,7 +110,7 @@ export class ProjectSettingsPage {
       });
       loading.dismiss();
       this.showAlert('Success', `You have successfully edited project settings.`);
-
+      this.events.publish('project_changes');
     } catch(e) {
       this.showAlert('Unable to Create Project', 'An error occurred. Please try again.');
       throw new Error(e);

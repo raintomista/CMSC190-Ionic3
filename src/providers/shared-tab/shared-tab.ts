@@ -187,7 +187,7 @@ export class SharedTabProvider {
             }, '');
 
             this.events.publish('screen_changes');
-
+            this.events.publish('project_changes');
           }).catch(e => console.log(e))
 
 

@@ -1,7 +1,7 @@
 import { ScreenTabsPage } from './../screen-tabs/screen-tabs';
 import { AlertProvider } from './../../providers/alert/alert';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, Events } from 'ionic-angular';
 import { ScreenProvider } from './../../providers/screen/screen';
 import { NativeStorage } from '@ionic-native/native-storage'
 
@@ -39,6 +39,7 @@ export class ReviewComponentsPage {
   constructor(
     private alertCtrl: AlertController,
     private alertProvider: AlertProvider,
+    private events: Events,
     private loadingCtrl: LoadingController,
     private nativeStorage: NativeStorage,
     private navCtrl: NavController,
@@ -182,6 +183,9 @@ export class ReviewComponentsPage {
         screenId: response.screen_id,
         screenName: response.screen_name
       });
+
+      this.events.publish('screen_changes');
+      this.events.publish('project_changes');
     } catch (e) {
       loading.dismiss()
       this.alertProvider.showAlert('Error', 'Unable to create screen. Please try again later.')
