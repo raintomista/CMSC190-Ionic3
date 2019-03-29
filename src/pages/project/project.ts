@@ -40,6 +40,8 @@ export class ProjectPage {
   screens: any = [];
   selectedFile: string = null;
 
+  loaderDialog = null;
+
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
@@ -167,23 +169,17 @@ export class ProjectPage {
     formData.append('file', file, filename);
 
     let loading = this.loadingCtrl.create({
-      content: 'Processing image...',
+      content: 'Uploading image...',
       dismissOnPageChange: true
     });
 
     loading.present();
 
+    this.socket.on('upload_done', () => {
+      loading.setContent('Detecting components...')
+    });
 
-    setTimeout(async () => {
-      loading.dismiss();
 
-      loading = this.loadingCtrl.create({
-        content: 'This may take a while depending on internet connection...',
-        dismissOnPageChange: true
-      });
-
-      loading.present();
-    }, 1500);
 
     try {
       const results = await this.provider.addScreen(formData);
@@ -478,7 +474,6 @@ export class ProjectPage {
 
   listenChanges() {
     this.event.subscribe(('screen_changes'), _ => {
-      console.log('hahaha')
       this.refreshScreens(this.projectId);
     });
   }
@@ -543,21 +538,21 @@ export class ProjectPage {
 
   async refreshScreens(projectId) {
     let active = this.navCtrl.last().instance instanceof ProjectPage;
-    let loader = null;
 
-    if(active === true) {
-      loader = this.loadingCtrl.create({
+    if(active === true && this.loaderDialog == null) {
+      this.loaderDialog = this.loadingCtrl.create({
         content: 'Please wait...',
       });
-      loader.present()
+      this.loaderDialog.present()
     }
 
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
 
-      if(loader !== null) {
-        loader.dismiss();
+      if(this.loaderDialog !== null) {
+        this.loaderDialog.dismiss();
+        this.loaderDialog = null;
       }
     } catch (e) {
       throw new Error(e);

@@ -27,6 +27,7 @@ export class ReviewComponentsPage {
   original_file: string;
   labelled_file: string;
   processing_time: number;
+  uploading_time: number;
   detected_components: any[];
 
   aspectRatio: string;
@@ -48,7 +49,8 @@ export class ReviewComponentsPage {
     this.original_file = this.navParams.get('original_file');
     this.labelled_file = this.navParams.get('labelled_file');
     this.detected_components = this.navParams.get('detected_components');
-    this.processing_time = this.navParams.get('processing_time');
+    this.processing_time = Math.round(this.navParams.get('processing_time') * 100) / 100;
+    this.uploading_time = Math.round(this.navParams.get('uploading_time') * 100) / 100;
 
     this.aspectRatio = this.navParams.get('aspectRatio');
     this.order = this.navParams.get('order');
