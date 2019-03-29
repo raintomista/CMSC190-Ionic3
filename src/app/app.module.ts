@@ -56,6 +56,7 @@ import { JsonProvider } from '../providers/json/json';
 import { Toast } from '@ionic-native/toast';
 import { Shake } from '@ionic-native/shake';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { UserProvider } from '../providers/user/user';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -136,7 +137,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider,
-    JsonProvider
+    JsonProvider,
+    UserProvider
   ]
 })
 export class AppModule {}
