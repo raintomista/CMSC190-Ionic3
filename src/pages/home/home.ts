@@ -48,6 +48,10 @@ export class HomePage {
       this.listenChanges();
   }
 
+  ionViewWillUnload() {
+    this.events.unsubscribe('get_started');
+  }
+
   async deleteProject(id) {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -163,7 +167,7 @@ export class HomePage {
       }, 1000);
     });
 
-    this.events.subscribe(('project_changes'), _ => {
+    this.events.subscribe('project_changes', _ => {
       this.refreshProjects();
     });
   }
