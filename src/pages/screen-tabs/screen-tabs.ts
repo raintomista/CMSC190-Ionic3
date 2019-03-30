@@ -23,7 +23,7 @@ export class ScreenTabsPage {
   projectName: string;
   screenId: string;
   screenName: string;
-  screensLength: number;
+  screenCnt: number;
   components: any = [];
 
   constructor(
@@ -41,7 +41,7 @@ export class ScreenTabsPage {
     this.projectName = this.navParams.get('projectName');
     this.screenId = this.navParams.get('screenId');
     this.screenName = this.navParams.get('screenName');
-    this.screensLength = this.navParams.get('screensLength');
+    this.screenCnt = this.navParams.get('screenCnt');
 
     this.sharedProvider.setParams(this.navParams)
     this.sharedProvider.getScreen(this.navParams.data.screenId);
@@ -50,7 +50,7 @@ export class ScreenTabsPage {
   }
 
   ionViewDidLoad() {
-    if(this.screensLength == null || this.screensLength <= 1) {
+    if(this.screenCnt <= 1) {
       this.showAlert('Preview Mode', 'This mode allows you to preview your selected screen and interact with its components.')
     }
   }
@@ -222,7 +222,7 @@ export class ScreenTabsPage {
   selectMode(mode) {
     this.mode = mode;
 
-    if(this.screensLength == null || this.screensLength <= 1) {
+    if(this.screenCnt <= 1) {
       switch(this.mode) {
         case 'build':
           this.showAlert('Build Mode', 'This mode allows you to edit or replace components. <b>TAP</b> and <b>HOLD</b> your desired component to start.')
