@@ -1,5 +1,11 @@
 page-fullscreen {
+  .fullscreen-container {
+    height: 100%;
+    overflow: hidden;
+  }
   .offset-content {
     margin-top: 56px;
+    overflow: visible !important;
+    height: calc(100% - 56px)
   }
 }
