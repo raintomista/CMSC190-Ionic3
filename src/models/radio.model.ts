@@ -13,7 +13,7 @@ export class Radio {
     return `\
       <ion-item>
         <ion-label>${this.value}</ion-label>
-        <ion-radio value="${this.value}"></ion-radio>
+        <ion-radio color="dark" value="${this.value}"></ion-radio>
       </ion-item>
     \ `;
   }
