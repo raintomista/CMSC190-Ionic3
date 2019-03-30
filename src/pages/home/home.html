@@ -23,7 +23,7 @@
       My Projects
     </ion-list-header>
     <ion-item-sliding *ngFor="let project of projects" #slidingItem>
-      <ion-item (click)="handleView(project.id, project.name, project.aspect_ratio)">
+      <ion-item (click)="handleView(project.id, project.name, project.aspect_ratio, project.no_of_screens)">
         <h2>{{project.name}}</h2>
         <p class="details">
           <span *ngIf="project.no_of_screens === 1">{{project.no_of_screens}} Screen</span>

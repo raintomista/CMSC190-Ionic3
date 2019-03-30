@@ -37,6 +37,7 @@ export class ProjectPage {
   loading: boolean = true;
   projectId: string = null;
   projectName: string = null;
+  screenCnt: number;
   screens: any = [];
   selectedFile: string = null;
 
@@ -58,10 +59,31 @@ export class ProjectPage {
     this.projectId = this.navParams.get('projectId');
     this.projectName = this.navParams.get('projectName');
     this.aspectRatio = this.navParams.get('aspectRatio');
+    this.screenCnt = this.navParams.get('screenCnt');
     this.getLoggedUser();
     this.getScreens(this.projectId);
+  }
 
+  ionViewWillEnter() {
     this.listenChanges();
+  }
+
+  ionViewDidLoad() {
+    this.event.subscribe('screenshot_started', () => {
+      this.loaderDialog = this.loadingCtrl.create({
+        content: 'Saving screen...'
+      });
+      this.loaderDialog.present();
+    });
+  }
+
+  ionViewWillLeave() {
+    this.event.unsubscribe('screenshot_done');
+    this.event.unsubscribe('screen_changes');
+  }
+
+  ionViewWillUnload() {
+    this.event.unsubscribe('screenshot_started');
   }
 
   addNewScreen() {
@@ -88,7 +110,7 @@ export class ProjectPage {
   }
 
   handleAdd() {
-    if(this.screens.length === null || this.screens.length < 1) {
+    if(this.screenCnt < 1) {
       this.alertCtrl.create({
         title: 'Adding new screen?',
         subTitle: 'Would you like to see a tutorial on how to properly draw your screen and take a photo of it?',
@@ -250,6 +272,8 @@ export class ProjectPage {
     try {
       await this.provider.deleteScreen(screen, this.user.id);
       this.screens.splice(index, 1);
+      this.screenCnt = this.screens.length;
+      this.event.publish('project_changes');
       loading.dismiss();
       this.showAlert('Success', `You have successfully deleted ${screen.name}`);
     } catch (e) {
@@ -454,6 +478,7 @@ export class ProjectPage {
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
+      this.screenCnt = this.screens.length;
       this.loading = false;
     } catch (e) {
       throw new Error(e);
@@ -467,13 +492,19 @@ export class ProjectPage {
       projectName: this.projectName,
       screenId: screenId,
       screenName: screenName,
-      screensLength: this.screens.length
+      screenCnt: this.screenCnt
     });
 
   }
 
   listenChanges() {
-    this.event.subscribe(('screen_changes'), _ => {
+    this.event.subscribe('screenshot_done', async () => {
+      await this.refreshScreens(this.projectId);
+      await this.loaderDialog.dismiss();
+    });
+
+
+    this.event.subscribe('screen_changes', () => {
       this.refreshScreens(this.projectId);
     });
   }
@@ -521,6 +552,7 @@ export class ProjectPage {
     try {
       const response = await this.provider.getScreens(this.projectId) as any;
       this.screens = response.items;
+      this.screenCnt = this.screens.length;
       refresher.complete();
     } catch (e) {
       refresher.complete();
@@ -537,23 +569,10 @@ export class ProjectPage {
   }
 
   async refreshScreens(projectId) {
-    let active = this.navCtrl.last().instance instanceof ProjectPage;
-
-    if(active === true && this.loaderDialog == null) {
-      this.loaderDialog = this.loadingCtrl.create({
-        content: 'Please wait...',
-      });
-      this.loaderDialog.present()
-    }
-
     try {
       const response = await this.provider.getScreens(projectId) as any;
       this.screens = response.items;
-
-      if(this.loaderDialog !== null) {
-        this.loaderDialog.dismiss();
-        this.loaderDialog = null;
-      }
+      this.screenCnt = this.screens.length;
     } catch (e) {
       throw new Error(e);
     }

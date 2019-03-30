@@ -169,6 +169,7 @@ export class SharedTabProvider {
 
 
   saveScreenshot() {
+    this.events.publish('screenshot_started');
     this.ngZone.runOutsideAngular(async () => {
       html2canvas(document.getElementById('preview-box'), {
         allowTaint: false,
@@ -186,7 +187,7 @@ export class SharedTabProvider {
               preview_url: normalizeURL(entry.nativeURL)
             }, '');
 
-            this.events.publish('screen_changes');
+            this.events.publish('screenshot_done');
             this.events.publish('project_changes');
           }).catch(e => console.log(e))
 

@@ -128,11 +128,12 @@ export class HomePage {
     slidingItem.close();
   }
 
-  handleView(projectId, projectName, aspectRatio) {
+  handleView(projectId, projectName, aspectRatio, screenCnt) {
     this.navCtrl.push(ProjectPage, {
       projectId,
       projectName,
-      aspectRatio
+      aspectRatio,
+      screenCnt
     });
   }
 
