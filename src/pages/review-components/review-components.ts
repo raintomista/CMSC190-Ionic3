@@ -188,7 +188,8 @@ export class ReviewComponentsPage {
         projectId: this.projectId,
         projectName: this.projectName,
         screenId: response.screen_id,
-        screenName: response.screen_name
+        screenName: response.screen_name,
+        screenCnt: 1
       });
 
       this.events.publish('screen_changes');
