@@ -197,7 +197,9 @@ export class SharedTabProvider {
           ...this.screen
         }, '');
       });
-    });
+    }).catch((e) => {
+      this.events.publish('screenshot_done');
+    })
   }
 
 

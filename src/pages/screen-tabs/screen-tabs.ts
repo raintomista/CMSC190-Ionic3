@@ -45,7 +45,9 @@ export class ScreenTabsPage {
 
     this.sharedProvider.setParams(this.navParams)
     this.sharedProvider.getScreen(this.navParams.data.screenId);
+  }
 
+  ionViewWillEnter() {
     this.listenChanges();
   }
 
@@ -57,6 +59,7 @@ export class ScreenTabsPage {
 
   ionViewWillLeave() {
     this.sharedProvider.saveScreenshot();
+    this.events.unsubscribe('component_changes');
   }
 
   listenChanges() {
