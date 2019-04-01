@@ -1,0 +1,16 @@
+Welcome to drawtotype.io!
+
+This app will instantly transform a whiteboard wireframe into an interactive prototype by following these steps:
+	1. Choose up to four from the following components
+	2. Draw them vertically on a whiteboard using a thick whiteboard marker
+	3. Make sure that there are spaces between every component
+	4. Close the gaps in your drawings as much as possible
+	4. Capture your wireframes in a well-lit room
+	5. Avoid casting shadows on your whiteboard while capturing
+	6. Once the image has been processed, you can delete or re-arrange the components according to your liking
+	6a. To delete a component, swipe your desired component to the left to show the delete button
+	6b. To rearrange components, drag your desired component using the handle at its right side and drop it when you are done
+
+	7. Press the check button if you want to proceed. Otherwise, please press the cross button to go back.
+	8. Once you are done modifying your components, you can now view your project as a interactive prototype by pressing the full screen button
+	9. You can also export your project into its actual user interface source code for your Ionic application

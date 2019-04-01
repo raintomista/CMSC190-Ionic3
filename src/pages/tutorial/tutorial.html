@@ -1,16 +1,25 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      Tutorial
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="light" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" color="light" showWhen="android"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content padding>
+<ion-content>
 
-</ion-content>
+    <ion-slides pager>
+      <ion-slide *ngFor="let slide of slides">
+        <ion-toolbar>
+          <ion-buttons end>
+            <button ion-button color="primary" (tap)="dismiss()">Skip</button>
+          </ion-buttons>
+        </ion-toolbar>
+        <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+        <p [innerHTML]="slide.description"></p>
+        <img [src]="slide.image" class="slide-image"/>
+      </ion-slide>
+      <ion-slide>
+        <ion-toolbar>
+        </ion-toolbar>
+        <h2 class="slide-title">Are your ready now?</h2>
+        <p>Start transforming your whiteboard drawings!</p>
+        <button ion-button large clear icon-end color="primary" (tap)="continue()">
+          Continue
+          <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-slide>
+    </ion-slides>
+  </ion-content>

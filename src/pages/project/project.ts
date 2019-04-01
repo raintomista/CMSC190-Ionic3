@@ -75,6 +75,10 @@ export class ProjectPage {
       });
       this.loaderDialog.present();
     });
+
+    this.event.subscribe('tutorial_continue', () => {
+      this.addNewScreen();
+    });
   }
 
   ionViewWillLeave() {
@@ -84,6 +88,7 @@ export class ProjectPage {
 
   ionViewWillUnload() {
     this.event.unsubscribe('screenshot_started');
+    this.event.unsubscribe('tutorial_continue');
   }
 
   addNewScreen() {
