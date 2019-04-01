@@ -56,20 +56,18 @@
     </ion-item>
 
     <!-- FAB Component -->
-    <ng-container *ngIf="componentType == 'FAB'">
-      <ion-list-header class="select-icon-header">
-        Select an icon
-      </ion-list-header>
-      <ion-grid>
-        <ion-row *ngFor="let row of icons">
-          <ion-col col-2 *ngFor="let icon of row">
-            <button ion-button full icon-only clear [ngClass]="{'selected': icon == form.value.value }" (click)="selectIcon(icon)">
-              <ion-icon [name]="icon"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ng-container>
+    <ion-list-header class="select-icon-header" *ngIf="componentType == 'FAB'">
+      Select an icon
+    </ion-list-header>
+    <ion-grid *ngIf="componentType == 'FAB'">
+      <ion-row *ngFor="let row of icons">
+        <ion-col col-2 *ngFor="let icon of row">
+          <button ion-button full icon-only clear [ngClass]="{'selected': icon == form.value.value }" (click)="selectIcon(icon)">
+            <ion-icon [name]="icon"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
     <!-- Checkbox Component -->
     <ion-item *ngIf="componentType === 'Checkbox'">

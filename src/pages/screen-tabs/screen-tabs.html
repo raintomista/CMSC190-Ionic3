@@ -68,7 +68,7 @@
           <floating-action-button
             [icon]="component.value"
             [mode]="mode"
-            [action]="performAction.bind(this, component.id, component.type)"
+            [action]="performAction.bind(this, component.id, 'FAB')"
             *ngIf="component.type === 'FAB'">
           </floating-action-button>
 

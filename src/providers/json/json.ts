@@ -9,7 +9,7 @@ export class JsonProvider {
 
   getIonIcons() {
     return new Promise((resolve, reject) => {
-      this.http.get('../../assets/json/ion-icons.json')
+      this.http.get('assets/json/ion-icons.json')
         .subscribe((response) => {
           resolve(response);
         }, (err) => {
