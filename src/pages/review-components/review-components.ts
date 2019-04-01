@@ -16,6 +16,7 @@ import { Checkbox } from '../../models/checkbox.model';
 import { Radio } from '../../models/radio.model';
 import { ListItem } from '../../models/list-item.model';
 import { Button } from '../../models/button.model';
+import { Toast } from '@ionic-native/toast';
 
 @IonicPage()
 @Component({
@@ -44,7 +45,8 @@ export class ReviewComponentsPage {
     private nativeStorage: NativeStorage,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private provider: ScreenProvider) {
+    private provider: ScreenProvider,
+    private toast: Toast) {
     this.getLoggedUser();
 
     this.original_file = this.navParams.get('original_file');
@@ -57,6 +59,11 @@ export class ReviewComponentsPage {
     this.order = this.navParams.get('order');
     this.projectId = this.navParams.get('projectId');
     this.projectName = this.navParams.get('projectName');
+
+    this.toast.show('To delete a component, swipe it to the left to reveal the delete button.', '6000', 'bottom').subscribe();
+    setTimeout(() => {
+      this.toast.show('To reorder a component, use the drag handle found in its right side.', '6000', 'bottom').subscribe();
+    }, 6000);
   }
 
   deleteItem(i, component) {

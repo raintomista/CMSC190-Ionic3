@@ -28,6 +28,10 @@ export class FullscreenPage {
     private statusBar: StatusBar,
     private toast: Toast) {
       this.toast.show('Entering fullscreen mode', '1000', 'bottom').subscribe();
+
+      setTimeout(() => {
+        this.toast.show('Shake your device to exit fullscreen mode...', '5000', 'bottom').subscribe();
+      }, 3000);
       this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#f4f4f4');
 

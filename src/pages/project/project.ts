@@ -206,8 +206,6 @@ export class ProjectPage {
       loading.setContent('Detecting components...')
     });
 
-
-
     try {
       const results = await this.provider.addScreen(formData);
       this.navCtrl.push(ReviewComponentsPage, {
@@ -219,7 +217,12 @@ export class ProjectPage {
         ...results
       });
     } catch (e) {
-      throw new Error(e);
+      loading.dismiss();
+      this.alertCtrl.create({
+        title: 'Detection Failed',
+        message: 'An error occurred during detection. Please try again.',
+        buttons: ['OK']
+      }).present();
     }
   }
 
