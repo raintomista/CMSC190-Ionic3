@@ -26,6 +26,7 @@ import { Radio } from '../../models/radio.model';
 import { ListItem } from './../../models/list-item.model';
 import { Button } from './../../models/button.model';
 import { TutorialPage } from '../tutorial/tutorial';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'project-page',
@@ -196,7 +197,7 @@ export class ProjectPage {
     formData.append('file', file, filename);
 
     let loading = this.loadingCtrl.create({
-      content: 'Uploading image...',
+      content: 'Uploading 0%',
       dismissOnPageChange: true
     });
 
@@ -206,24 +207,27 @@ export class ProjectPage {
       loading.setContent('Detecting components...')
     });
 
-    try {
-      const results = await this.provider.addScreen(formData);
-      this.navCtrl.push(ReviewComponentsPage, {
-        aspectRatio: this.aspectRatio,
-        order: this.screens.length,
-        projectId: this.projectId,
-        projectName: this.projectName,
+    this.provider.addScreen(formData).subscribe((event: any) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        loading.setContent(`Uploading ${Math.round(100 * event.loaded / event.total)}%`);
+      } else if (event instanceof HttpResponse) {
+        this.navCtrl.push(ReviewComponentsPage, {
+          aspectRatio: this.aspectRatio,
+          order: this.screens.length,
+          projectId: this.projectId,
+          projectName: this.projectName,
 
-        ...results
-      });
-    } catch (e) {
+          ...event.body
+        });
+      }
+    }, (err) => {
       loading.dismiss();
       this.alertCtrl.create({
         title: 'Detection Failed',
         message: 'An error occurred during detection. Please try again.',
         buttons: ['OK']
       }).present();
-    }
+    });
   }
 
   choosePhoto() {

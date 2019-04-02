@@ -13,14 +13,12 @@ export class ScreenProvider {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    return new Promise((resolve, reject) => {
-      this.http.request('post', environment.apiUrl + '/screens', { body: formData, headers: headers })
-        .subscribe((response) => {
-          resolve(response);
-        }, (err) => {
-          reject(err);
-        });
+    let req = new HttpRequest('POST', environment.apiUrl + '/screens', formData, {
+      headers: headers,
+      reportProgress: true
     });
+
+    return this.http.request(req);
   }
 
   deleteScreen(screen, userId) {
