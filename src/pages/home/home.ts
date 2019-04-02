@@ -40,12 +40,12 @@ export class HomePage {
     private nativeStorage: NativeStorage,
     private provider: ProjectProvider,
     private socket: Socket) {
-      this.getLoggedUser();
-      this.getProjects();
+    this.getLoggedUser();
+    this.getProjects();
 
-      this.socket.connect();
+    this.socket.connect();
 
-      this.listenChanges();
+    this.listenChanges();
   }
 
   ionViewWillUnload() {
@@ -89,7 +89,7 @@ export class HomePage {
   formatDate(date) {
     const currentDate = moment();
 
-    if(moment(currentDate).diff(date, 'days') < 1) {
+    if (moment(currentDate).diff(date, 'days') < 1) {
       return moment(date).format('hh:mm a')
     } else if (moment(currentDate).diff(date, 'days') >= 1 && moment(currentDate).diff(date, 'days') <= 365) {
       return moment(date).format('DD MMM')
@@ -178,7 +178,7 @@ export class HomePage {
       this.fb.logout();
       this.nativeStorage.remove('facebook_user');
       this.navCtrl.setRoot(LoginPage);
-    } catch(e) {
+    } catch (e) {
       this.showAlert('Logout Failed', 'An error occured. Please try again.')
     }
   }
@@ -246,6 +246,18 @@ export class HomePage {
           role: 'destructive',
           handler: () => {
             this.logout();
+          }
+        },
+        {
+          text: 'Evaluate app usability',
+          handler: () => {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSfzbfCqzT1eXCiDcyot01A7cH3xJ-kGc_kF-VTya1Hj1uSBGg/viewform', '_system');
+          }
+        },
+        {
+          text: 'Send us your feedback',
+          handler: () => {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSfkrPSWrZD0bqBni7rOquP5-KZrLnNkHTxq6dYxaBX07a_NuA/viewform', '_system');
           }
         },
         {
