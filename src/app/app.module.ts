@@ -1,6 +1,43 @@
-import { FullscreenPage } from './../pages/fullscreen/fullscreen';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { MyApp } from './app.component';
+
+// Angular
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+
+// Ionic Native
+import { Camera } from '@ionic-native/camera';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook'
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { EditComponentPage } from './../pages/edit-component/edit-component';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Shake } from '@ionic-native/shake';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Toast } from '@ionic-native/toast';
+
+// Libraries
+import { IonicImageLoader } from 'ionic-image-loader';
+import { LongPressModule } from 'ionic-long-press';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+// Page Module Imports
+import { LoginPageModule } from '../pages/login/login.module';
+import { HomePageModule } from '../pages/home/home.module';
+import { ProjectPageModule } from '../pages/project/project.module';
+import { ProjectHistoryPageModule } from '../pages/screen-history/screen-history.module';
+import { ProjectSettingsPageModule } from '../pages/project-settings/project-settings.module';
+import { TargetPlatformPageModule } from '../pages/target-platform/target-platform.module';
+import { ReviewComponentsPageModule } from '../pages/review-components/review-components.module';
+import { ScreenTabsPageModule } from '../pages/screen-tabs/screen-tabs.module';
+import { InspectorPageModule } from '../pages/inspector/inspector.module';
+import { EditComponentPageModule } from '../pages/edit-component/edit-component.module';
+import { ReplaceComponentPageModule } from '../pages/replace-component/replace-component.module';
+import { FullscreenPageModule } from '../pages/fullscreen/fullscreen.module';
+import { TutorialPageModule } from '../pages/tutorial/tutorial.module';
 
 // Component Imports
 import { HeaderWithMenuComponent } from '../components/header-with-menu/header-with-menu';
@@ -14,82 +51,22 @@ import { RadioComponent } from './../components/radio/radio';
 import { ListItemComponent } from '../components/list-item/list-item';
 import { ButtonComponent } from '../components/button/button';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { NativeStorage } from '@ionic-native/native-storage';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-
-import { MyApp } from './app.component';
-import { LoginPage } from './../pages/login/login';
-import { HomePage } from '../pages/home/home';
-import { ProjectPage } from '../pages/project/project';
-import { TargetPlatformPage } from './../pages/target-platform/target-platform';
-import { ReviewComponentsPage } from './../pages/review-components/review-components';
-import { ScreenTabsPage } from './../pages/screen-tabs/screen-tabs';
-import { ScreenPreviewPage } from './../pages/screen-preview/screen-preview';
-import { ScreenInspectPage } from './../pages/screen-inspect/screen-inspect';
-import { ScreenBuildPage } from './../pages/screen-build/screen-build';
-import { InspectorPage } from './../pages/inspector/inspector';
-import { ProjectHistoryPage } from '../pages/project-history/project-history';
-import { ScreenHistoryPage } from '../pages/screen-history/screen-history';
-
-import { HttpClientModule } from '@angular/common/http';
-import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-import { FilePath } from '@ionic-native/file-path';
-import { ScreenProvider } from '../providers/screen/screen';
-import { ProjectProvider } from '../providers/project/project';
-import { LongPressModule } from 'ionic-long-press';
+// Providers
 import { AlertProvider } from '../providers/alert/alert';
-import { ReplaceComponentPage } from '../pages/replace-component/replace-component';
-
-import { environment } from './../environments/environment';
-
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import { ProjectSettingsPage } from '../pages/project-settings/project-settings';
-import { HttpModule } from '@angular/http';
-import { IonicImageLoader } from 'ionic-image-loader';
 import { JsonProvider } from '../providers/json/json';
-import { Toast } from '@ionic-native/toast';
-import { Shake } from '@ionic-native/shake';
-import { TutorialPage } from '../pages/tutorial/tutorial';
+import { ProjectProvider } from '../providers/project/project';
+import { ScreenProvider } from '../providers/screen/screen';
 import { UserProvider } from '../providers/user/user';
+
+// Environment
+import { environment } from './../environments/environment';
+import { ComponentsModule } from '../components/components.module';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
-    HomePage,
-    ProjectPage,
-    ProjectHistoryPage,
-    ProjectSettingsPage,
-    TargetPlatformPage,
-    ReviewComponentsPage,
-    ScreenTabsPage,
-    ScreenPreviewPage,
-    ScreenBuildPage,
-    ScreenInspectPage,
-    ScreenHistoryPage,
-    InspectorPage,
-    EditComponentPage,
-    ReplaceComponentPage,
-    FullscreenPage,
-    TutorialPage,
-    HeaderWithMenuComponent,
-    HeaderWithBackComponent,
-    ImageComponent,
-    TextInputComponent,
-    PasswordInputComponent,
-    FloatingActionButtonComponent,
-    CheckboxComponent,
-    RadioComponent,
-    ListItemComponent,
-    ButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -99,28 +76,25 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     IonicImageLoader.forRoot(),
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp, {
-    })
+    }),
+    LoginPageModule,
+    HomePageModule,
+    ProjectPageModule,
+    ProjectHistoryPageModule,
+    ProjectSettingsPageModule,
+    TargetPlatformPageModule,
+    ReviewComponentsPageModule,
+    ScreenTabsPageModule,
+    InspectorPageModule,
+    EditComponentPageModule,
+    ReplaceComponentPageModule,
+    FullscreenPageModule,
+    TutorialPageModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,
-    HomePage,
-    ProjectPage,
-    ProjectHistoryPage,
-    ProjectSettingsPage,
-    TargetPlatformPage,
-    ReviewComponentsPage,
-    ScreenTabsPage,
-    ScreenPreviewPage,
-    ScreenBuildPage,
-    ScreenInspectPage,
-    ScreenHistoryPage,
-    InspectorPage,
-    EditComponentPage,
-    ReplaceComponentPage,
-    FullscreenPage,
-    TutorialPage,
   ],
   providers: [
     StatusBar,
@@ -131,13 +105,13 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     FilePath,
     ImagePicker,
     NativeStorage,
-    ScreenProvider,
-    ProjectProvider,
     Shake,
     Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider,
     JsonProvider,
+    ProjectProvider,
+    ScreenProvider,
     UserProvider
   ]
 })

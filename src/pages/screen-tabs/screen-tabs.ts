@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Events, IonicPage, ModalController, NavController, NavParams, ActionSheetController, LoadingController, AlertController } from 'ionic-angular';
-import { ScreenPreviewPage } from './../screen-preview/screen-preview';
-import { ScreenBuildPage } from './../screen-build/screen-build';
-import { ScreenInspectPage } from './../screen-inspect/screen-inspect';
 import { SharedTabProvider } from '../../providers/shared-tab/shared-tab';
 import { InspectorPage } from '../inspector/inspector';
 import { EditComponentPage } from '../edit-component/edit-component';
