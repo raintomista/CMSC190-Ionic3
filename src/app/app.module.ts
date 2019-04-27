@@ -28,7 +28,8 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { LoginPageModule } from '../pages/login/login.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { ProjectPageModule } from '../pages/project/project.module';
-import { ProjectHistoryPageModule } from '../pages/screen-history/screen-history.module';
+import { ProjectHistoryPageModule } from '../pages/project-history/project-history.module';
+import { ScreenHistoryPageModule } from '../pages/screen-history/screen-history.module';
 import { ProjectSettingsPageModule } from '../pages/project-settings/project-settings.module';
 import { TargetPlatformPageModule } from '../pages/target-platform/target-platform.module';
 import { ReviewComponentsPageModule } from '../pages/review-components/review-components.module';
@@ -85,6 +86,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     TargetPlatformPageModule,
     ReviewComponentsPageModule,
     ScreenTabsPageModule,
+    ScreenHistoryPageModule,
     InspectorPageModule,
     EditComponentPageModule,
     ReplaceComponentPageModule,

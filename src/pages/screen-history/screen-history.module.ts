@@ -10,4 +10,4 @@ import { ScreenHistoryPage } from './screen-history';
     IonicPageModule.forChild(ScreenHistoryPage),
   ],
 })
-export class ProjectHistoryPageModule {}
+export class ScreenHistoryPageModule {}
