@@ -1,22 +1,7 @@
-<div class="fullscreen-container" *ngIf="!loading">
-  <header-with-menu
-    mode="preview"
-    [action]="navigateTo.bind(this, components[0].target_screen)"
-    [order]="components[0].order"
-    [title]="components[0].value"
-    *ngIf="components[0] && components[0].type === 'HeaderWithMenu'">
-  </header-with-menu>
-  <header-with-back
-    mode="preview"
-    [action]="navigateTo.bind(this, components[0].target_screen)"
-    [order]="components[0].order"
-    [title]="components[0].value"
-    *ngIf="components[0] && components[0].type === 'HeaderWithBack'">
-  </header-with-back>
-  <ion-content padding [ngClass]="{'offset-content': components[0].type === 'HeaderWithMenu' || components[0].type === 'HeaderWithBack' }">
-    <div class="preview-scroll-content">
-      <div class="preview-content-container">
-        <ng-container *ngFor="let component of components; let i = index">
+<div *ngIf="!loading" id="preview-box" class="preview-box">
+<div class="preview-scroll-content">
+  <div class="preview-content-container">
+    <ng-container *ngFor="let component of components">
           <!-- HeaderWithMenu -->
           <header-with-menu
             mode="preview"
@@ -95,8 +80,7 @@
             [text]="component.value"
             *ngIf="component.type === 'Button'">
           </button-component>
-        </ng-container>
-      </div>
-    </div>
-  </ion-content>
+    </ng-container>
+  </div>
+</div>
 </div>

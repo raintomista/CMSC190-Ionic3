@@ -1,11 +1,21 @@
 page-fullscreen {
-  .fullscreen-container {
+  .preview-box {
+    position: relative;
+    background-color: white;
+    border: 1px solid rgb(246, 246, 246);
+    box-shadow: 1px 4px 7px 0px #d4d4d4;
     height: 100%;
+    max-height: 100%;
     overflow: hidden;
   }
-  .offset-content {
-    margin-top: 56px;
-    overflow: visible !important;
-    height: calc(100% - 56px)
+
+  .preview-scroll-content {
+    // margin-top: 56px;
+    max-height: calc(100%);
+    overflow-y: scroll;
+  }
+
+  .preview-content-container {
+    padding: 8px;
   }
 }
