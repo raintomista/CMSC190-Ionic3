@@ -158,16 +158,16 @@ export class ReviewComponentsPage {
     let preview_url = ''
     switch (this.aspectRatio) {
       case '3:2':
-        preview_url = '../../assets/default-3-2.png';
+        preview_url = 'assets/default-3-2.png';
         break;
       case '16:9':
-        preview_url = '../../assets/default-16-9.png';
+        preview_url = 'assets/default-16-9.png';
         break;
       case '16:10':
-        preview_url = '../../assets/default-16-10.png';
+        preview_url = 'assets/default-16-10.png';
         break;
       case '18:9':
-        preview_url = '../../assets/default-18-9.png';
+        preview_url = 'assets/default-18-9.png';
         break;
     }
 
