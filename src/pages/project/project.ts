@@ -71,10 +71,10 @@ export class ProjectPage {
 
   ionViewDidLoad() {
     this.event.subscribe('screenshot_started', () => {
-      this.loaderDialog = this.loadingCtrl.create({
-        content: 'Saving screen...'
-      });
-      this.loaderDialog.present();
+      // this.loaderDialog = this.loadingCtrl.create({
+      //   content: 'Saving screen...'
+      // });
+      // this.loaderDialog.present();
     });
 
     this.event.subscribe('tutorial_continue', () => {
@@ -84,12 +84,12 @@ export class ProjectPage {
 
   ionViewWillLeave() {
     this.event.unsubscribe('screenshot_done');
-    this.event.unsubscribe('screen_changes');
   }
 
   ionViewWillUnload() {
     this.event.unsubscribe('screenshot_started');
     this.event.unsubscribe('tutorial_continue');
+    this.event.unsubscribe('screen_changes');
   }
 
   addNewScreen() {
@@ -145,7 +145,7 @@ export class ProjectPage {
 
   takePhoto() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 75,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
