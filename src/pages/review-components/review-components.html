@@ -26,7 +26,7 @@
             <img [src]="component.preview_url">
           </ion-thumbnail>
           <h2>{{component.name}}</h2>
-          <p>{{component.percentage_probability}}</p>
+          <p>{{component.percentage_probability.toFixed(2)}}%</p>
         </ion-item>
         <ion-item-options side="right">
           <button ion-button color="danger" (click)="handleDelete(i, component)">

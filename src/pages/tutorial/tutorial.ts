@@ -14,13 +14,13 @@ export class TutorialPage {
       image: "assets/slides/slide-1.png",
     },
     {
-      title: "Choose up to four components",
+      title: "Choose up to 4-5 components",
       description: "You can choose from <b>10 different kinds</b> of drawings which correspond to actual components.",
       image: "assets/slides/slide-2.png",
     },
     {
       title: " Draw vertically on a whiteboard",
-      description: "Use a <b>thick whiteboard marker</b> and please make sure that there is <b>enough space</b> between each component.",
+      description: "Use a <b>whiteboard marker</b> and please make sure that there is <b>enough space</b> between each component.",
       image: "assets/slides/slide-3.png",
     },
     {

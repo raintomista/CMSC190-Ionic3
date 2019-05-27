@@ -6,7 +6,7 @@ export class Image {
   constructor(value?) {
     this.target_screen = null;
     this.type = 'Image';
-    this.value = value || 'https://pbs.twimg.com/media/DwgvSPvU8AAEkjd.jpg';
+    this.value = value || 'https://s3-ap-southeast-1.amazonaws.com/drawtotype/uploads/default-image.png';
   }
 
   toSourceCode() {
